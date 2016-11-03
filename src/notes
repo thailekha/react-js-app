@@ -1,0 +1,11 @@
+component skeleton
+
+var NavigationBar = React.createClass({
+  /* ... options and lifecycle methods ... */
+  render: function() {
+    logger.reportRender('NavigationBar');
+    return (
+
+    );
+  },
+})
