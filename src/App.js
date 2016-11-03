@@ -8,6 +8,7 @@ import Landpage from './components/Landpage';
 import NavigationBar from './components/NavigationBar';
 import Homepage from './components/Homepage';
 import Browsepage from './components/Browsepage';
+import Profilepage from './components/Profilepage';
 
 var MyApp = React.createClass({
 
@@ -15,7 +16,7 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div>
-
+        <Profilepage/>
       </div>
     );
   }
@@ -25,5 +26,6 @@ var MyApp = React.createClass({
 //<NavigationBar />
 //<Homepage />
 //<Browsepage />
+//<Profilepage/>
 
 export default MyApp;

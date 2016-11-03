@@ -1,6 +1,9 @@
 component skeleton
 
-var NavigationBar = React.createClass({
+import React from 'react';
+import logger from '../logger'
+
+var ProfilePage = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('NavigationBar');
@@ -9,7 +12,3 @@ var NavigationBar = React.createClass({
     );
   },
 })
-
-<NavigationBar />
-        <Homepage />
-        <Browsepage />
