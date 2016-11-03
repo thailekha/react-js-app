@@ -9,6 +9,7 @@ import NavigationBar from './components/NavigationBar';
 import Homepage from './components/Homepage';
 import Browsepage from './components/Browsepage';
 import Profilepage from './components/Profilepage';
+import Findpage from './components/Findpage';
 
 var MyApp = React.createClass({
 
@@ -16,7 +17,7 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div>
-        <Profilepage/>
+        <Findpage/>
       </div>
     );
   }

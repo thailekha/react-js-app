@@ -4,7 +4,7 @@ import logger from '../logger'
 var Profilepage = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
-    logger.reportRender('Profile page');
+    logger.reportRender('Profilepage');
     return (
       <div>
         <table className="table table-bordered">
