@@ -18,6 +18,7 @@ http://www.objgen.com/json
 
 json-server libraries.json --port 3001
 
+session n = null
 libraries[0]
   id n = 1
   name = Sample repo 1
