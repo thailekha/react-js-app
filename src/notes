@@ -12,3 +12,59 @@ var ProfilePage = React.createClass({
     );
   },
 })
+-------------------------------------------
+code for gen. JSON
+http://www.objgen.com/json
+
+json-server libraries.json --port 3001
+
+libraries[0]
+  id n = 1
+  name = Sample repo 1
+  email = abc@yahoo.com
+  password = aaaaa
+  public b = true
+  Paradigms[0]
+    pID n = 1
+    name = Object-oriented
+    details s = Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects"
+    subParadigms[] n = 2,3
+  Paradigms[1]
+    pID n = 2
+    name = Actor-based
+    details s = The actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation
+    subParadigms[] n
+  Paradigms[2]
+    pID n = 3
+    name = Class-based
+    details s = a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects
+    subParadigms[] n
+  ProgrammingLanguages[0]
+    pid n = 1
+    name = Java
+    details = Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible
+    type = compiled
+  ProgrammingLanguages[1]
+    pid n = 2
+    name = Javascript
+    details =  a high-level, dynamic, untyped, and interpreted programming language
+    type = interpreted
+  Having[0]
+    pID = 1
+    pid = 1
+  Having[1]
+    pID = 1
+    pid = 2
+libraries[1]
+  id n = 2
+  name = Sample repo 2
+  email = def@yahoo.com
+  password = aaaaa
+  public b = false
+-------------------------------------------
+
+ref:
+https://en.wikipedia.org/wiki/Object-oriented_programming
+https://en.wikipedia.org/wiki/Actor_model
+https://en.wikipedia.org/wiki/Class-based_programming
+https://en.wikipedia.org/wiki/JavaScript

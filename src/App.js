@@ -4,12 +4,12 @@ import './App.css';
 import logger from './logger'
 
 //Components
-import Landpage from './components/Landpage';
+//import Landpage from './components/Landpage';
 import NavigationBar from './components/NavigationBar';
-import Homepage from './components/Homepage';
+//import Homepage from './components/Homepage';
 import Browsepage from './components/Browsepage';
-import Profilepage from './components/Profilepage';
-import Findpage from './components/Findpage';
+//import Profilepage from './components/Profilepage';
+//import Findpage from './components/Findpage';
 
 var MyApp = React.createClass({
 
@@ -17,7 +17,8 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div>
-        <Findpage/>
+        <NavigationBar />
+        <Browsepage />
       </div>
     );
   }
@@ -28,5 +29,6 @@ var MyApp = React.createClass({
 //<Homepage />
 //<Browsepage />
 //<Profilepage/>
+//<Findpage/>
 
 export default MyApp;

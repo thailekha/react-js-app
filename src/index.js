@@ -8,5 +8,5 @@ ReactDOM.render(
   <MyApp />,
   document.getElementById('root')
 );
-console.log();
+//console.log();
 logger.reportCounter();

@@ -1,0 +1,65 @@
+{
+  "libraries": [
+    {
+      "id": 1,
+      "name": "Sample repo 1",
+      "email": "abc@yahoo.com",
+      "password": "aaaaa",
+      "public": true,
+      "Paradigms": [
+        {
+          "pID": 1,
+          "name": "Object-oriented",
+          "details": "Object-oriented programming (OOP) is a programming paradigm based on the concept of \"objects\"",
+          "subParadigms": [
+            2,
+            3
+          ]
+        },
+        {
+          "pID": 2,
+          "name": "Actor-based",
+          "details": "The actor model in computer science is a mathematical model of concurrent computation that treats \"actors\" as the universal primitives of concurrent computation",
+          "subParadigms": []
+        },
+        {
+          "pID": 3,
+          "name": "Class-based",
+          "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
+          "subParadigms": []
+        }
+      ],
+      "ProgrammingLanguages": [
+        {
+          "pid": 1,
+          "name": "Java",
+          "details": "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible",
+          "type": "compiled"
+        },
+        {
+          "pid": 2,
+          "name": "Javascript",
+          "details": "a high-level, dynamic, untyped, and interpreted programming language",
+          "type": "interpreted"
+        }
+      ],
+      "Having": [
+        {
+          "pID": "1",
+          "pid": "1"
+        },
+        {
+          "pID": "1",
+          "pid": "2"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Sample repo 2",
+      "email": "def@yahoo.com",
+      "password": "aaaaa",
+      "public": false
+    }
+  ]
+}
