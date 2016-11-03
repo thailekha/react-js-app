@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import logger from './logger'
@@ -15,7 +15,7 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div>
-        
+
       </div>
     );
   }
