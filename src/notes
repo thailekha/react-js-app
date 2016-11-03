@@ -9,3 +9,7 @@ var NavigationBar = React.createClass({
     );
   },
 })
+
+<NavigationBar />
+        <Homepage />
+        <Browsepage />
