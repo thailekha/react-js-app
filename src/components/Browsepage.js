@@ -1,5 +1,6 @@
 import React from 'react';
-import logger from '../logger'
+import logger from '../logger';
+import makeReq from '../util'
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -28,7 +29,7 @@ var SubNavigationItem = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationItem');
     return (
-      <li><a href="#">{this.props.subNavigationItem}</a></li>
+      <li><a href="#">{this.props.subNavigationItem['name']}</a></li>
     );
   },
 });
@@ -37,7 +38,7 @@ var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('SubNavigationBar');
-    var subNavigationItems = ['Java','Haskell','Javascript','Ruby'].map(function(navItem, index) {
+    var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
       return <SubNavigationItem key={index} subNavigationItem={navItem} />
     });
     return (
@@ -50,13 +51,25 @@ var SubNavigationBar = React.createClass({
   },
 });
 
+//must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var Browsepage = React.createClass({
   /* ... options and lifecycle methods ... */
+  componentDidMount: function() {
+    makeReq('libraries/1','library',this);
+  },
   render: function() {
     logger.reportRender('Browsepage');
+    var library = localStorage.getItem('library') ? JSON.parse(localStorage.getItem('library')) : undefined;
+    var programmingLanguages = [];
+    var paradigms = [];
+    if(library !== undefined) {
+      programmingLanguages = library['ProgrammingLanguages'];
+      paradigms = library['Paradigms'];
+    }
+    console.log(programmingLanguages.concat(paradigms));
     return (
       <div>
-        <SubNavigationBar />
+        <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
       </div>
     );
   },

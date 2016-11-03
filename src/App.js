@@ -4,8 +4,8 @@ import './App.css';
 import logger from './logger'
 
 //Components
-//import Landpage from './components/Landpage';
-import NavigationBar from './components/NavigationBar';
+import Landpage from './components/Landpage';
+//import NavigationBar from './components/NavigationBar';
 //import Homepage from './components/Homepage';
 import Browsepage from './components/Browsepage';
 //import Profilepage from './components/Profilepage';
@@ -17,7 +17,6 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div>
-        <NavigationBar />
         <Browsepage />
       </div>
     );

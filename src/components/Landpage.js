@@ -1,6 +1,6 @@
 import React from 'react';
 import logger from '../logger'
-var request = require('superagent') ;
+var request = require('superagent');
 
 var Landpage = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -15,8 +15,8 @@ var Landpage = React.createClass({
       input1: 'Repo Name'
     };
     var mode = login;
-    var handleLogin = function() {
-      
+    var handleLogin = {
+
     };
     return (
       <div>
@@ -25,7 +25,7 @@ var Landpage = React.createClass({
         <form style={{marginTop: '30px'}}>
           <div className="form-group">
             <input type="text"
-                   className="form-control" placeholder="Email" ></input>
+                   className="form-control" placeholder="Email"></input>
           </div>
           <div className="form-group">
             <input type="text"
@@ -35,7 +35,7 @@ var Landpage = React.createClass({
             <input type="text"
                    className="form-control" placeholder="Password"></input>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleLogin()}>{mode.header}</button>
+          <button type="submit" className="btn btn-primary">{mode.header}</button>
         </form>
       </div>
     );
