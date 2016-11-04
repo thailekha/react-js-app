@@ -1,4 +1,11 @@
-issues with setting up testing framework:
+-enzyme: React is automated
+-nightwatch: Userinteraction is automated
+
+issues with auth0:
+-same origin policy: configure "allow callback url" on auth0 account
+-from the reactapp perspective a new account must be created. the auth0 account cannot be used here dummy !
+
+issues with setting up testing framework (enzyme):
 -Mocha does not understand "import"
 -Mocha does not understand JSX
 -when using "export default" then only "import" works, not "require", WTF ?
