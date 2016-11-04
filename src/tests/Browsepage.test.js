@@ -16,7 +16,6 @@ describe('Component: Browsepage', () => {
         <Browsepage/>
       ).length
     ).toEqual(1);
-    console.log('browsepage');
   });
 
 });
