@@ -1,6 +1,6 @@
-var React = require('react');
-var expect = require('expect');
-var shallow = require('enzyme').shallow;
+import React from 'react';
+import expect from 'expect';
+import {shallow} from 'enzyme';
 import Browsepage from '../components/Browsepage';
 
 
