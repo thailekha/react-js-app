@@ -1,3 +1,24 @@
+issues with setting up testing framework:
+-Mocha does not understand "import"
+-Mocha does not understand JSX
+-when using "export default" then only "import" works, not "require", WTF ?
+-Mocha tests are not run in browser, so localStorage is not available and needs simulating => npm dom-storage
+
+
+babel's presets to use:
+es2015: for import statements
+react: for jsx
+------------------------------------------
+old package.json/"scripts":
+
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+
+------------------------------------------
 component skeleton
 
 import React from 'react';
@@ -69,3 +90,8 @@ https://en.wikipedia.org/wiki/Object-oriented_programming
 https://en.wikipedia.org/wiki/Actor_model
 https://en.wikipedia.org/wiki/Class-based_programming
 https://en.wikipedia.org/wiki/JavaScript
+
+
+-------------------------------------------
+tutorials:
+https://www.youtube.com/watch?v=q0yKfFjlBbk&index=1&list=PLikcwtJj8_mDxWUJhYChFarCPnAwio24e
