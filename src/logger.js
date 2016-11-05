@@ -1,6 +1,7 @@
 var logger = {
   counter: {},
   reportRender: function(component) {
+    console.log(component);
     if (this.counter[component] === undefined) {
       this.counter[component] = 1;
     }

@@ -1,6 +1,6 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
-import styles from './styles.module.css';
+//import styles from './styles.module.css';
 
 var Container = React.createClass({
   contextTypes: {
@@ -17,7 +17,7 @@ var Container = React.createClass({
     }
     return (
       <div>
-        <h2 className={styles.mainTitle}>
+        <h2>
           <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
         </h2>
         {children}

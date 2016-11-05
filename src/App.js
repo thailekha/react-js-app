@@ -7,11 +7,12 @@ import Homepage from './components/Homepage';
 import Login from './components/Login/Login';
 
 //Auth0
-import {Route, IndexRedirect} from 'react-router';
+import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './views/Container';
 
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+logger.reportRender('auth');
 
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
@@ -19,6 +20,7 @@ const requireAuth = (nextState, replace) => {
     replace({ pathname: '/login' })
   }
 }
+logger.reportRender('requireAuth');
 
 export const makeMainRoutes = () => {
   return (
@@ -30,12 +32,18 @@ export const makeMainRoutes = () => {
     </Route>
   )
 }
+logger.reportRender('mainRoutes');
 
 var MyApp = React.createClass({
   render: function() {
     logger.reportRender('MyApp');
     return (
       makeMainRoutes()
+      (
+        <Router history={browserHistory}>
+          {makeMainRoutes()}
+        </Router>
+      )
     );
   }
 });

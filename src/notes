@@ -1,3 +1,6 @@
+"start": "cross-env NODE_ENV=development hjs-dev-server"
+webpack config app.js -> index.js
+
 //Components
 //import Landpage from './components/Landpage';
 //import NavigationBar from './components/NavigationBar';
