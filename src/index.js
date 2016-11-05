@@ -26,7 +26,7 @@ logger.reportRender('requireAuth');
 export const makeMainRoutes = () => {
   return (
     <Route path="/" component={Container} auth={auth}>
-      <IndexRedirect to="/home" />
+      <IndexRedirect to="/login" />
       <Route path="home" component={Homepage} onEnter={requireAuth} />
       <Route path="login" component={Login} />
       <Route path="access_token=:token" component={Login} /> //to prevent router errors

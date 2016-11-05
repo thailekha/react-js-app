@@ -43,16 +43,17 @@
     "bootstrap": "^3.3.5",
     "classnames": "^2.2.5",
     "jwt-decode": "^2.0.1",
-    "superagent": "1.6.1",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.0-rc.1",
     "react-dom": "^15.3.2",
-    "react-router": "^2.8.0"
+    "react-router": "^2.8.0",
+    "superagent": "1.6.1"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development hjs-dev-server",
     "build": "react-scripts build",
     "test": "mocha --require babel-core/register \"./src/tests/Browsepage.test.js\"",
     "eject": "react-scripts eject"
-  }
+  },
+  "optionalDependencies": {}
 }
