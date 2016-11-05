@@ -1,5 +1,5 @@
 import React from 'react';
-import logger from '../logger'
+import logger from '../utils/logger'
 var request = require('superagent');
 
 var Landpage = React.createClass({

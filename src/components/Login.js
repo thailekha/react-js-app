@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react'
 import {ButtonToolbar, Button} from 'react-bootstrap'
-import AuthService from '../../utils/AuthService'
-//import styles from './styles.module.css'
+import AuthService from '../utils/AuthService'
+import logger from '../utils/logger'
 
 var Login = React.createClass({
   contextTypes: {
@@ -12,7 +12,7 @@ var Login = React.createClass({
     auth: T.instanceOf(AuthService)
   },
   render: function() {
-    console.log('new login rendered');
+    logger.reportCounter('Login')
     const {auth} = this.props
     return (
       <div>

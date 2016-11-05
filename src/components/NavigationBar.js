@@ -1,5 +1,5 @@
 import React from 'react';
-import logger from '../logger'
+import logger from '../utils/logger'
 
 var NavigationItem = React.createClass({
   /* ... options and lifecycle methods ... */

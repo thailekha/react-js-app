@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react'
-import logger from '../logger';
 import AuthService from 'utils/AuthService'
 import {Button} from 'react-bootstrap'
+import logger from '../utils/logger';
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */

@@ -1,12 +1,13 @@
 import React, {PropTypes as T} from 'react'
 import {Jumbotron} from 'react-bootstrap'
-//import styles from './styles.module.css'
+import logger from './utils/logger'
 
 var Container = React.createClass({
   contextTypes: {
     router: T.object
   },
   render() {
+    logger.reportRender('Container')
     let children = null;
     if (this.props.children) {
       console.log('Cloning children')

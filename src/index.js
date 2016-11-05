@@ -1,74 +1,39 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-//import MyApp from './App';
+import MyApp from './App';
 import './index.css';
-import logger from './logger';
+import logger from './utils/logger';
 
+//view components
 import Homepage from './components/Homepage';
-import Login from './components/Login/Login';
+import Login from './components/Login';
 
-//Auth0
+//Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
-import Container from './views/Container';
+import Container from './Container';
 
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
-logger.reportRender('auth');
 
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
-    console.log('not logged in yet');
-    replace({ pathname: '/login' });
+    replace({pathname: '/login'});
   }
 };
-logger.reportRender('requireAuth');
 
-export const makeMainRoutes = () => {
-  return (
-    <Route path="/" component={Container} auth={auth}>
-      <IndexRedirect to="/home" />
-      <Route path="home" component={Homepage} onEnter={requireAuth} />
-      <Route path="login" component={Login} />
-      <Route path="access_token=:token" component={Login} /> //to prevent router errors
-    </Route>
-  )
-}
+const routes = (
+  <Route path="/" component={Container} auth={auth}>
+    <IndexRedirect to="/home"/>
+    <Route path="home" component={Homepage} onEnter={requireAuth}/>
+    <Route path="login" component={Login}/>
+    <Route path="access_token=:token" component={Login}/> //to prevent router errors
+  </Route>
+);
 
-class App extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
-  static propTypes = {
-    history: PropTypes.object.isRequired,
-    routes: PropTypes.element.isRequired
-  };
-
-  get content() {
-    return (
-      <Router
-        routes={this.props.routes}
-        history={this.props.history} />
-    )
-  }
-
-  render () {
-    return (
-      <div style={{ height: '100%' }}>
-        {this.content}
-      </div>
-    )
-  }
-}
-
-logger.reportRender('index.js');
-
-const routes = makeMainRoutes();
 ReactDOM.render(
-  <App history={hashHistory}
-       routes={routes}/>,
+  <MyApp history={hashHistory}
+         routes={routes}/>,
   document.getElementById('root')
 );
-console.log();
 logger.reportCounter();

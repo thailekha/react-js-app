@@ -1,5 +1,5 @@
 import React from 'react';
-import logger from '../logger';
+import logger from '../utils/logger';
 import makeReq from '../util';
 
 //TODO: fix " == undefined" to 'typeof ...'
