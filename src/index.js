@@ -18,7 +18,8 @@ logger.reportRender('auth');
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
-    replace({ pathname: '/login' })
+    console.log('not logged in yet');
+    replace({ pathname: '/login' });
   }
 };
 logger.reportRender('requireAuth');
@@ -26,7 +27,7 @@ logger.reportRender('requireAuth');
 export const makeMainRoutes = () => {
   return (
     <Route path="/" component={Container} auth={auth}>
-      <IndexRedirect to="/login" />
+      <IndexRedirect to="/home" />
       <Route path="home" component={Homepage} onEnter={requireAuth} />
       <Route path="login" component={Login} />
       <Route path="access_token=:token" component={Login} /> //to prevent router errors

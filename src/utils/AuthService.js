@@ -39,7 +39,8 @@ export default class AuthService extends EventEmitter {
   login() {
     // Call the show method to display the widget.
     console.log('AuthService.js -> login()');
-    this.lock.show()
+    this.lock.show();
+    console.log('closed');
   }
 
   loggedIn(){

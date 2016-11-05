@@ -1,6 +1,14 @@
+***JavaScripts Function.prototype.apply***
+
 "start": "cross-env NODE_ENV=development hjs-dev-server"
 webpack config app.js -> index.js
 review all the "join"s in webpack config
+
+uninstall util
+node's util module (check nodejs doc)
+node-libs-browser -> sinon -> util
+bug in an imported thing whose location cannot be accurately determined
+-> completely remove it and see how it goes
 
 //Components
 //import Landpage from './components/Landpage';
@@ -16,9 +24,13 @@ review all the "join"s in webpack config
 //<Browsepage />
 //<Profilepage/>
 //<Findpage/>
-
+---------------------------------------------------------------------
 -enzyme: React is automated
 -nightwatch: Userinteraction is automated
+
+issues when bringing login function over from auth0 default app:
+-node_modules/auth0-lock/lib/i18n.js: util module is somehow cannot be imported completely.
+It is imported but has empty contents, typically no "format" function that is used. So this part is hardcoded
 
 issues with auth0:
 -same origin policy: configure "allow callback url" on auth0 account
