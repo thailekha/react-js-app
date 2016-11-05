@@ -1,5 +1,6 @@
 "start": "cross-env NODE_ENV=development hjs-dev-server"
 webpack config app.js -> index.js
+review all the "join"s in webpack config
 
 //Components
 //import Landpage from './components/Landpage';
