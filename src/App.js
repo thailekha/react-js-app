@@ -3,31 +3,43 @@ import logo from './logo.svg';
 import './App.css';
 import logger from './logger'
 
-//Components
-import Landpage from './components/Landpage';
-//import NavigationBar from './components/NavigationBar';
-//import Homepage from './components/Homepage';
-import Browsepage from './components/Browsepage';
-//import Profilepage from './components/Profilepage';
-//import Findpage from './components/Findpage';
+import Homepage from './components/Homepage';
+import Login from './components/Login/Login';
+
+//Auth0
+import {Route, IndexRedirect} from 'react-router';
+import AuthService from './utils/AuthService';
+import Container from './views/Container';
+
+const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+
+// onEnter callback to validate authentication in private routes
+const requireAuth = (nextState, replace) => {
+  if (!auth.loggedIn()) {
+    replace({ pathname: '/login' })
+  }
+}
+
+export const makeMainRoutes = () => {
+  return (
+    <Route path="/" component={Container} auth={auth}>
+      <IndexRedirect to="/home" />
+      <Route path="home" component={Homepage} onEnter={requireAuth} />
+      <Route path="login" component={Login} />
+      <Route path="access_token=:token" component={Login} /> //to prevent router errors
+    </Route>
+  )
+}
 
 var MyApp = React.createClass({
-
   render: function() {
     logger.reportRender('MyApp');
     return (
-      <div>
-        <Browsepage />
-      </div>
+      makeMainRoutes()
     );
   }
 });
 
-//<Landpage />
-//<NavigationBar />
-//<Homepage />
-//<Browsepage />
-//<Profilepage/>
-//<Findpage/>
+
 
 export default MyApp;

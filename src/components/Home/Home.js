@@ -1,10 +1,9 @@
 import React, {PropTypes as T} from 'react'
-import logger from '../logger';
-import AuthService from 'utils/AuthService'
 import {Button} from 'react-bootstrap'
+import AuthService from 'utils/AuthService'
+import styles from './styles.module.css'
 
-var Homepage = React.createClass({
-  /* ... options and lifecycle methods ... */
+var Home = React.createClass({
   contextTypes: {
     router: T.object
   },
@@ -22,19 +21,17 @@ var Homepage = React.createClass({
     this.props.auth.logout();
     this.context.router.push('/login');
   },
-  render: function() {
-    logger.reportRender('Homepage');
-    var numberOfLanguages = 10;
-    var numberOfParadigms = 10;
+  render() {
+    console.log('new homepage');
+    const {profile} = this.state;
     return (
-      <div>
-        <h2>A programmer repo</h2>
-        <h3>Programming languages: {numberOfLanguages}</h3>
-        <h3>Paradigms: {numberOfParadigms}</h3>
+      <div className={styles.root}>
+        <h2>Home</h2>
+        <p>Welcome {profile.name}!</p>
         <Button onClick={this.logout}>Logout</Button>
       </div>
     );
-  },
+  }
 });
 
-export default Homepage;
+export default Home;
