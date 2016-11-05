@@ -1,6 +1,6 @@
 import React, {PropTypes as T} from 'react'
 import {ButtonToolbar, Button} from 'react-bootstrap'
-import AuthService from 'utils/AuthService'
+import AuthService from '../../utils/AuthService'
 //import styles from './styles.module.css'
 
 var Login = React.createClass({
