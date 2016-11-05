@@ -8,7 +8,7 @@ import Homepage from './components/Homepage';
 import Login from './components/Login/Login';
 
 //Auth0
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
+import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './views/Container';
 
@@ -66,7 +66,7 @@ logger.reportRender('index.js');
 
 const routes = makeMainRoutes();
 ReactDOM.render(
-  <App history={browserHistory}
+  <App history={hashHistory}
        routes={routes}/>,
   document.getElementById('root')
 );

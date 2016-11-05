@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9797d75-17d8-4dd7-9e53-be448c6b0125" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js" afterPath="$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Homepage.js" afterPath="$PROJECT_DIR$/src/components/Homepage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/notes" afterPath="$PROJECT_DIR$/src/notes" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/AuthService.js" afterPath="$PROJECT_DIR$/src/utils/AuthService.js" />
     </list>
     <ignored path="test-app-gen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,15 +36,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+            <state relative-caret-position="255">
+              <caret line="64" column="32" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#105#126#0" expanded="true" />
-                <element signature="e#260#334#0" expanded="true" />
+                <element signature="e#260#331#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,7 +75,7 @@
       <file leaf-file-name="AuthService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/AuthService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
+            <state relative-caret-position="765">
               <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -91,21 +87,11 @@
       <file leaf-file-name="Container.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/Container.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+            <state relative-caret-position="34">
+              <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="i18n.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="92" column="46" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="46" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -148,13 +134,13 @@
         <option value="$PROJECT_DIR$/src/views/Container.js" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/components/Homepage.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/components/Login/Login.js" />
         <option value="$PROJECT_DIR$/src/utils/AuthService.js" />
         <option value="$PROJECT_DIR$/src/notes" />
+        <option value="$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
       </list>
     </option>
   </component>
@@ -488,12 +474,12 @@
       <updated>1478180573326</updated>
       <workItem from="1478180575267" duration="12052000" />
       <workItem from="1478203028338" duration="38065000" />
-      <workItem from="1478346909448" duration="10902000" />
+      <workItem from="1478346909448" duration="12513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61019000" />
+    <option name="totallyTimeSpent" value="62630000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -587,7 +573,7 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#105#126#0" expanded="true" />
-            <element signature="e#260#334#0" expanded="true" />
+            <element signature="e#260#331#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -697,7 +683,7 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#105#126#0" expanded="true" />
-            <element signature="e#260#334#0" expanded="true" />
+            <element signature="e#260#331#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -894,10 +880,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/notes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/npm-debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="59" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="93" column="72" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Container.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+        <state relative-caret-position="34">
+          <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
@@ -912,14 +922,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/AuthService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+        <state relative-caret-position="765">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#105#126#0" expanded="true" />
-            <element signature="e#260#334#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -934,29 +942,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/AuthService.js">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+        <state relative-caret-position="255">
+          <caret line="64" column="32" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#105#126#0" expanded="true" />
+            <element signature="e#260#331#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/notes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/auth0-lock/lib/i18n.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="92" column="46" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
