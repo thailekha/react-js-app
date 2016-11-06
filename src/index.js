@@ -21,6 +21,9 @@ const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
     replace({pathname: '/login'});
   }
+  else {
+    console.log('requireAuth OK');
+  }
 };
 
 const doLogout = (nextState, replace) => {
@@ -36,7 +39,7 @@ const routes = (
     <IndexRedirect to="/home"/>
     <Route path="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
-    <Route path="profile" component={Profilepage}/>
+    <Route path="profile" component={Profilepage} onEnter={requireAuth}/>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>
