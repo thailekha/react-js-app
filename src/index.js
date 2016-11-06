@@ -7,6 +7,7 @@ import logger from './utils/logger';
 //view components
 import Homepage from './components/Homepage';
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -22,11 +23,13 @@ const requireAuth = (nextState, replace) => {
   }
 };
 
+//Notes: /home and /login is default and required by auth0
 const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
     <Route path="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
+    <Route path="logout" component={Logout} onEnter={requireAuth}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>
 );

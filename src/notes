@@ -1,5 +1,12 @@
 -a button to report renders
+-cannot put nav bar in Container and shouldn't put it in each view component => create another "app" component
 
+Dot graph:
+graph {
+	Index -- MyApp -- Router -- Container -- Login;
+	Container -- Homepage;
+}
+--------------------------------------------------------------------------
 ***JavaScripts Function.prototype.apply***
 
 "start": "cross-env NODE_ENV=development hjs-dev-server"
@@ -131,7 +138,7 @@ https://en.wikipedia.org/wiki/Actor_model
 https://en.wikipedia.org/wiki/Class-based_programming
 https://en.wikipedia.org/wiki/JavaScript
 
-
+https://nodejs.org/api/util.html#util_util_format_format_args
 -------------------------------------------
 tutorials:
 https://www.youtube.com/watch?v=q0yKfFjlBbk&index=1&list=PLikcwtJj8_mDxWUJhYChFarCPnAwio24e
