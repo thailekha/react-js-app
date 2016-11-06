@@ -1,12 +1,29 @@
-import React from 'react';
-import logger from '../utils/logger'
+import React, {PropTypes as T} from 'react';
+import logger from '../utils/logger';
+import AuthService from '../utils/AuthService';
 
+//https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
   /* ... options and lifecycle methods ... */
+  propTypes: {
+    auth: T.instanceOf(AuthService)
+  },
+  getInitialState() {
+    this.props.auth.on('profile_updated', (newProfile) => {
+      console.log('homepage.js -> on profile updated');
+      this.setState({profile: newProfile})
+    });
+
+    return {profile: this.props.auth.getProfile()};
+  },
   render: function() {
     logger.reportRender('Profilepage');
+    var userProfile = this.props.auth.getProfile();
+    console.log(userProfile);
+    console.log(JSON.stringify(userProfile));
     return (
       <div>
+        Email: {userProfile.email};
         <table className="table table-bordered">
           <thead>
           <tr>

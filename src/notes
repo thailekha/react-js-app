@@ -1,3 +1,5 @@
+render profile page and display usermetadata from auth0, use 1 field to sync w json-server
+
 To refactor:
 -a button to report renders
 -use proptypes to ensure auth object is trustable, refer to Home.old.js
