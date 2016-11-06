@@ -1,11 +1,9 @@
 {
-  "session": null,
   "libraries": [
     {
       "id": 1,
+      "email": "abc@yahoo.sample.com",
       "name": "Sample repo 1",
-      "email": "abc@yahoo.com",
-      "password": "aaaaa",
       "public": true,
       "Paradigms": [
         {
@@ -57,9 +55,8 @@
     },
     {
       "id": 2,
+      "email": "batman@yahoo.sample.com",
       "name": "Sample repo 2",
-      "email": "def@yahoo.com",
-      "password": "aaaaa",
       "public": false
     }
   ]

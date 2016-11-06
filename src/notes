@@ -1,4 +1,8 @@
-render profile page and display usermetadata from auth0, use 1 field to sync w json-server
+At homepage, if user does not have library yet, render createbox => use user's email to make new library
+implement lodash in util
+ID is handled by json-server, notthing to worry
+if library is not available => no tabs
+when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
 To refactor:
 -a button to report renders
@@ -93,12 +97,10 @@ http://www.objgen.com/json
 
 json-server libraries.json --port 3001
 
-session n = null
 libraries[0]
   id n = 1
+  email = abc@yahoo.sample.com
   name = Sample repo 1
-  email = abc@yahoo.com
-  password = aaaaa
   public b = true
   Paradigms[0]
     pID n = 1
@@ -133,9 +135,8 @@ libraries[0]
     pid = 2
 libraries[1]
   id n = 2
+  email = batman@yahoo.sample.com
   name = Sample repo 2
-  email = def@yahoo.com
-  password = aaaaa
   public b = false
 -------------------------------------------
 
