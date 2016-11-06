@@ -8,6 +8,7 @@ import logger from './utils/logger';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import NavigationBar from './components/NavigationBar';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -29,7 +30,6 @@ const routes = (
     <IndexRedirect to="/home"/>
     <Route path="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
-    <Route path="logout" component={Logout} onEnter={requireAuth}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>
 );

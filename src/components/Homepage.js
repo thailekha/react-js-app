@@ -1,5 +1,5 @@
 import React, {PropTypes as T} from 'react'
-import AuthService from 'utils/AuthService'
+import AuthService from '../utils/AuthService';
 import {Button} from 'react-bootstrap';
 import NavigationBar from './NavigationBar';
 import logger from '../utils/logger';
@@ -13,6 +13,7 @@ var Homepage = React.createClass({
     auth: T.instanceOf(AuthService)
   },
   getInitialState() {
+    console.log('home init state called');
     this.props.auth.on('profile_updated', (newProfile) => {
       console.log('homepage.js -> on profile updated');
       this.setState({profile: newProfile})
@@ -29,7 +30,7 @@ var Homepage = React.createClass({
     var numberOfParadigms = 10;
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar auth={this.props.auth}/>
         <h2>A programmer repo</h2>
         <h3>Programming languages: {numberOfLanguages}</h3>
         <h3>Paradigms: {numberOfParadigms}</h3>
