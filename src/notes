@@ -1,6 +1,7 @@
 -a button to report renders
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route
 -cannot put nav bar in Container and shouldn't put it in each view component => create another "app" component
+-let container do routing instead of the router if auth is essential, auth cannot be passed by routing
 
 Dot graph:
 graph {

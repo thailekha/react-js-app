@@ -30,7 +30,7 @@ var Homepage = React.createClass({
     var numberOfParadigms = 10;
     return (
       <div>
-        <NavigationBar auth={this.props.auth}/>
+        <NavigationBar/>
         <h2>A programmer repo</h2>
         <h3>Programming languages: {numberOfLanguages}</h3>
         <h3>Paradigms: {numberOfParadigms}</h3>

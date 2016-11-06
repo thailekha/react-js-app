@@ -18,14 +18,14 @@ var Profilepage = React.createClass({
             <tr>
               <td>Name:</td>
               <td>
-                <input type="text" className="form-control" onChange={this.handlePhoneNumChange}/>
+                <input type="text" className="form-control"/>
                 <input type="button" value="Save"/>
               </td>
             </tr>
             <tr>
               <td>Password:</td>
               <td>
-                <input type="text" className="form-control" onChange={this.handlePhoneNumChange}/>
+                <input type="text" className="form-control"/>
                 <input type="button" value="Save"/>
               </td>
             </tr>
