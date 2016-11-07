@@ -16,4 +16,4 @@ build
 npm-debug.log
 
 # webstorm
-.idea
+.idea/*
