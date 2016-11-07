@@ -14,6 +14,7 @@ const U = {
         //localStorage.clear();
         //cannot clear localStorage because session token will also be cleared => name the item uniquely
         localStorage.setItem(itemName, JSON.stringify(json));
+        console.log('***************************');
         console.log('makeReq: got response, doing setState');
         component.setState({});
       } else {

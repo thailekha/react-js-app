@@ -18,13 +18,13 @@ export function isTokenExpired(token){
     return false
   }
 
-  console.log('~~~~~~~~~~~~~~');
-  //console.log(date.valueOf());
-  //console.log(new Date().valueOf());
-  //console.log(offsetSeconds * 1000);
-  //console.log((new Date().valueOf() + (offsetSeconds * 1000)));
-  console.log('! ' + date.valueOf() + ' > ' +  (new Date().valueOf() + (offsetSeconds * 1000)));
-  console.log(!(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000))) ? 'token expired' : 'token not expired');
-  console.log('~~~~~~~~~~~~~~');
+  // console.log('~~~~~~~~~~~~~~');
+  // console.log(date.valueOf());
+  // console.log(new Date().valueOf());
+  // console.log(offsetSeconds * 1000);
+  // console.log((new Date().valueOf() + (offsetSeconds * 1000)));
+  // console.log('! ' + date.valueOf() + ' > ' +  (new Date().valueOf() + (offsetSeconds * 1000)));
+  // console.log(!(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000))) ? 'token expired' : 'token not expired');
+  // console.log('~~~~~~~~~~~~~~');
   return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)))
 }

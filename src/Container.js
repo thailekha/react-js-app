@@ -13,19 +13,29 @@ import U from './utils/util';
 // U.isDefined(this.props.route.auth) && this.props.route.auth.loggedIn() && U.isDefined(this.props.route.auth.getProfile().email);
 // console.log('*********************');
 
+var needCheckLibrary = function(component) {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  console.log(component.props.route.auth);
+  console.log(component.props.route.auth.loggedIn());
+  console.log(component.props.route.auth.getProfile());
+  console.log(component.props.route.auth.getProfile().email);
+  console.log(U.isDefined(component.props.route.auth));
+  console.log(U.isDefined(component.props.route.auth.getProfile().email));
+  U.isDefined(component.props.route.auth) && component.props.route.auth.loggedIn() && U.isDefined(component.props.route.auth.getProfile().email);
+  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  return U.isDefined(component.props.route.auth) &&
+    component.props.route.auth.loggedIn() &&
+    U.isDefined(component.props.route.auth.getProfile().email);
+};
+
 var Container = React.createClass({
-  needCheckLibrary: function() {
-    return U.isDefined(this.props.route.auth) &&
-      this.props.route.auth.loggedIn() &&
-      U.isDefined(this.props.route.auth.getProfile().email);
-  },
   contextTypes: {
     router: T.object
   },
   componentDidMount: function() {
     console.log('Container componentDidMount called');
-    console.log(this.needCheckLibrary());
-    if (this.needCheckLibrary()) {
+    console.log(needCheckLibrary(this));
+    if (needCheckLibrary(this)) {
       console.log('need to check lib, making req')
       var email = this.props.route.auth.getProfile().email;
       U.makeReq('libraries/?email=' + email, 'library' + email, this);
@@ -39,7 +49,7 @@ var Container = React.createClass({
 
       //note that json-server return filtered query as an array
       var library = undefined;
-      if (this.needCheckLibrary()) {
+      if (needCheckLibrary(this)) {
         var libraryName = 'library' + this.props.route.auth.getProfile().email;
         var library = localStorage.getItem(libraryName) ?
           JSON.parse(localStorage.getItem(libraryName))[0] : undefined;
