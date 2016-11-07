@@ -12,6 +12,7 @@ const U = {
         var json = JSON.parse(res.text);
         localStorage.clear();
         localStorage.setItem(itemName, JSON.stringify(json));
+        console.log('makeReq: got response, doing setState');
         component.setState({});
       } else {
         console.log(error);
