@@ -2,7 +2,6 @@ import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
 import NavigationBar from './NavigationBar';
 import logger from '../utils/logger';
-import AuthService from '../utils/AuthService';
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -22,20 +21,11 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
-  propTypes: {
-    auth: T.instanceOf(AuthService)
-  },
-  getInitialState() {
-    this.props.auth.on('profile_updated', (newProfile) => {
-      this.setState({profile: newProfile})
-    });
-
-    return {profile: this.props.auth.getProfile()};
-  },
   render: function() {
     logger.reportRender('Homepage');
-    var email = this.props.auth.getProfile().email;
     var library = this.props.library;
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    console.log(library);
     var numberOfLanguages = 10;
     var numberOfParadigms = 10;
     return (
@@ -45,7 +35,7 @@ var Homepage = React.createClass({
         <h3>Programming languages: {numberOfLanguages}</h3>
         <h3>Paradigms: {numberOfParadigms}</h3>
 
-        {typeof library === 'undefined' ? (<CreateBox />) : library.name}
+        {typeof library === 'undefined' ? (<CreateBox />) : (<h3>{library.name}</h3>)}
       </div>
     );
   },
