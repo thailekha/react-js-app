@@ -40,6 +40,7 @@ var Homepage = React.createClass({
   },
   render: function() {
     logger.reportRender('Homepage');
+    var email = this.props.auth.getProfile().email;
     var library = localStorage.getItem('library') ? JSON.parse(localStorage.getItem('library')) : undefined;
     var numberOfLanguages = 10;
     var numberOfParadigms = 10;

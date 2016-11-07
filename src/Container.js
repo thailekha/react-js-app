@@ -10,7 +10,8 @@ var Container = React.createClass({
     logger.reportRender('Container')
     let children = null;
     if (this.props.children) {
-      console.log('Cloning children')
+      logger.reportRender('Container');
+      console.log('Cloning children');
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: this.props.route.auth //sends auth instance to children

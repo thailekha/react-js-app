@@ -3,7 +3,7 @@
  */
 var request = require('superagent');
 
-const makeReq = function(req,itemName,component) {
+var makeReq = function(req,itemName,component) {
   request.get('http://localhost:3001/' + req)
   .end(function(error, res) {
     if (res) {

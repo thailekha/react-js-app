@@ -1,6 +1,7 @@
-At homepage, if user does not have library yet, render createbox => use user's email to make new library
+uninstall dom-storage and browsepage, some errors within it happenned
+
 implement lodash in util
-ID is handled by json-server, notthing to worry
+ID is handled by json-server, nothing to worry
 if library is not available => no tabs
 when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
