@@ -1,6 +1,6 @@
 import React from 'react';
 import logger from '../utils/logger';
-import makeReq from '../utils/util';
+import U from '../utils/util';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -63,7 +63,7 @@ var SubNavigationBar = React.createClass({
 var Browsepage = React.createClass({
   /* ... options and lifecycle methods ... */
   componentDidMount: function() {
-    makeReq('libraries/1','library',this);
+    U.makeReq('libraries/1','library',this);
   },
   render: function() {
     logger.reportRender('Browsepage');

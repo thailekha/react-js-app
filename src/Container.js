@@ -1,11 +1,10 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
-import makeReq from './utils/util';
+import U from './utils/util';
 
 const needCheckLibrary = function(component) {
-  console.log('need check lib, ' + typeof component);
-  return component.props.route.auth && component.props.route.auth.loggedIn() && component.props.route.auth.getProfile().email;
+  return U.isDefined(component.props.route.auth) && component.props.route.auth.loggedIn() && U.isDefined(component.props.route.auth.getProfile().email);
 };
 
 var Container = React.createClass({
@@ -14,22 +13,22 @@ var Container = React.createClass({
   },
   componentDidMount: function() {
     console.log('Container componentDidMount called');
+    console.log(needCheckLibrary(this));
     if (needCheckLibrary(this)) {
+      console.log('need to check lib, making req')
       var email = this.props.route.auth.getProfile().email;
-      makeReq('libraries/?email=' + email, 'library' + email, this);
+      U.makeReq('libraries/?email=' + email, 'library' + email, this);
     }
   },
   render() {
     logger.reportRender('Container')
     let children = null;
     if (this.props.children) {
-      logger.reportRender('Container');
       console.log('Cloning children');
 
       var library = undefined;
       if (needCheckLibrary(this)) {
         var libraryName = 'library' + this.props.route.auth.getProfile().email;
-        console.log('library name: ' + libraryName);
         library = localStorage.getItem(libraryName) ?
           JSON.parse(localStorage.getItem(libraryName)) : undefined;
       }

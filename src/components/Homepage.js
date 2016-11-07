@@ -3,7 +3,6 @@ import {Button} from 'react-bootstrap';
 import NavigationBar from './NavigationBar';
 import logger from '../utils/logger';
 import AuthService from '../utils/AuthService';
-import makeReq from '../utils/util';
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
