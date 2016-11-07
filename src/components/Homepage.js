@@ -28,20 +28,15 @@ var Homepage = React.createClass({
   },
   getInitialState() {
     this.props.auth.on('profile_updated', (newProfile) => {
-      console.log('homepage.js -> on profile updated');
       this.setState({profile: newProfile})
     });
 
     return {profile: this.props.auth.getProfile()};
   },
-  componentDidMount: function() {
-    var email = this.props.auth.getProfile().email;
-    makeReq('libraries/?email=' + email, 'library' + email, this);
-  },
   render: function() {
     logger.reportRender('Homepage');
     var email = this.props.auth.getProfile().email;
-    var library = localStorage.getItem('library') ? JSON.parse(localStorage.getItem('library')) : undefined;
+    var library = this.props.library;
     var numberOfLanguages = 10;
     var numberOfParadigms = 10;
     return (

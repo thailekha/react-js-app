@@ -4,6 +4,7 @@
 var request = require('superagent');
 
 var makeReq = function(req,itemName,component) {
+  console.log('http://localhost:3001/' + req);
   request.get('http://localhost:3001/' + req)
   .end(function(error, res) {
     if (res) {

@@ -5,10 +5,10 @@ import makeReq from '../utils/util';
 //TODO: fix " == undefined" to 'typeof ...'
 
 //for running mocha tests (see npm dom-storage)
-if(typeof localStorage === 'undefined') {
-  var Storage = require('dom-storage');
-  var localStorage = new Storage('./db.json', { strict: false, ws: '  ' });
-}
+// if(typeof localStorage === 'undefined') {
+//   var Storage = require('dom-storage');
+//   var localStorage = new Storage('./db.json', { strict: false, ws: '  ' });
+// }
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */

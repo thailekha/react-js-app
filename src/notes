@@ -1,4 +1,4 @@
-uninstall dom-storage and browsepage, some errors within it happenned
+issue found in Browswpage.js: typeof localStorage === undefined is not the proper way to check if the frontend has localStorage. This was previously included to run test with enzyme where the browser is not used so localStorage is not available
 
 implement lodash in util
 ID is handled by json-server, nothing to worry
@@ -30,21 +30,6 @@ node's util module (check nodejs doc)
 node-libs-browser -> sinon -> util
 bug in an imported thing whose location cannot be accurately determined
 -> completely remove it and see how it goes
-
-//Components
-//import Landpage from './components/Landpage';
-//import NavigationBar from './components/NavigationBar';
-//import Homepage from './components/Homepage';
-//import Browsepage from './components/Browsepage';
-//import Profilepage from './components/Profilepage';
-//import Findpage from './components/Findpage';
-
-//<Landpage />
-//<NavigationBar />
-//<Homepage />
-//<Browsepage />
-//<Profilepage/>
-//<Findpage/>
 ---------------------------------------------------------------------
 -enzyme: React is automated
 -nightwatch: Userinteraction is automated
