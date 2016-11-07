@@ -20,6 +20,7 @@ const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 // onEnter callback to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
+    console.log('Not logged in !');
     replace({pathname: '/login'});
   }
   else {

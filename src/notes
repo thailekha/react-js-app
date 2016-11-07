@@ -1,3 +1,8 @@
+guessing: 2 reasons:
+-time not sync (laptop is UTC + 7)
+
+
+
 issue found in Browswpage.js: typeof localStorage === undefined is not the proper way to check if the frontend has localStorage. This was previously included to run test with enzyme where the browser is not used so localStorage is not available
 
 implement lodash in util

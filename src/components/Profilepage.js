@@ -1,6 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import logger from '../utils/logger';
 import AuthService from '../utils/AuthService';
+import NavigationBar from './NavigationBar';
 
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
@@ -20,9 +21,9 @@ var Profilepage = React.createClass({
     logger.reportRender('Profilepage');
     var userProfile = this.props.auth.getProfile();
     console.log(userProfile);
-    console.log(JSON.stringify(userProfile));
     return (
       <div>
+        <NavigationBar />
         Email: {userProfile.email};
         <table className="table table-bordered">
           <thead>
