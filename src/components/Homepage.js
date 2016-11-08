@@ -9,7 +9,7 @@ var CreateBox = React.createClass({
     return {name: ''};
   },
   handleCreate: function(e) {
-    console.log('New library created');
+    console.log('New library created ' + this.props.email);
     e.preventDefault();
     this.props.createHandler(this.state.name);
     this.setState({name: ''});
@@ -51,7 +51,7 @@ var Homepage = React.createClass({
         <h3>Paradigms: {numberOfParadigms}</h3>
         {
           typeof library === 'undefined' ?
-            (<CreateBox  createHandler={this.createLibrary} />) :
+            (<CreateBox email={this.props.userProfile.email} createHandler={this.createLibrary} />) :
             (<h3>{library.name}</h3>)
         }
       </div>
