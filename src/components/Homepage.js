@@ -27,7 +27,7 @@ var Homepage = React.createClass({
     var numberOfLanguages = 10;
     var numberOfParadigms = 10;
     return (
-      <div>
+      <div id="home">
         <NavigationBar />
         <h2>A programmer repo</h2>
         <h3>Programming languages: {numberOfLanguages}</h3>

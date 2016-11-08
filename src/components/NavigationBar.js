@@ -8,7 +8,7 @@ var NavigationItem = React.createClass({
   render: function() {
     logger.reportRender('NavigationItem');
     return (
-      <Link to={this.props.navigationItem}>{this.props.navigationItem}</Link>
+      <li id={"tab" + this.props.tabID}><Link to={this.props.navigationItem}>{this.props.navigationItem}</Link></li>
     );
   },
 });
@@ -18,12 +18,12 @@ var NavigationBar = React.createClass({
   render: function() {
     logger.reportRender('NavigationBar');
     var navigationItems = ['home', 'browse', 'Find', 'profile', 'logout'].map(function(navItem, index) {
-      return <NavigationItem key={index} navigationItem={navItem}/>
+      return <NavigationItem key={index} tabID={index}  navigationItem={navItem}/>
     }.bind(this));
     return (
       <div id="navigation">
         <ul id="tabs">
-            {navigationItems}
+          {navigationItems}
         </ul>
       </div>
     );
