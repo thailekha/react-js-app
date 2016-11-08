@@ -42,8 +42,8 @@ const routes = (
     <IndexRedirect to="/home"/>
     <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
-    <Route path="profile" component={Profilepage} onEnter={requireAuth}/>
-    <Route path="browse" component={Browsepage} onEnter={requireAuth}/>
+    <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
+    <Route path="browse" navID="browse" component={Browsepage} onEnter={requireAuth}/>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>

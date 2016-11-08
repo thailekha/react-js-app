@@ -58,6 +58,15 @@
       "email": "batman@yahoo.sample.com",
       "name": "Sample repo 2",
       "public": false
+    },
+    {
+      "id": 3,
+      "email": "abcde@yahoo.sample.com",
+      "name": "Sample repo 2",
+      "public": true,
+      "Paradigms": [],
+      "ProgrammingLanguages": [],
+      "Having": []
     }
   ]
 }

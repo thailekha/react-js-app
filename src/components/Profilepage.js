@@ -23,7 +23,6 @@ var Profilepage = React.createClass({
     //console.log(userProfile);
     return (
       <div>
-        <NavigationBar />
         Email: {userProfile.email};
         <table className="table table-bordered">
           <thead>
