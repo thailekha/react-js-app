@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
-import NavigationBar from './NavigationBar';
 import logger from '../utils/logger';
+import U from '../utils/util';
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -9,9 +9,11 @@ var CreateBox = React.createClass({
     return {name: ''};
   },
   handleCreate: function(e) {
-    e.preventDefault();
-    this.props.createHandler(this.state.name);
-    this.setState({name: ''});
+    if(this.state.name.length > 0) {
+      e.preventDefault();
+      this.props.createHandler(this.state.name);
+      this.setState({name: ''});
+    }
   },
   handleNameChange: function(e) {
     this.setState({name: e.target.value});
@@ -27,7 +29,7 @@ var CreateBox = React.createClass({
                  value={this.state.name}
                  onChange={this.handleNameChange}></input>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</button>
+        <Button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</Button>
       </form>
     );
   },

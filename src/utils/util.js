@@ -2,6 +2,8 @@
  * Created by HP on 11/4/2016.
  */
 var request = require('superagent');
+var $ = require('jquery');
+
 //statusCode
 const U = {
   makeReq: function(req, itemName, component, predicate) {
