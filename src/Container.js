@@ -56,6 +56,11 @@ var Container = React.createClass({
           Container
           <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
         </h2>
+        {
+          this.props.route.nav && typeof children !== 'null' ?
+            (<div id={children.props.route.navID}>{this.props.route.nav}</div>) :
+            (<div></div>)
+        }
         {children}
       </Jumbotron>
     )

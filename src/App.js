@@ -23,6 +23,7 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div style={{ height: '100%' }}>
+
         {this.getContent()}
       </div>
     );

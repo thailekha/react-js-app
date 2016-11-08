@@ -9,6 +9,7 @@ import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
 import Browsepage from './components/Browsepage';
+import NavigationBar from './components/NavigationBar';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -37,9 +38,9 @@ const doLogout = (nextState, replace) => {
 
 //Notes: /home and /login is default and required by auth0
 const routes = (
-  <Route path="/" component={Container} auth={auth}>
+  <Route path="/" component={Container} auth={auth} nav={!auth.loggedIn() ? null : (<NavigationBar/>)}>
     <IndexRedirect to="/home"/>
-    <Route path="home" component={Homepage} onEnter={requireAuth}/>
+    <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
     <Route path="profile" component={Profilepage} onEnter={requireAuth}/>
     <Route path="browse" component={Browsepage} onEnter={requireAuth}/>
