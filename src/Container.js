@@ -26,6 +26,11 @@ var hasUserProfile = function(component) {
     U.isDefined(component.props.route.auth.getProfile());
 }
 
+//this statement is too errorprone
+const extractAuth = function(component) {
+  return component.props.route.auth;
+}
+
 var Container = React.createClass({
   propTypes: {
     auth: T.instanceOf(AuthService)
@@ -34,13 +39,13 @@ var Container = React.createClass({
     router: T.object
   },
   getInitialState() {
-    if (U.isDefined(this.props.auth)) {
-      this.props.auth.on('profile_updated', (newProfile) => {
+    if (U.isDefined(extractAuth(this))) {
+      extractAuth(this).on('profile_updated', (newProfile) => {
         console.log('homepage.js -> on profile updated');
         this.setState({profile: newProfile})
       });
 
-      return {profile: this.props.auth.getProfile()};
+      return {profile: extractAuth(this).getProfile()};
     }
     return null;
   },
@@ -48,14 +53,14 @@ var Container = React.createClass({
     console.log('Container componentDidMount called');
     if (needCheckLibrary(this)) {
       console.log('need to check lib, making req')
-      var email = this.props.route.auth.getProfile().email;
+      var email = extractAuth(this).getProfile().email;
       U.makeReq('libraries/?email=' + email, 'library' + email, this, function(objectFromServer) {
         return Array.isArray(objectFromServer) && objectFromServer.length > 0;
       });
     }
   },
   render() {
-    logger.reportRender('Container')
+    logger.reportRender('Container');
     let children = null;
     if (this.props.children) {
       console.log('Cloning children');
@@ -63,18 +68,19 @@ var Container = React.createClass({
       //note that json-server return filtered query as an array
       var library = undefined;
       if (needCheckLibrary(this)) {
-        var libraryName = 'library' + this.props.route.auth.getProfile().email;
+        var libraryName = 'library' + extractAuth(this).getProfile().email;
         library = localStorage.getItem(libraryName) ?
           JSON.parse(localStorage.getItem(libraryName))[0] : undefined;
       }
 
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
-        auth: this.props.route.auth, //sends auth instance to children
+        auth: extractAuth(this), //sends auth instance to children
         library: library,
-        userProfile: hasUserProfile(this) ? this.props.route.auth.getProfile() : undefined
+        userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined
       })
     }
+
     return (
       <Jumbotron id="containerRoot">
         <h2>
@@ -82,7 +88,7 @@ var Container = React.createClass({
           <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
         </h2>
         {
-          U.isDefined(this.props.auth) && this.props.auth.loggedIn() && typeof children !== 'null' ?
+          U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && typeof children !== 'null' ?
             (<div id={children.props.route.navID}><NavigationBar/></div>) :
             (<div></div>)
         }

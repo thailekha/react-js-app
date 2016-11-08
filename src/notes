@@ -1,4 +1,5 @@
-componentWillReceiveProps() -> might solve homepage issue when logging in
+issue: -after signing up
+-after creating a library
 
 found issue: localStage was programmed to be cleared when response comes back -> token is cleared too
 issue found in Browswpage.js: typeof localStorage === undefined is not the proper way to check if the frontend has localStorage. This was previously included to run test with enzyme where the browser is not used so localStorage is not available

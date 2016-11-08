@@ -8,7 +8,7 @@ import logger from './utils/logger';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
-import Browsepage from './components/Browsepage';s
+import Browsepage from './components/Browsepage';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
