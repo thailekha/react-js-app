@@ -84,9 +84,6 @@ var SubNavigationBar = React.createClass({
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageCore = React.createClass({
   /* ... options and lifecycle methods ... */
-  componentDidMount: function() {
-    U.makeReq('libraries/1','library',this);
-  },
   render: function() {
     logger.reportRender('BrowsepageCore');
     var library = this.props.library;

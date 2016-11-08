@@ -48,7 +48,9 @@ var Container = React.createClass({
     if (needCheckLibrary(this)) {
       console.log('need to check lib, making req')
       var email = this.props.route.auth.getProfile().email;
-      U.makeReq('libraries/?email=' + email, 'library' + email, this);
+      U.makeReq('libraries/?email=' + email, 'library' + email, this, function(objectFromServer) {
+        return Array.isArray(objectFromServer) && objectFromServer.length > 0;
+      });
     }
   },
   render() {

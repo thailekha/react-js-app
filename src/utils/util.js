@@ -4,7 +4,7 @@
 var request = require('superagent');
 //statusCode
 const U = {
-  makeReq: function(req, itemName, component) {
+  makeReq: function(req, itemName, component, predicate) {
     console.log('http://localhost:3001/' + req);
     request.get('http://localhost:3001/' + req)
     .end(function(error, res) {
@@ -13,9 +13,11 @@ const U = {
         var json = JSON.parse(res.text);
         //localStorage.clear();
         //cannot clear localStorage because session token will also be cleared => name the item uniquely
-        localStorage.setItem(itemName, JSON.stringify(json));
-        //console.log('makeReq: got response, doing setState');
-        component.setState({});
+        if(predicate(json)) {
+          localStorage.setItem(itemName, JSON.stringify(json));
+          //console.log('makeReq: got response, doing setState');
+          component.setState({});
+        }
       } else {
         console.log(error);
       }
