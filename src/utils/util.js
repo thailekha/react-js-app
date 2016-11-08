@@ -14,7 +14,7 @@ const U = {
         //localStorage.clear();
         //cannot clear localStorage because session token will also be cleared => name the item uniquely
         localStorage.setItem(itemName, JSON.stringify(json));
-        console.log('makeReq: got response, doing setState');
+        //console.log('makeReq: got response, doing setState');
         component.setState({});
       } else {
         console.log(error);
@@ -30,6 +30,7 @@ const U = {
       if (res) {
         //response will be an array of libraries, whose length will be used as the ID for the new library
         var newID = JSON.parse(res.text).length;
+        console.log('util createing new lib, id: ' + newID);
         this.reqCreateLibrary(newID,email, libName, component);
       } else {
         console.log(error);
@@ -52,6 +53,8 @@ const U = {
 
     $.ajax(settings).done(function(response) {
       console.log(response);
+      console.log('util got response')
+      console.log(typeof component);
       component.setState({});
     });
   }
