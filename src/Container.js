@@ -3,6 +3,7 @@ import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
 import U from './utils/util';
 import AuthService from './utils/AuthService';
+import NavigationBar from './components/NavigationBar';
 
 var needCheckLibrary = function(component) {
   // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -63,7 +64,7 @@ var Container = React.createClass({
       var library = undefined;
       if (needCheckLibrary(this)) {
         var libraryName = 'library' + this.props.route.auth.getProfile().email;
-        var library = localStorage.getItem(libraryName) ?
+        library = localStorage.getItem(libraryName) ?
           JSON.parse(localStorage.getItem(libraryName))[0] : undefined;
       }
 
@@ -81,8 +82,8 @@ var Container = React.createClass({
           <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
         </h2>
         {
-          this.props.route.nav && typeof children !== 'null' ?
-            (<div id={children.props.route.navID}>{this.props.route.nav}</div>) :
+          U.isDefined(this.props.auth) && this.props.auth.loggedIn() && typeof children !== 'null' ?
+            (<div id={children.props.route.navID}><NavigationBar/></div>) :
             (<div></div>)
         }
         {children}
