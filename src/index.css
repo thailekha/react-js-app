@@ -2,12 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #4286f4;
+  background-color: #E4dbbf;
 }
 
 #navigation
 {
-  font-size: 800%;
+  font-size: 80%;
   width: 100%;
   clear: both;
 }
@@ -22,4 +22,26 @@ body {
   display: inline;
   border-left: .3em solid #7AAAE0;
   border-right: .3em solid #7AAAE0;
+}
+
+#tabs li a
+{
+  text-decoration: none;
+  padding: 0.25em 0.25em;
+  color: white;
+  background-color: #70ab8f;
+  font-weight: bold;
+}
+
+#home #tabs li#tab0
+{
+  padding: 0.25em 1em;
+  background-color: #846084;
+  color: white;
+  font-size: 1.05em;
+  font-weight: bold;
+  border-top: .2em solid;
+  border-left: .2em solid;
+  border-right: .2em solid;
+  border-color:  #cc99cc;
 }
