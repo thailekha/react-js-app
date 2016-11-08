@@ -46,8 +46,9 @@ var Container = React.createClass({
 
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
-        auth: this.props.route.auth, //sends auth instance to children
+        //auth: this.props.route.auth, //sends auth instance to children
         library: library
+        
       })
     }
     return (
