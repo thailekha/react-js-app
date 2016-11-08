@@ -51,7 +51,7 @@ var Homepage = React.createClass({
         <h3>Paradigms: {numberOfParadigms}</h3>
         {
           typeof library === 'undefined' ?
-            (<CreateBox createHandler={this.createLibrary} />) :
+            (<CreateBox  createHandler={this.createLibrary} />) :
             (<h3>{library.name}</h3>)
         }
       </div>

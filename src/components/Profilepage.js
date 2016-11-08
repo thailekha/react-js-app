@@ -6,20 +6,9 @@ import NavigationBar from './NavigationBar';
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
   /* ... options and lifecycle methods ... */
-  propTypes: {
-    auth: T.instanceOf(AuthService)
-  },
-  getInitialState() {
-    this.props.auth.on('profile_updated', (newProfile) => {
-      console.log('homepage.js -> on profile updated');
-      this.setState({profile: newProfile})
-    });
-
-    return {profile: this.props.auth.getProfile()};
-  },
   render: function() {
     logger.reportRender('Profilepage');
-    var userProfile = this.props.auth.getProfile();
+    var userProfile = this.props.userProfile;
     //console.log(userProfile);
     return (
       <div>

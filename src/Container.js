@@ -2,6 +2,7 @@ import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
 import U from './utils/util';
+import AuthService from './utils/AuthService';
 
 var needCheckLibrary = function(component) {
   // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -19,8 +20,19 @@ var needCheckLibrary = function(component) {
 };
 
 var Container = React.createClass({
+  propTypes: {
+    auth: T.instanceOf(AuthService)
+  },
   contextTypes: {
     router: T.object
+  },
+  getInitialState() {
+    this.props.auth.on('profile_updated', (newProfile) => {
+      console.log('homepage.js -> on profile updated');
+      this.setState({profile: newProfile})
+    });
+
+    return {profile: this.props.auth.getProfile()};
   },
   componentDidMount: function() {
     console.log('Container componentDidMount called');
