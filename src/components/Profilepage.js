@@ -20,7 +20,7 @@ var Profilepage = React.createClass({
   render: function() {
     logger.reportRender('Profilepage');
     var userProfile = this.props.auth.getProfile();
-    console.log(userProfile);
+    //console.log(userProfile);
     return (
       <div>
         <NavigationBar />

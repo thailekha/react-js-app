@@ -1,6 +1,7 @@
 import React from 'react';
 import logger from '../utils/logger';
 import U from '../utils/util';
+import _ from 'lodash';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -9,6 +10,14 @@ import U from '../utils/util';
 //   var Storage = require('dom-storage');
 //   var localStorage = new Storage('./db.json', { strict: false, ws: '  ' });
 // }
+
+var Content = React.createClass({
+  render: function() {
+    return (
+      <div></div>
+    );
+  }
+});
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -60,27 +69,38 @@ var SubNavigationBar = React.createClass({
 });
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
-var Browsepage = React.createClass({
+var BrowsepageCore = React.createClass({
   /* ... options and lifecycle methods ... */
   componentDidMount: function() {
     U.makeReq('libraries/1','library',this);
   },
   render: function() {
-    logger.reportRender('Browsepage');
-    var library = localStorage.getItem('library') ? JSON.parse(localStorage.getItem('library')) : undefined;
+    logger.reportRender('BrowsepageCore');
+    var library = this.props.library;
     var programmingLanguages = [];
     var paradigms = [];
+    var subNavItems = [];
     if(library !== undefined) {
       programmingLanguages = library['ProgrammingLanguages'];
       paradigms = library['Paradigms'];
     }
-    console.log(programmingLanguages.concat(paradigms));
+    var items = programmingLanguages.concat(paradigms);
+    for(var i = 0; i < items.length; i += 1) {
+      subNavItems.push(items[i]);
+    }
+    console.log(items);
     return (
       <div>
-        <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
+        <SubNavigationBar subNavigationItems={items}/>
       </div>
     );
   },
+});
+
+var BrowsePage = React.createClass({
+  render: function() {
+
+  }
 });
 
 export default Browsepage;

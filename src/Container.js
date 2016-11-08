@@ -3,26 +3,16 @@ import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
 import U from './utils/util';
 
-// console.log('*********************');
-// console.log(this.props.route.auth);
-// console.log(this.props.route.auth.loggedIn());
-// console.log(this.props.route.auth.getProfile());
-// console.log(this.props.route.auth.getProfile().email);
-// console.log(U.isDefined(this.props.route.auth));
-// console.log(U.isDefined(this.props.route.auth.getProfile().email));
-// U.isDefined(this.props.route.auth) && this.props.route.auth.loggedIn() && U.isDefined(this.props.route.auth.getProfile().email);
-// console.log('*********************');
-
 var needCheckLibrary = function(component) {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  console.log(component.props.route.auth);
-  console.log(component.props.route.auth.loggedIn());
-  console.log(component.props.route.auth.getProfile());
-  console.log(component.props.route.auth.getProfile().email);
-  console.log(U.isDefined(component.props.route.auth));
-  console.log(U.isDefined(component.props.route.auth.getProfile().email));
-  U.isDefined(component.props.route.auth) && component.props.route.auth.loggedIn() && U.isDefined(component.props.route.auth.getProfile().email);
-  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  // console.log(component.props.route.auth);
+  // console.log(component.props.route.auth.loggedIn());
+  // console.log(component.props.route.auth.getProfile());
+  // console.log(component.props.route.auth.getProfile().email);
+  // console.log(U.isDefined(component.props.route.auth));
+  // console.log(U.isDefined(component.props.route.auth.getProfile().email));
+  // U.isDefined(component.props.route.auth) && component.props.route.auth.loggedIn() && U.isDefined(component.props.route.auth.getProfile().email);
+  // console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   return U.isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
     U.isDefined(component.props.route.auth.getProfile().email);
@@ -34,7 +24,6 @@ var Container = React.createClass({
   },
   componentDidMount: function() {
     console.log('Container componentDidMount called');
-    console.log(needCheckLibrary(this));
     if (needCheckLibrary(this)) {
       console.log('need to check lib, making req')
       var email = this.props.route.auth.getProfile().email;
