@@ -60,50 +60,18 @@ config.plugins = [
 // END ENV variables
 
 // CSS modules
-const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
 
-const matchCssLoaders = /(^|!)(css-loader)($|!)/;
-
-const findLoader = (loaders, match) => {
-  const found = loaders.filter(l => l && l.loader && l.loader.match(match))
-  return found ? found[0] : null;
-}
-// existing css loader
-const cssloader =
-  findLoader(config.module.loaders, matchCssLoaders);
-
-const newloader = Object.assign({}, cssloader, {
-  test: /\.module\.css$/,
-  include: [src],
-  loader: cssloader.loader.replace(matchCssLoaders, `$1$2?modules&localIdentName=${cssModulesNames}$3`)
-})
-config.module.loaders.push(newloader);
-cssloader.test = new RegExp(`^(?!.*(module|bootstrap)).*${cssloader.test.source}`)
-cssloader.loader = newloader.loader
-
-config.module.loaders.push({
-  test: /bootstrap\.css$/,
-  include: [modules],
-  loader: 'style-loader!css-loader'
-})
-
-// postcss
-config.postcss = [].concat([
-  require('precss')({}),
-  require('autoprefixer')({}),
-  require('cssnano')({})
-])
 // END postcss
 
 // Roots
 config.resolve.root = [src, modules]
 config.resolve.alias = {
-  'css': join(src, 'styles'),
+//  'css': join(src, 'styles'),
   'containers': join(src, 'containers'),
   'components': join(src, 'components'),
   'utils': join(src, 'utils'),
 
-  'styles': join(src, 'styles')
+//  'styles': join(src, 'styles')
 }
 // end Roots
 
