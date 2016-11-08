@@ -51,7 +51,7 @@ var Container = React.createClass({
       })
     }
     return (
-      <Jumbotron>
+      <Jumbotron id="containerRoot">
         <h2>
           Container
           <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>

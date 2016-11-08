@@ -2,6 +2,7 @@ import React from 'react';
 import logger from '../utils/logger';
 import U from '../utils/util';
 import _ from 'lodash';
+import { Link, Route, hashHistory } from 'react-router';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -11,10 +12,20 @@ import _ from 'lodash';
 //   var localStorage = new Storage('./db.json', { strict: false, ws: '  ' });
 // }
 
-var Content = React.createClass({
+var PLContent = React.createClass({
   render: function() {
+    logger.reportRender('PLContent');
     return (
-      <div></div>
+      <div><p>{this.props.content}</p></div>
+    );
+  }
+});
+
+var PDContent = React.createClass({
+  render: function() {
+    logger.reportRender('PDContent');
+    return (
+      <div><p>{this.props.content}</p></div>
     );
   }
 });
@@ -41,12 +52,14 @@ var CreateBox = React.createClass({
 
 var Item = {};
 
+
+//<Link to={this.props.subNavigationItem}>{this.props.subNavigationItem}</Link>
 var SubNavigationItem = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('SubNavigationItem');
     return (
-      <li><a href="#">{this.props.subNavigationItem['name']}</a></li>
+      <Link to="/home">/home</Link>
     );
   },
 });
@@ -85,21 +98,45 @@ var BrowsepageCore = React.createClass({
       paradigms = library['Paradigms'];
     }
     var items = programmingLanguages.concat(paradigms);
-    for(var i = 0; i < items.length; i += 1) {
-      subNavItems.push(items[i]);
+
+
+    for(var i = 0; i < programmingLanguages.length; i += 1) {
+      subNavItems.push('/browse/pl/' + programmingLanguages[i]['name']);
     }
-    console.log(items);
+    for(var z = 0; z < paradigms.length; z += 1) {
+      subNavItems.push('/browse/pd/' + paradigms[z]['name']);
+    }
+    let children = null;
+    if (this.props.children) {
+      console.log('Browsepage Cloning children');
+      children = React.cloneElement(this.props.children, {
+        //Must clone children to pass arguments to them
+        content: items
+      })
+    }
+
     return (
       <div>
-        <SubNavigationBar subNavigationItems={items}/>
+        <SubNavigationBar subNavigationItems={subNavItems}/>
+        {children}
       </div>
     );
   },
 });
 
-var BrowsePage = React.createClass({
-  render: function() {
+var contentRoutes = (
+  <Route>
+    <Route path="/browse/pd/:id" component={PLContent} />
+    <Route path="/browse/pl/:id" component={PDContent} />
+  </Route>
+);
 
+var Browsepage = React.createClass({
+  render: function() {
+    return (
+      <BrowsepageCore library={this.props.library} history={hashHistory} routes={contentRoutes} />
+      //Missing: mount point
+    );
   }
 });
 
