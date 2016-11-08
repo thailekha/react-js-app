@@ -19,6 +19,12 @@ var needCheckLibrary = function(component) {
     U.isDefined(component.props.route.auth.getProfile().email);
 };
 
+var hasUserProfile = function(component) {
+  return U.isDefined(component.props.route.auth) &&
+    component.props.route.auth.loggedIn() &&
+    U.isDefined(component.props.route.auth.getProfile());
+}
+
 var Container = React.createClass({
   propTypes: {
     auth: T.instanceOf(AuthService)
@@ -27,12 +33,15 @@ var Container = React.createClass({
     router: T.object
   },
   getInitialState() {
-    this.props.auth.on('profile_updated', (newProfile) => {
-      console.log('homepage.js -> on profile updated');
-      this.setState({profile: newProfile})
-    });
+    if (U.isDefined(this.props.auth)) {
+      this.props.auth.on('profile_updated', (newProfile) => {
+        console.log('homepage.js -> on profile updated');
+        this.setState({profile: newProfile})
+      });
 
-    return {profile: this.props.auth.getProfile()};
+      return {profile: this.props.auth.getProfile()};
+    }
+    return null;
   },
   componentDidMount: function() {
     console.log('Container componentDidMount called');
@@ -60,7 +69,7 @@ var Container = React.createClass({
         //this.props.route is from the router
         //auth: this.props.route.auth, //sends auth instance to children
         library: library,
-        userProfile: U.isDefined(component.props.route.auth.getProfile()) ? component.props.route.auth.getProfile() : undefined
+        userProfile: hasUserProfile(this) ? this.props.route.auth.getProfile() : undefined
       })
     }
     return (
