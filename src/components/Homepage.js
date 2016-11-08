@@ -37,6 +37,11 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
+  componentDidUpdate: function(prevProps, prevState){
+    console.log('update detected');
+    console.log(prevProps);
+    console.log(prevState);
+  },
   createLibrary: function(libName) {
     console.log('Homepage create library');
     U.createLibrary(this.props.userProfile.email,libName,this);

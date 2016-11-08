@@ -1,10 +1,9 @@
-found issue: localStage was programmed to be cleared when response comes back -> token is cleared too
+componentWillReceiveProps() -> might solve homepage issue when logging in
 
+found issue: localStage was programmed to be cleared when response comes back -> token is cleared too
 issue found in Browswpage.js: typeof localStorage === undefined is not the proper way to check if the frontend has localStorage. This was previously included to run test with enzyme where the browser is not used so localStorage is not available
 
-
 implement lodash in util
-ID is handled by json-server, nothing to worry
 if library is not available => no tabs
 when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
