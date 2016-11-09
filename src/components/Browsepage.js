@@ -45,7 +45,7 @@ var PDContent = React.createClass({
   }
 });
 
-var CreateBox = React.createClass({
+var BrowsepageCreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('CreateBox');
@@ -64,8 +64,6 @@ var CreateBox = React.createClass({
     );
   },
 });
-
-var Item = {};
 
 
 //<Link to={this.props.subNavigationItem}>{this.props.subNavigationItem}</Link>
@@ -129,4 +127,4 @@ var BrowsepageContainer = React.createClass({
   },
 });
 
-export {BrowsepageContainer, PLContent, PDContent};
+export {BrowsepageContainer, BrowsepageCreateBox,PLContent, PDContent};
