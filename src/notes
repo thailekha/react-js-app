@@ -1,6 +1,7 @@
 issue: -after signing up
 -after creating a library
 
+
 found issue: localStage was programmed to be cleared when response comes back -> token is cleared too
 issue found in Browswpage.js: typeof localStorage === undefined is not the proper way to check if the frontend has localStorage. This was previously included to run test with enzyme where the browser is not used so localStorage is not available
 
@@ -13,6 +14,7 @@ To refactor:
 -use proptypes to ensure auth object is trustable, refer to Home.old.js
 -is time required to be sync w auth0 server ? (laptop is UTC + 7)
 -clear "libraryundefined" in localStorage
+-webpack back to react-scripts
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

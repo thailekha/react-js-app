@@ -43,7 +43,11 @@ const routes = (
     <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
-    <Route path="browse" navID="browse" component={Browsepage} onEnter={requireAuth}/>
+
+    /*Move browsepage container here maybe*/
+    <Route path="browse" navID="browse" component={Browsepage} onEnter={requireAuth}>
+
+    </Route>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>
