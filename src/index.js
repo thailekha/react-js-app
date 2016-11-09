@@ -8,7 +8,7 @@ import logger from './utils/logger';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
-import Browsepage from './components/Browsepage';
+import {BrowsepageContainer,PLContent,PDContent} from './components/Browsepage';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -37,6 +37,7 @@ const doLogout = (nextState, replace) => {
 
 //Notes: /home and /login is default and required by auth0
 console.log(auth.loggedIn());
+console.log(BrowsepageContainer);
 const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
@@ -45,8 +46,9 @@ const routes = (
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
 
     /*Move browsepage container here maybe*/
-    <Route path="browse" navID="browse" component={Browsepage} onEnter={requireAuth}>
-
+    <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
+      <Route path="pd/:id" component={PLContent} />
+      <Route path="pl/:id" component={PDContent} />
     </Route>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors

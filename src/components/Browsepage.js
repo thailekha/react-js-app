@@ -119,44 +119,4 @@ var BrowsepageContainer = React.createClass({
   },
 });
 
-var BrowsepageRouterDriver = React.createClass({
-  contextTypes: {
-    router: PropTypes.object
-  },
-  propTypes: {
-    history: PropTypes.object.isRequired,
-    routes: PropTypes.element.isRequired
-  },
-  getContent: function() {
-    return (
-      <Router
-        routes={this.props.routes}
-        history={this.props.history}/>
-    )
-  },
-  render: function() {
-    logger.reportRender('BrowsepageRouterDriver');
-    return (
-      <div style={{ height: '100%' }}>
-
-        {this.getContent()}
-      </div>
-    );
-  }
-});
-
-var Browsepage = React.createClass({
-  render: function() {
-    return (
-      <BrowsepageRouterDriver history={hashHistory} routes={(
-        <Route path="/browse/" library={this.props.library} component={BrowsepageContainer}>
-          <Route path="pd/:id" component={PLContent} />
-          <Route path="pl/:id" component={PDContent} />
-        </Route>
-      )} />
-      //Missing: mount point
-    );
-  }
-});
-
-export default Browsepage;
+export {BrowsepageContainer,PLContent,PDContent};
