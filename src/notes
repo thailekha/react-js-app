@@ -16,6 +16,7 @@ To refactor:
 -is time required to be sync w auth0 server ? (laptop is UTC + 7)
 -clear "libraryundefined" in localStorage
 -webpack back to react-scripts
+-id fields of library is string after retrieving from localstograge ?
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

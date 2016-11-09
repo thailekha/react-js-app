@@ -15,7 +15,7 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
-    var programmingLanguage = _API.getProgrammingLanguage(this.props.items,this.props.routeParams['id'])
+    var programmingLanguage = _API.getProgrammingLanguage(this.props.items, this.props.routeParams['id']);
     return (
       <div>
         <h3>{programmingLanguage['name']}</h3>
@@ -29,8 +29,18 @@ var PLContent = React.createClass({
 var PDContent = React.createClass({
   render: function() {
     logger.reportRender('PDContent');
+    var paradigm = _API.getParadigm(this.props.items, this.props.routeParams['id']);
+    var subParadigms = paradigm['subParadigms'].map(function(subParadigmID, index) {
+      //subParadigm pd-ids in items are strings !!!
+      return <Link key={index}
+                   to={'/browse/pd/' + subParadigmID}>{_API.getParadigm(this.props.items, subParadigmID + '')['name']}</Link>
+    }.bind(this));
     return (
-      <div><h1>{this.props.content}</h1></div>
+      <div>
+        <h3>{paradigm['name']}</h3>
+        {subParadigms}
+        <p>{paradigm['details']}</p>
+      </div>
     );
   }
 });
