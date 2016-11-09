@@ -65,26 +65,15 @@ var BrowsepageCreateBox = React.createClass({
   },
 });
 
-
-//<Link to={this.props.subNavigationItem}>{this.props.subNavigationItem}</Link>
-var SubNavigationItem = React.createClass({
-  /* ... options and lifecycle methods ... */
-  render: function() {
-    logger.reportRender('SubNavigationItem');
-    return (
-      <Link to={this.props.link}>{this.props.name}</Link>
-    );
-  },
-});
-
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('SubNavigationBar');
     var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
-      return <SubNavigationItem key={index}
-                                link={navItem['pd-id'] ? '/browse/pd/' + navItem['pd-id'] : '/browse/pl/' + navItem['pl-id']}
-                                name={navItem['name']}/>
+      return <Link key={index}
+                   to={navItem['pd-id'] ?
+                   '/browse/pd/' + navItem['pd-id'] :
+                   '/browse/pl/' + navItem['pl-id']}>{navItem['name']}</Link>
     });
     return (
       <div id="subNavigation">
@@ -127,4 +116,4 @@ var BrowsepageContainer = React.createClass({
   },
 });
 
-export {BrowsepageContainer, BrowsepageCreateBox,PLContent, PDContent};
+export {BrowsepageContainer, BrowsepageCreateBox, PLContent, PDContent};
