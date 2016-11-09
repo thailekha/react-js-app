@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
 import logger from '../utils/logger';
-import U from '../utils/util';
+import {U} from '../utils/util';
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */

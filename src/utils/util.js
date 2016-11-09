@@ -71,4 +71,27 @@ const U = {
   }
 }
 
-export default U;
+const _API = {
+  getParadigm: function(items,id) {
+    var result = null;
+    var index = _.findIndex(items, function(item) {
+      return item['pd-id'] === id;
+    });
+    if (index !== -1) {
+      result = items[index];
+    }
+    return result;
+  },
+  getProgrammingLanguage: function(items,id) {
+    var result = null;
+    var index = _.findIndex(items, function(item) {
+      return item['pl-id'] === id;
+    });
+    if (index !== -1) {
+      result = items[index];
+    }
+    return result;
+  }
+}
+
+export {U,_API};

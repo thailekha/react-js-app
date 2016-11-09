@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import logger from '../utils/logger';
-import U from '../utils/util';
+import {_API} from '../utils/util';
 import _ from 'lodash';
 import {Link, Route, Router, hashHistory} from 'react-router';
 
@@ -15,8 +15,13 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
+    var programmingLanguage = _API.getProgrammingLanguage(this.props.items,this.props.routeParams['id'])
     return (
-      <div><h2>{this.props.content}</h2></div>
+      <div>
+        <h3>{programmingLanguage['name']}</h3>
+        <b>{programmingLanguage['type']}</b>
+        <p>{programmingLanguage['details']}</p>
+      </div>
     );
   }
 });
@@ -96,15 +101,12 @@ var BrowsepageContainer = React.createClass({
       paradigms = library['Paradigms'];
     }
     var items = programmingLanguages.concat(paradigms);
-    // items.forEach(function (item) {
-    //   U.propertiesNumberToString(items,['pl-id','pd-id']);
-    // });
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
-        content: items[0]['details']
+        items: items
       })
     }
 

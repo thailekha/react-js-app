@@ -46,8 +46,8 @@ const routes = (
 
     /*Move browsepage container here maybe*/
     <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
-      <Route path="pd/:id" component={PLContent}/>
-      <Route path="pl/:id" component={PDContent}/>
+      <Route path="pl/:id" component={PLContent}/>
+      <Route path="pd/:id" component={PDContent}/>
     </Route>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors

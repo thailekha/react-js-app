@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
-import U from './utils/util';
+import {U} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 
