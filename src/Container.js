@@ -5,7 +5,7 @@ import {U} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 
-var needCheckLibrary = function(component) {
+var loggedInAndHasEmail = function(component) {
   // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
   // console.log(component.props.route.auth);
   // console.log(component.props.route.auth.loggedIn());
@@ -53,10 +53,8 @@ var Container = React.createClass({
     }
     return null;
   },
-  componentDidMount: function() {
-    console.log('Container componentDidMount called');
-    if (needCheckLibrary(this)) {
-      console.log('need to check lib, making req')
+  setLibrary: function() {
+    if (loggedInAndHasEmail(this)) {
       var email = extractAuth(this).getProfile().email;
       //req, component, toDoWithRes
       //make request to server to get the library
@@ -69,6 +67,10 @@ var Container = React.createClass({
       });
     }
   },
+  componentDidMount: function() {
+    console.log('Container componentDidMount called');
+    this.setLibrary();
+  },
   render() {
     logger.reportRender('Container');
     let children = null;
@@ -76,12 +78,13 @@ var Container = React.createClass({
       console.log('Cloning children');
 
       //note that json-server return filtered query as an array
-      var library = needCheckLibrary(this) ? this.state['library'] : undefined;
-
+      var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
+      var handleSetLibrary = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
         library: library,
+        handleSetLibrary: handleSetLibrary,
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined
       })
     }
