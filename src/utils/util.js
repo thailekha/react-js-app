@@ -6,7 +6,7 @@ var $ = require('jquery');
 
 //statusCode
 const U = {
-  makeReq: function(req, itemName, component, predicate) {
+  makeReq: function(req, component, toDoWithRes, saveToLocalstorage = undefined, itemName = undefined) {
     console.log('http://localhost:3001/' + req);
     request.get('http://localhost:3001/' + req)
     .end(function(error, res) {
@@ -15,11 +15,10 @@ const U = {
         var json = JSON.parse(res.text);
         //localStorage.clear();
         //cannot clear localStorage because session token will also be cleared => name the item uniquely
-        if(predicate(json)) {
+        if (saveToLocalstorage && itemName)
           localStorage.setItem(itemName, JSON.stringify(json));
-          console.log('makeReq: got response, doing setState');
-          component.setState({});
-        }
+
+        toDoWithRes(component,json);
       } else {
         console.log(error);
       }
@@ -28,7 +27,7 @@ const U = {
   isDefined: function(object) {
     return typeof object !== 'undefined';
   },
-  propertiesNumberToString: function(object,properties) {
+  propertiesNumberToString: function(object, properties) {
     for (var i = 0; i < properties.length; i++) {
       if (this.isDefined(object[properties[i]]) && typeof object[properties[i]] === 'number') {
         object[properties[i]] += '';
@@ -42,7 +41,7 @@ const U = {
         //response will be an array of libraries, whose length will be used as the ID for the new library
         var newID = JSON.parse(res.text).length;
         console.log('util createing new lib, id: ' + newID);
-        this.reqCreateLibrary(newID,email, libName, component);
+        this.reqCreateLibrary(newID, email, libName, component);
       } else {
         console.log(error);
       }
@@ -72,7 +71,7 @@ const U = {
 }
 
 const _API = {
-  getParadigm: function(items,id) {
+  getParadigm: function(items, id) {
     var result = null;
     var index = _.findIndex(items, function(item) {
       return item['pd-id'] === id;
@@ -82,7 +81,7 @@ const _API = {
     }
     return result;
   },
-  getProgrammingLanguage: function(items,id) {
+  getProgrammingLanguage: function(items, id) {
     var result = null;
     var index = _.findIndex(items, function(item) {
       return item['pl-id'] === id;
@@ -94,4 +93,4 @@ const _API = {
   }
 }
 
-export {U,_API};
+export {U, _API};

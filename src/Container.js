@@ -45,7 +45,11 @@ var Container = React.createClass({
         this.setState({profile: newProfile})
       });
 
-      return {profile: extractAuth(this).getProfile()};
+      var theState = {profile: extractAuth(this).getProfile()};
+      if(extractAuth(this).loggedIn()) {
+        theState['library'] = undefined;
+      }
+      return theState;
     }
     return null;
   },
@@ -54,8 +58,14 @@ var Container = React.createClass({
     if (needCheckLibrary(this)) {
       console.log('need to check lib, making req')
       var email = extractAuth(this).getProfile().email;
-      U.makeReq('libraries/?email=' + email, 'library' + email, this, function(objectFromServer) {
-        return Array.isArray(objectFromServer) && objectFromServer.length > 0;
+      //req, component, toDoWithRes
+      //make request to server to get the library
+      U.makeReq('libraries/?email=' + email, this, function(component,objectFromServer) {
+        if(Array.isArray(objectFromServer) && objectFromServer.length === 1) {
+          component.setState({
+            library: objectFromServer[0]
+          });
+        }
       });
     }
   },
@@ -66,12 +76,7 @@ var Container = React.createClass({
       console.log('Cloning children');
 
       //note that json-server return filtered query as an array
-      var library = undefined;
-      if (needCheckLibrary(this)) {
-        var libraryName = 'library' + extractAuth(this).getProfile().email;
-        library = localStorage.getItem(libraryName) ?
-          JSON.parse(localStorage.getItem(libraryName))[0] : undefined;
-      }
+      var library = needCheckLibrary(this) ? this.state['library'] : undefined;
 
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
@@ -89,7 +94,7 @@ var Container = React.createClass({
         </h2>
         {
           U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && typeof children !== 'null' ?
-            (<div id={children.props.route.navID}><NavigationBar/></div>) :
+            (<div id={children.props.route.navID}><NavigationBar /></div>) :
             (<div></div>)
         }
         {children}
