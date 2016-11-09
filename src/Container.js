@@ -79,12 +79,12 @@ var Container = React.createClass({
 
       //note that json-server return filtered query as an array
       var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
-      var handleSetLibrary = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
+      var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
         library: library,
-        handleSetLibrary: handleSetLibrary,
+        setLibraryHandler: setLibraryHandler,
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined
       })
     }

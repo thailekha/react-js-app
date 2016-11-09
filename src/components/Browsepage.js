@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import logger from '../utils/logger';
+import {Button} from 'react-bootstrap';
 import {_API} from '../utils/util';
 import _ from 'lodash';
 import {Link, Route, Router, hashHistory} from 'react-router';
@@ -88,6 +89,17 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
+  getInitialState: function() {
+    return {
+      browsingMode: 'programminglanguages'
+    };
+  },
+  switchBrowsingMode: function() {
+    var nState = this.state['browsingMode'] === 'programminglanguages' ? 'paradigms' : 'programminglanguages';
+    this.setState({
+      browsingMode: nState
+    });
+  },
   render: function() {
     logger.reportRender('BrowsepageContainer');
     var library = this.props.library;
@@ -97,7 +109,7 @@ var BrowsepageContainer = React.createClass({
       programmingLanguages = library['ProgrammingLanguages'];
       paradigms = library['Paradigms'];
     }
-    var items = programmingLanguages.concat(paradigms);
+    var items = this.state['browsingMode'] === 'programminglanguages' ? programmingLanguages : paradigms;
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
@@ -108,6 +120,7 @@ var BrowsepageContainer = React.createClass({
     }
     return (
       <div>
+        <Button onClick={this.switchBrowsingMode}>Switch</Button>
         <SubNavigationBar subNavigationItems={items}/>
         {children}
       </div>
