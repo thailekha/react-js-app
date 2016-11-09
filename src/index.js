@@ -49,6 +49,7 @@ const routes = (
   </Route>
 );
 
+console.log('index.js -> Render');
 ReactDOM.render(
   <MyApp history={hashHistory}
          routes={routes}/>,

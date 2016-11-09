@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import logger from '../utils/logger';
 import U from '../utils/util';
 import _ from 'lodash';
-import { Link, Route, hashHistory } from 'react-router';
+import { Link, Route, Router, hashHistory } from 'react-router';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -82,11 +82,11 @@ var SubNavigationBar = React.createClass({
 });
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
-var BrowsepageCore = React.createClass({
+var BrowsepageContainer = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
-    logger.reportRender('BrowsepageCore');
-    var library = this.props.library;
+    logger.reportRender('BrowsepageContainer');
+    var library = this.props.route.library;
     var programmingLanguages = [];
     var paradigms = [];
     var subNavItems = [];
@@ -121,17 +121,43 @@ var BrowsepageCore = React.createClass({
   },
 });
 
+var BrowsepageRouterDriver = React.createClass({
+  contextTypes: {
+    router: PropTypes.object
+  },
+  propTypes: {
+    history: PropTypes.object.isRequired,
+    routes: PropTypes.element.isRequired
+  },
+  getContent: function() {
+    return (
+      <Router
+        routes={this.props.routes}
+        history={this.props.history}/>
+    )
+  },
+  render: function() {
+    logger.reportRender('BrowsepageRouterDriver');
+    return (
+      <div style={{ height: '100%' }}>
+
+        {this.getContent()}
+      </div>
+    );
+  }
+});
+
 var contentRoutes = (
-  <Route>
-    <Route path="/browse/pd/:id" component={PLContent} />
-    <Route path="/browse/pl/:id" component={PDContent} />
+  <Route path="/browse/" library={this.props.library} component={BrowsepageContainer}>
+    <Route path="pd/:id" component={PLContent} />
+    <Route path="pl/:id" component={PDContent} />
   </Route>
 );
 
 var Browsepage = React.createClass({
   render: function() {
     return (
-      <BrowsepageCore library={this.props.library} history={hashHistory} routes={contentRoutes} />
+      <BrowsepageRouterDriver library={this.props.library} history={hashHistory} routes={contentRoutes} />
       //Missing: mount point
     );
   }
