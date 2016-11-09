@@ -37,7 +37,6 @@ const doLogout = (nextState, replace) => {
 
 //Notes: /home and /login is default and required by auth0
 console.log(auth.loggedIn());
-console.log(BrowsepageContainer);
 const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>

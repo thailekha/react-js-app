@@ -59,7 +59,7 @@ var SubNavigationItem = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationItem');
     return (
-      <Link to="/home">/home</Link>
+      <Link to="/">{this.props.subNavigationItem}</Link>
     );
   },
 });
@@ -86,7 +86,7 @@ var BrowsepageContainer = React.createClass({
   // /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('BrowsepageContainer');
-    var library = this.props.route.library;
+    var library = this.props.library;
     var programmingLanguages = [];
     var paradigms = [];
     var subNavItems = [];

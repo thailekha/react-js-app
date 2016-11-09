@@ -62,7 +62,6 @@ var Container = React.createClass({
   render() {
     logger.reportRender('Container');
     let children = null;
-    console.log('**********************************');
     if (this.props.children) {
       console.log('Cloning children');
 
