@@ -83,7 +83,7 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
-  /* ... options and lifecycle methods ... */
+  // /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('BrowsepageContainer');
     var library = this.props.route.library;
@@ -95,8 +95,6 @@ var BrowsepageContainer = React.createClass({
       paradigms = library['Paradigms'];
     }
     var items = programmingLanguages.concat(paradigms);
-
-
     for(var i = 0; i < programmingLanguages.length; i += 1) {
       subNavItems.push('/browse/pl/' + programmingLanguages[i]['name']);
     }
@@ -147,17 +145,15 @@ var BrowsepageRouterDriver = React.createClass({
   }
 });
 
-var contentRoutes = (
-  <Route path="/browse/" library={this.props.library} component={BrowsepageContainer}>
-    <Route path="pd/:id" component={PLContent} />
-    <Route path="pl/:id" component={PDContent} />
-  </Route>
-);
-
 var Browsepage = React.createClass({
   render: function() {
     return (
-      <BrowsepageRouterDriver library={this.props.library} history={hashHistory} routes={contentRoutes} />
+      <BrowsepageRouterDriver history={hashHistory} routes={(
+        <Route path="/browse/" library={this.props.library} component={BrowsepageContainer}>
+          <Route path="pd/:id" component={PLContent} />
+          <Route path="pl/:id" component={PDContent} />
+        </Route>
+      )} />
       //Missing: mount point
     );
   }
