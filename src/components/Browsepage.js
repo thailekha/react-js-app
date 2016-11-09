@@ -158,6 +158,7 @@ var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('SubNavigationBar');
+    var linkToCreateBox = this.props.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
     var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
       return <Link key={index}
                    to={navItem['pd-id'] ?
@@ -167,7 +168,7 @@ var SubNavigationBar = React.createClass({
     return (
       <div id="subNavigation">
         <ul id="tabs">
-          <Link to='/browse/createbox'>Create</Link>
+          <Link to={linkToCreateBox}>Create</Link>
           {subNavigationItems}
         </ul>
       </div>
@@ -216,8 +217,8 @@ var BrowsepageContainer = React.createClass({
     }
     return (
       <div>
-        <Button onClick={this.switchBrowsingMode}>Switch</Button>
-        <SubNavigationBar subNavigationItems={items}/>
+        <Button onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
+        <SubNavigationBar browsingMode={this.state['browsingMode']} subNavigationItems={items}/>
         {children}
       </div>
     );
