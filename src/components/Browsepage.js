@@ -49,45 +49,109 @@ var PDContent = React.createClass({
 var BrowsepageCreateBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-
+    return {
+      name: '',
+      details: '',
+      type: ''
+    };
+  },
+  handleNameChange: function(e) {
+    this.setState({name: e.target.value});
+  },
+  handleDetailsChange: function(e) {
+    this.setState({details: e.target.value});
+  },
+  handleTypeChange: function(e) {
+    this.setState({type: e.target.value});
+  },
+  handleAdd: function(e) {
+    if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.type.length > 0) {
+      e.preventDefault();
+      this.props.addPLHandler(this.state.name, this.state.details, this.state.type);
+      this.setState({
+        name: '',
+        details: '',
+        type: ''
+      });
+    }
   },
   render: function() {
     logger.reportRender('CreateBox');
     return (
       <form style={{marginTop: '30px'}}>
-        <h3>Create a new library</h3>
+        <h3>Add a new Programming language</h3>
         <div className="form-group">
           <input type="text"
                  className="form-control" placeholder="Name"
                  value={this.state.name}
                  onChange={this.handleNameChange}></input>
+          <input type="text"
+                 className="form-control" placeholder="Details"
+                 value={this.state.details}
+                 onChange={this.handleDetailsChange}></input>
+          <input type="text"
+                 className="form-control" placeholder="Type"
+                 value={this.state.type}
+                 onChange={this.handleTypeChange}></input>
         </div>
-        <Button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</Button>
+        <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
       </form>
     );
-  },
+  }
 });
 
 var BrowsepageCreateBoxPD = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-
+    return {
+      name: '',
+      details: '',
+      subParadigms: ''
+    };
+  },
+  handleNameChange: function(e) {
+    this.setState({name: e.target.value});
+  },
+  handleDetailsChange: function(e) {
+    this.setState({details: e.target.value});
+  },
+  handleSubParadigmsChange: function(e) {
+    this.setState({subParadigms: e.target.value});
+  },
+  handleAdd: function(e) {
+    if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.subParadigms.length > 0) {
+      e.preventDefault();
+      this.props.addPDHandler(this.state.name, this.state.details, this.state.subParadigms);
+      this.setState({
+        name: '',
+        details: '',
+        subParadigms: ''
+      });
+    }
   },
   render: function() {
     logger.reportRender('CreateBox');
     return (
       <form style={{marginTop: '30px'}}>
-        <h3>Create a new library</h3>
+        <h3>Add a new paradigm</h3>
         <div className="form-group">
           <input type="text"
                  className="form-control" placeholder="Name"
                  value={this.state.name}
                  onChange={this.handleNameChange}></input>
+          <input type="text"
+                 className="form-control" placeholder="Details"
+                 value={this.state.details}
+                 onChange={this.handleDetailsChange}></input>
+          <input type="text"
+                 className="form-control" placeholder="SubParadigms"
+                 value={this.state.subParadigms}
+                 onChange={this.handleSubParadigmsChange}></input>
         </div>
-        <Button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</Button>
+        <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
       </form>
     );
-  },
+  }
 });
 
 var SubNavigationBar = React.createClass({
@@ -124,6 +188,12 @@ var BrowsepageContainer = React.createClass({
       browsingMode: nState
     });
   },
+  handleAddPL: function(name, details, type) {
+    console.log('Create new PL ' + name + details + type);
+  },
+  handleAddPD: function(name, details, subparadigms) {
+    console.log('Create new PD ' + name + details + subparadigms);
+  },
   render: function() {
     logger.reportRender('BrowsepageContainer');
     var library = this.props.library;
@@ -139,7 +209,8 @@ var BrowsepageContainer = React.createClass({
       console.log('Browsepage Cloning children');
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
-        browsingMode: this.state['browsingMode'], //for createbox
+        addPLHandler: this.handleAddPL,
+        addPDHandler: this.handleAddPD,
         items: items
       })
     }
