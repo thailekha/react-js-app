@@ -1,3 +1,5 @@
+React does not allow any object with keys i.e. ID to be sent down the hierarchy as props
+
 issue: -after signing up
 -after creating a library
 

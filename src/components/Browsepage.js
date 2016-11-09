@@ -16,7 +16,7 @@ var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
     return (
-      <div><p>{this.props.content}</p></div>
+      <div><h2>{this.props.content}</h2></div>
     );
   }
 });
@@ -25,7 +25,7 @@ var PDContent = React.createClass({
   render: function() {
     logger.reportRender('PDContent');
     return (
-      <div><p>{this.props.content}</p></div>
+      <div><h1>{this.props.content}</h1></div>
     );
   }
 });
@@ -59,7 +59,7 @@ var SubNavigationItem = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationItem');
     return (
-      <Link to={this.props.subNavigationItem['link']}>{this.props.subNavigationItem['name']}</Link>
+      <Link to={this.props.link}>{this.props.name}</Link>
     );
   },
 });
@@ -69,7 +69,9 @@ var SubNavigationBar = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationBar');
     var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
-      return <SubNavigationItem key={index} subNavigationItem={navItem}/>
+      return <SubNavigationItem key={index}
+                                link={navItem['pd-id'] ? '/browse/pd/' + navItem['pd-id'] : '/browse/pl/' + navItem['pl-id']}
+                                name={navItem['name']}/>
     });
     return (
       <div id="subNavigation">
@@ -89,38 +91,26 @@ var BrowsepageContainer = React.createClass({
     var library = this.props.library;
     var programmingLanguages = [];
     var paradigms = [];
-    var subNavItems = [];
     if (library !== undefined) {
       programmingLanguages = library['ProgrammingLanguages'];
       paradigms = library['Paradigms'];
     }
     var items = programmingLanguages.concat(paradigms);
-
-
-    for (var i = 0; i < programmingLanguages.length; i += 1) {
-      subNavItems.push({
-        link: '/browse/pl/' + programmingLanguages[i]['pl-id'],
-        name: programmingLanguages[i]['name']
-      });
-    }
-    for (var z = 0; z < paradigms.length; z += 1) {
-      subNavItems.push({
-        link: '/browse/pd/' + paradigms[z]['pd-id'],
-        name: paradigms[z]['name']
-      });
-    }
+    // items.forEach(function (item) {
+    //   U.propertiesNumberToString(items,['pl-id','pd-id']);
+    // });
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
-        content: items
+        content: items[0]['details']
       })
     }
 
     return (
       <div>
-        <SubNavigationBar subNavigationItems={subNavItems}/>
+        <SubNavigationBar subNavigationItems={items}/>
         {children}
       </div>
     );

@@ -28,6 +28,13 @@ const U = {
   isDefined: function(object) {
     return typeof object !== 'undefined';
   },
+  propertiesNumberToString: function(object,properties) {
+    for (var i = 0; i < properties.length; i++) {
+      if (this.isDefined(object[properties[i]]) && typeof object[properties[i]] === 'number') {
+        object[properties[i]] += '';
+      }
+    }
+  },
   createLibrary: function(email, libName, component) {
     request.get('http://localhost:3001/libraries')
     .end(function(error, res) {
