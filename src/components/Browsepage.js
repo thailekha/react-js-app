@@ -78,6 +78,7 @@ var SubNavigationBar = React.createClass({
     return (
       <div id="subNavigation">
         <ul id="tabs">
+          <Link to='/browse/createbox'>Create</Link>
           {subNavigationItems}
         </ul>
       </div>
@@ -87,7 +88,6 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
-  // /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('BrowsepageContainer');
     var library = this.props.library;
@@ -106,7 +106,6 @@ var BrowsepageContainer = React.createClass({
         items: items
       })
     }
-
     return (
       <div>
         <SubNavigationBar subNavigationItems={items}/>

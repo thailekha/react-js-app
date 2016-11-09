@@ -46,7 +46,7 @@ const routes = (
 
     /*Move browsepage container here maybe*/
     <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
-      <Route path="create" component={BrowsepageCreateBox}/>
+      <Route path="createbox" component={BrowsepageCreateBox}/>
       <Route path="pl/:id" component={PLContent}/>
       <Route path="pd/:id" component={PDContent}/>
     </Route>
