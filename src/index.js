@@ -8,7 +8,7 @@ import logger from './utils/logger';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
-import {BrowsepageContainer, BrowsepageCreateBox, PLContent, PDContent} from './components/Browsepage';
+import {BrowsepageContainer, BrowsepageCreateBoxPL, BrowsepageCreateBoxPD, PLContent, PDContent} from './components/Browsepage';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -46,7 +46,8 @@ const routes = (
 
     /*Move browsepage container here maybe*/
     <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
-      <Route path="createbox" component={BrowsepageCreateBox}/>
+      <Route path="createboxpl" component={BrowsepageCreateBoxPL}/>
+      <Route path="createboxpd" component={BrowsepageCreateBoxPD}/>
       <Route path="pl/:id" component={PLContent}/>
       <Route path="pd/:id" component={PDContent}/>
     </Route>

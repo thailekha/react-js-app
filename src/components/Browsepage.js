@@ -46,21 +46,45 @@ var PDContent = React.createClass({
   }
 });
 
-var BrowsepageCreateBox = React.createClass({
+var BrowsepageCreateBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
+  getInitialState: function() {
+
+  },
   render: function() {
     logger.reportRender('CreateBox');
     return (
       <form style={{marginTop: '30px'}}>
+        <h3>Create a new library</h3>
         <div className="form-group">
           <input type="text"
-                 className="form-control" placeholder="Name"></input>
+                 className="form-control" placeholder="Name"
+                 value={this.state.name}
+                 onChange={this.handleNameChange}></input>
         </div>
+        <Button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</Button>
+      </form>
+    );
+  },
+});
+
+var BrowsepageCreateBoxPD = React.createClass({
+  /* ... options and lifecycle methods ... */
+  getInitialState: function() {
+
+  },
+  render: function() {
+    logger.reportRender('CreateBox');
+    return (
+      <form style={{marginTop: '30px'}}>
+        <h3>Create a new library</h3>
         <div className="form-group">
           <input type="text"
-                 className="form-control" placeholder="Details"></input>
+                 className="form-control" placeholder="Name"
+                 value={this.state.name}
+                 onChange={this.handleNameChange}></input>
         </div>
-        <button type="submit" className="btn btn-primary">Create</button>
+        <Button type="submit" className="btn btn-primary" onClick={this.handleCreate}>Create</Button>
       </form>
     );
   },
@@ -115,6 +139,7 @@ var BrowsepageContainer = React.createClass({
       console.log('Browsepage Cloning children');
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
+        browsingMode: this.state['browsingMode'], //for createbox
         items: items
       })
     }
@@ -128,4 +153,4 @@ var BrowsepageContainer = React.createClass({
   },
 });
 
-export {BrowsepageContainer, BrowsepageCreateBox, PLContent, PDContent};
+export {BrowsepageContainer, BrowsepageCreateBoxPL, BrowsepageCreateBoxPD, PLContent, PDContent};
