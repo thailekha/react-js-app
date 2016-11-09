@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import logger from '../utils/logger';
 import U from '../utils/util';
 import _ from 'lodash';
-import { Link, Route, Router, hashHistory } from 'react-router';
+import {Link, Route, Router, hashHistory} from 'react-router';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -59,7 +59,7 @@ var SubNavigationItem = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationItem');
     return (
-      <Link to="/">{this.props.subNavigationItem}</Link>
+      <Link to={this.props.subNavigationItem['link']}>{this.props.subNavigationItem['name']}</Link>
     );
   },
 });
@@ -69,7 +69,7 @@ var SubNavigationBar = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationBar');
     var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
-      return <SubNavigationItem key={index} subNavigationItem={navItem} />
+      return <SubNavigationItem key={index} subNavigationItem={navItem}/>
     });
     return (
       <div id="subNavigation">
@@ -90,16 +90,24 @@ var BrowsepageContainer = React.createClass({
     var programmingLanguages = [];
     var paradigms = [];
     var subNavItems = [];
-    if(library !== undefined) {
+    if (library !== undefined) {
       programmingLanguages = library['ProgrammingLanguages'];
       paradigms = library['Paradigms'];
     }
     var items = programmingLanguages.concat(paradigms);
-    for(var i = 0; i < programmingLanguages.length; i += 1) {
-      subNavItems.push('/browse/pl/' + programmingLanguages[i]['name']);
+
+
+    for (var i = 0; i < programmingLanguages.length; i += 1) {
+      subNavItems.push({
+        link: '/browse/pl/' + programmingLanguages[i]['pl-id'],
+        name: programmingLanguages[i]['name']
+      });
     }
-    for(var z = 0; z < paradigms.length; z += 1) {
-      subNavItems.push('/browse/pd/' + paradigms[z]['name']);
+    for (var z = 0; z < paradigms.length; z += 1) {
+      subNavItems.push({
+        link: '/browse/pd/' + paradigms[z]['pd-id'],
+        name: paradigms[z]['name']
+      });
     }
     let children = null;
     if (this.props.children) {
@@ -119,4 +127,4 @@ var BrowsepageContainer = React.createClass({
   },
 });
 
-export {BrowsepageContainer,PLContent,PDContent};
+export {BrowsepageContainer, PLContent, PDContent};
