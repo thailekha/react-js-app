@@ -162,7 +162,16 @@ var BrowsepageCreateBoxPD = React.createClass({
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-
+    return {
+      browsingMode: 'programminglanguages'
+    };
+  },
+  switchBrowsingMode: function() {
+    //for when clicking switching button. notice that the children is supplied from the router, it cannot be modified (read-only)
+    var nState = this.state['browsingMode'] === 'programminglanguages' ? 'paradigms' : 'programminglanguages';
+    this.setState({
+      browsingMode: nState
+    });
   },
   render: function() {
     logger.reportRender('SubNavigationBar');
@@ -186,19 +195,6 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      browsingMode: 'programminglanguages'
-    };
-  },
-  switchBrowsingMode: function() {
-    //for when clicking switching button. notice that the children is supplied from the router, it cannot be modified (read-only)
-    var nState = this.state['browsingMode'] === 'programminglanguages' ? 'paradigms' : 'programminglanguages';
-    this.props.children = this.state['browsingMode'] === 'programminglanguages' ? PLContent : PDContent;
-    this.setState({
-      browsingMode: nState
-    });
-  },
   handleAddPL: function(name, details, type) {
     console.log('Create new PL ' + name + details + type);
   },
@@ -229,7 +225,7 @@ var BrowsepageContainer = React.createClass({
     return (
       <div>
         <Button onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
-        <SubNavigationBar browsingMode={this.state['browsingMode']} subNavigationItems={items}/>
+        <SubNavigationBar subNavigationItems={items}/>
         {children}
       </div>
     );
