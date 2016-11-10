@@ -59,7 +59,8 @@ var BrowsepageCreateBoxPL = React.createClass({
       details: '',
       type: '',
       paradigm: '',
-      paradigms: ''
+      paradigms: '',
+      error: ''
     };
   },
   handleNameChange: function(e) {
@@ -76,9 +77,9 @@ var BrowsepageCreateBoxPL = React.createClass({
   },
   handleAddParadigm: function(e) {
     var nParadigm = this.state.paradigm;
-    if (nParadigm.length > 0) {
+    if (nParadigm.length > 0 && _API.checkParadigm(this.props.library,nParadigm)) {
       var oldState = this.state.paradigms;
-      var newState =  oldState + (oldState.length === 0 ? '' : ',') + nParadigm;
+      var newState = oldState + (oldState.length === 0 ? '' : ',') + nParadigm;
       console.log(newState);
       this.setState({
         paradigm: '',
@@ -234,7 +235,8 @@ var SubNavigationBar = React.createClass({
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
   handleAddPL: function(name, details, type, paradigms) {
-    console.log('Create new PL ' + name + details + type + paradigms.split(','));
+    console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigms.split(','));
+
   },
   handleAddPD: function(name, details, subparadigms) {
     console.log('Create new PD ' + name + details + subparadigms);

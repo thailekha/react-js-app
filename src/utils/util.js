@@ -104,6 +104,17 @@ const _API = {
       }
     }
     return relatedParadigms;
+  },
+  checkParadigm: function(library,paradigmName) {
+    var result = false;
+    var items = library['Paradigms'];
+    var index = _.findIndex(items, function(item) {
+      return item['name'].toLowerCase() === paradigmName.toLowerCase();
+    });
+    if (index !== -1) {
+      result = true;
+    }
+    return result;
   }
 }
 
