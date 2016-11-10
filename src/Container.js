@@ -53,6 +53,13 @@ var Container = React.createClass({
     }
     return null;
   },
+  createLibrary: function(libName) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Homepage create library');
+      //server will response with the new library object so U will handle setting state
+      U.createLibrary(extractAuth(this).getProfile().email, libName, this);
+    }
+  },
   setLibrary: function() {
     if (loggedInAndHasEmail(this)) {
       var email = extractAuth(this).getProfile().email;
@@ -67,6 +74,12 @@ var Container = React.createClass({
       });
     }
   },
+  deleteLibrary: function() {
+    if(loggedInAndHasEmail(this)) {
+      console.log('delete library called');
+    }
+  },
+  //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
     this.setLibrary();
@@ -79,13 +92,20 @@ var Container = React.createClass({
 
       //note that json-server return filtered query as an array
       var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
+      const libraryManager = {
+        create: library ? undefined : this.createLibrary,
+        reload: this.setLibrary,
+        delete: library ? this.deleteLibrary: undefined,
+        //TODO ADD PL,PD, ETC.
+      };
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
         library: library,
         setLibraryHandler: setLibraryHandler,
-        userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined
+        userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined,
+        libraryManager: libraryManager
       })
     }
 

@@ -55,9 +55,12 @@
     },
     {
       "id": 2,
-      "email": "batman@yahoo.sample.com",
-      "name": "Sample repo 2",
-      "public": false
+      "email": "30sectomars@email.com",
+      "name": "fantasy",
+      "public": true,
+      "Paradigms": [],
+      "ProgrammingLanguages": [],
+      "Having": []
     }
   ]
 }

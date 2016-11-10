@@ -65,31 +65,31 @@ const U = {
       console.log(response);
       console.log('util got response')
       console.log(typeof component);
-      component.setState({});
+      component.setState({library: response});
     });
   },
-  deleteLibrary: function(id, component) {
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": "http://localhost:3001/libraries/" + id,
-      "method": "DELETE",
-      "headers": {
-        "content-type": "application/json",
-        "cache-control": "no-cache"
-      }
-    }
-
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      console.log(response.statusCode);
-      if(response.statusCode === 200) {
-        component.setState({
-
-        });
-      }
-    });
-  }
+  // deleteLibrary: function(id, component) {
+  //   var settings = {
+  //     "async": true,
+  //     "crossDomain": true,
+  //     "url": "http://localhost:3001/libraries/" + id,
+  //     "method": "DELETE",
+  //     "headers": {
+  //       "content-type": "application/json",
+  //       "cache-control": "no-cache"
+  //     }
+  //   }
+  //
+  //   $.ajax(settings).done(function (response) {
+  //     console.log(response);
+  //     console.log(response.statusCode);
+  //     if(response.statusCode === 200) {
+  //       component.setState({
+  //
+  //       });
+  //     }
+  //   });
+  // }
 }
 
 const _API = {
@@ -148,7 +148,7 @@ const _API = {
   },
   addProgrammingLanguage: function(library,name,details,type,paradigms) {
     var ID = this.getNextProgrammingLanguageID(library);
-
+    console.log(ID);
   }
 }
 
