@@ -126,7 +126,7 @@ const _API = {
   },
   addProgrammingLanguage: function(library,name,details,type,paradigms) {
     var ID = this.getNextProgrammingLanguageID(library);
-    console.log('new PL ID: ' + ID);
+
   }
 }
 

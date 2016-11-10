@@ -1,3 +1,4 @@
+-create locally & update the whole library (this includes delete the current library on the server) vs update the library on the server (this includes changing the model, adding id field for json-server) ?
 -"filter" functionality for add paradigm createboxPL ?
 -allow empty paradigms in createboxPL
 -next: use the "having" to display more detailss
