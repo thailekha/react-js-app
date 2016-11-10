@@ -57,7 +57,9 @@ var BrowsepageCreateBoxPL = React.createClass({
     return {
       name: '',
       details: '',
-      type: ''
+      type: '',
+      paradigm: '',
+      paradigms: ''
     };
   },
   handleNameChange: function(e) {
@@ -68,6 +70,19 @@ var BrowsepageCreateBoxPL = React.createClass({
   },
   handleTypeChange: function(e) {
     this.setState({type: e.target.value});
+  },
+  handleParadigmChange: function(e) {
+    this.setState({paradigm: e.target.value});
+  },
+  handleAddParadigm: function(e) {
+    var nParadigm = this.state.paradigm;
+    if (nParadigm.length > 0) {
+      var oldState = this.state.paradigms;
+      this.setState({
+        paradigm: '',
+        paradigms: oldState += nParadigm + ','
+      });
+    }
   },
   handleAdd: function(e) {
     if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.type.length > 0) {
@@ -83,24 +98,39 @@ var BrowsepageCreateBoxPL = React.createClass({
   render: function() {
     logger.reportRender('CreateBox');
     return (
-      <form style={{marginTop: '30px'}}>
-        <h3>Add a new Programming language</h3>
-        <div className="form-group">
-          <input type="text"
-                 className="form-control" placeholder="Name"
-                 value={this.state.name}
-                 onChange={this.handleNameChange}></input>
-          <input type="text"
-                 className="form-control" placeholder="Details"
-                 value={this.state.details}
-                 onChange={this.handleDetailsChange}></input>
-          <input type="text"
-                 className="form-control" placeholder="Type"
-                 value={this.state.type}
-                 onChange={this.handleTypeChange}></input>
-        </div>
-        <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
-      </form>
+      <div>
+        <form style={{marginTop: '30px'}}>
+          <h3>Add a new Programming language</h3>
+          <div className="form-group">
+            <input type="text"
+                   className="form-control" placeholder="Name"
+                   value={this.state.name}
+                   onChange={this.handleNameChange}></input>
+            <input type="text"
+                   className="form-control" placeholder="Details"
+                   value={this.state.details}
+                   onChange={this.handleDetailsChange}></input>
+            <input type="text"
+                   className="form-control" placeholder="Type"
+                   value={this.state.type}
+                   onChange={this.handleTypeChange}></input>
+            <input type="text" disabled
+                   className="form-control"
+                   value={this.state.paradigms}></input>
+          </div>
+          <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
+
+        </form>
+        <form>
+          <h3>What paradigms does this language have ?</h3>
+          <div className="form-group">
+            <input type="text"
+                   className="form-control" placeholder="Paragidms"
+                   value={this.state.paradigm} onChange={this.handleParadigmChange}></input>
+            <Button onClick={this.handleAddParadigm}>Add PD</Button>
+          </div>
+        </form>
+      </div>
     );
   }
 });
@@ -178,13 +208,13 @@ var SubNavigationBar = React.createClass({
     var linkToCreateBox = this.state.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
     var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
       this.props.subNavigationItems.map(function(navItem, index) {
-        if(navItem['pl-id']) {
+        if (navItem['pl-id']) {
           return <Link key={index}
                        to={'/browse/pl/' + navItem['pl-id']}>{navItem['name']}</Link>
         }
       }) :
       this.props.subNavigationItems.map(function(navItem, index) {
-        if(navItem['pd-id']) {
+        if (navItem['pd-id']) {
           return <Link key={index}
                        to={'/browse/pd/' + navItem['pd-id']}>{navItem['name']}</Link>
         }
