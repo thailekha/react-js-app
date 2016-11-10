@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes as T} from 'react';
 import logger from '../utils/logger';
 import {Button} from 'react-bootstrap';
 import {_API} from '../utils/util';
@@ -17,7 +17,7 @@ var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
     var programmingLanguage = _API.getProgrammingLanguage(this.props.items, this.props.routeParams['id']);
-    var relatedParadigms = _API.getRelatedParadigms(this.props.library,programmingLanguage['pl-id']).map(function(paradigm,index){
+    var relatedParadigms = _API.getRelatedParadigms(this.props.library, programmingLanguage['pl-id']).map(function(paradigm, index) {
       return <Link key={index} to={'/browse/pd/' + paradigm['pd-id']}>{paradigm['name']}</Link>
     });
     return (
@@ -175,19 +175,29 @@ var SubNavigationBar = React.createClass({
   },
   render: function() {
     logger.reportRender('SubNavigationBar');
-    var linkToCreateBox = this.props.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
-    var subNavigationItems = this.props.subNavigationItems.map(function(navItem, index) {
-      return <Link key={index}
-                   to={navItem['pd-id'] ?
-                   '/browse/pd/' + navItem['pd-id'] :
-                   '/browse/pl/' + navItem['pl-id']}>{navItem['name']}</Link>
-    });
+    var linkToCreateBox = this.state.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
+    var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
+      this.props.subNavigationItems.map(function(navItem, index) {
+        if(navItem['pl-id']) {
+          return <Link key={index}
+                       to={'/browse/pl/' + navItem['pl-id']}>{navItem['name']}</Link>
+        }
+      }) :
+      this.props.subNavigationItems.map(function(navItem, index) {
+        if(navItem['pd-id']) {
+          return <Link key={index}
+                       to={'/browse/pd/' + navItem['pd-id']}>{navItem['name']}</Link>
+        }
+      });
     return (
       <div id="subNavigation">
-        <ul id="tabs">
-          <Link to={linkToCreateBox}>Create</Link>
-          {subNavigationItems}
-        </ul>
+        <Button onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
+        <div id="subNavigationbar">
+          <ul id="tabs">
+            <Link to={linkToCreateBox}>Create</Link>
+            {subNavigationItems}
+          </ul>
+        </div>
       </div>
     );
   },
@@ -203,17 +213,18 @@ var BrowsepageContainer = React.createClass({
   },
   render: function() {
     logger.reportRender('BrowsepageContainer');
-    var library = this.props.library;
-    var programmingLanguages = [];
-    var paradigms = [];
-    if (library !== undefined) {
-      programmingLanguages = library['ProgrammingLanguages'];
-      paradigms = library['Paradigms'];
-    }
-    var items = this.state['browsingMode'] === 'programminglanguages' ? programmingLanguages : paradigms;
+
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
+      var library = this.props.library;
+      var programmingLanguages = [];
+      var paradigms = [];
+      if (library !== undefined) {
+        programmingLanguages = library['ProgrammingLanguages'];
+        paradigms = library['Paradigms'];
+      }
+      var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
         library: library,
@@ -224,8 +235,7 @@ var BrowsepageContainer = React.createClass({
     }
     return (
       <div>
-        <Button onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
-        <SubNavigationBar subNavigationItems={items}/>
+        <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
         {children}
       </div>
     );
