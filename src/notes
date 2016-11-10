@@ -23,6 +23,7 @@ To refactor:
 -webpack back to react-scripts
 -id fields of library is string after retrieving from localstograge ?
 -e.preventDefault
+-this.setState(this.getInitialState()) (be careful)
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route
