@@ -1,4 +1,7 @@
--create locally & update the whole library (this includes delete the current library on the server) vs update the library on the server (this includes changing the model, adding id field for json-server) ?
+-create locally & update the whole library (this includes delete the current library on the server)
+vs update the library on the server (this includes changing the model eg. pl-id to pl_id and use filter request + many async requests)
+->decision: locally & update the whole library. otherwise there will be many overhead with filtering and async, notice that json-server can only retrieve or filter a specific item from AN ARRAY
+
 -"filter" functionality for add paradigm createboxPL ?
 -allow empty paradigms in createboxPL
 -next: use the "having" to display more detailss
