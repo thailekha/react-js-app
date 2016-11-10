@@ -60,6 +60,7 @@ var BrowsepageCreateBoxPL = React.createClass({
       type: '',
       paradigm: '',
       paradigms: '',
+      pdids: [],
       error: ''
     };
   },
@@ -77,9 +78,11 @@ var BrowsepageCreateBoxPL = React.createClass({
   },
   handleAddParadigm: function(e) {
     var nParadigm = this.state.paradigm;
-    if (nParadigm.length > 0 && _API.checkParadigm(this.props.library,nParadigm)) {
+    var pdid = _API.getParadigmId(this.props.library,nParadigm)
+    if (nParadigm.length > 0 && pdid) {
       var oldState = this.state.paradigms;
       var newState = oldState + (oldState.length === 0 ? '' : ',') + nParadigm;
+      this.state.pdids.push(pdid);
       console.log(newState);
       this.setState({
         paradigm: '',
@@ -90,7 +93,7 @@ var BrowsepageCreateBoxPL = React.createClass({
   handleAdd: function(e) {
     if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.type.length > 0) {
       e.preventDefault();
-      this.props.addPLHandler(this.state.name, this.state.details, this.state.type, this.state.paradigms);
+      this.props.addPLHandler(this.state.name, this.state.details, this.state.type, this.state.pdids);
       this.setState(this.getInitialState());
     }
   },
@@ -234,9 +237,9 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
-  handleAddPL: function(name, details, type, paradigms) {
-    console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigms.split(','));
-
+  handleAddPL: function(name, details, type, paradigmIds) {
+    console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+    _API.addProgrammingLanguage(this.props.library,name,details,type,paradigmIds);
   },
   handleAddPD: function(name, details, subparadigms) {
     console.log('Create new PD ' + name + details + subparadigms);

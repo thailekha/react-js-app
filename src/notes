@@ -1,3 +1,5 @@
+-"filter" functionality for add paradigm createboxPL ?
+-allow empty paradigms in createboxPL
 -next: use the "having" to display more detailss
 -issue with re-rendering createbox when switching browsing mode
 -add paradigms: add parent and childparadigm
@@ -24,7 +26,7 @@ To refactor:
 -id fields of library is string after retrieving from localstograge ?
 -e.preventDefault
 -this.setState(this.getInitialState()) (be careful)
--util _API to be object having library object, updated when library is updated i.e. setLibrary => no need to pass props
+-util _API to be object having library object, updated when library is updated i.e. setLibrary => no need to pass props (this may be hard so just make _API methods to universaly use library as 1st argument, and use context -check react doc- to make library available everywhere)
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

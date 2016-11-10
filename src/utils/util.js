@@ -105,16 +105,28 @@ const _API = {
     }
     return relatedParadigms;
   },
-  checkParadigm: function(library,paradigmName) {
-    var result = false;
+  getParadigmId: function(library,paradigmName) {
+    var result = null;
     var items = library['Paradigms'];
     var index = _.findIndex(items, function(item) {
       return item['name'].toLowerCase() === paradigmName.toLowerCase();
     });
     if (index !== -1) {
-      result = true;
+      result = items[index];
     }
     return result;
+  },
+  getNextProgrammingLanguageID: function(library) {
+    //_.maxBy
+    var maxIDStr = _.maxBy(library['ProgrammingLanguages'], function(item) {
+      return item['pl-id'];
+    })['pl-id'];
+    console.log(maxIDStr);
+    return parseInt(maxIDStr) + 1;
+  },
+  addProgrammingLanguage: function(library,name,details,type,paradigms) {
+    var ID = this.getNextProgrammingLanguageID(library);
+    console.log('new PL ID: ' + ID);
   }
 }
 
