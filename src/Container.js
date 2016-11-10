@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from './utils/logger';
-import {U} from './utils/util';
+import {U, _API} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 
@@ -79,6 +79,12 @@ var Container = React.createClass({
       console.log('delete library called');
     }
   },
+  addProgrammingLanguage:  function(name, details, type, paradigmIds) {
+    if(loggedInAndHasEmail(this)) {
+      console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+      _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds);
+    }
+  },
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
@@ -96,6 +102,8 @@ var Container = React.createClass({
         create: library ? undefined : this.createLibrary,
         reload: this.setLibrary,
         delete: library ? this.deleteLibrary: undefined,
+        addPL: library ? this.addProgrammingLanguage : undefined,
+
         //TODO ADD PL,PD, ETC.
       };
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;

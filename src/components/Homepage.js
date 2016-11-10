@@ -39,7 +39,6 @@ var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('Homepage');
-    var library = this.props.library;
     var numberOfLanguages = 10;
     var numberOfParadigms = 10;
     return (
