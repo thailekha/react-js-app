@@ -14,6 +14,11 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 // }
 
 var PLContent = React.createClass({
+  componentDidMount: function() {
+    if(this.props.route.browsingMode) {
+      this.props.changeModeHandler(this.props.route.browsingMode);
+    }
+  },
   render: function() {
     logger.reportRender('PLContent');
     var programmingLanguage = _API.getProgrammingLanguage(this.props.items, this.props.routeParams['id']);
@@ -33,6 +38,11 @@ var PLContent = React.createClass({
 });
 
 var PDContent = React.createClass({
+  componentDidMount: function() {
+    if(this.props.route.browsingMode) {
+      this.props.changeModeHandler(this.props.route.browsingMode);
+    }
+  },
   render: function() {
     logger.reportRender('PDContent');
     var paradigm = _API.getParadigm(this.props.items, this.props.routeParams['id']);
@@ -194,6 +204,13 @@ var BrowsepageContainer = React.createClass({
       browsingMode: nState
     });
   },
+  changeBrowsingMode: function(mode) {
+    if (mode === 'programminglanguages' || mode === 'paradigms') {
+      this.setState({
+        browsingMode: mode
+      });
+    }
+  },
   handleAddPL: function(name, details, type) {
     console.log('Create new PL ' + name + details + type);
   },
@@ -218,6 +235,7 @@ var BrowsepageContainer = React.createClass({
         library: library,
         addPLHandler: this.handleAddPL,
         addPDHandler: this.handleAddPD,
+        changeModeHandler: this.changeBrowsingMode,
         items: items
       })
     }

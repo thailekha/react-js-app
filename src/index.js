@@ -46,10 +46,10 @@ const routes = (
 
     /*Move browsepage container here maybe*/
     <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
-      <Route path="createboxpl" component={BrowsepageCreateBoxPL}/>
-      <Route path="createboxpd" component={BrowsepageCreateBoxPD}/>
-      <Route path="pl/:id" component={PLContent}/>
-      <Route path="pd/:id" component={PDContent}/>
+      <Route path="createboxpl" browsingMode="programminglanguages" component={BrowsepageCreateBoxPL}/>
+      <Route path="createboxpd" browsingMode="paradigms" component={BrowsepageCreateBoxPD}/>
+      <Route path="pl/:id" browsingMode="programminglanguages" component={PLContent}/>
+      <Route path="pd/:id" browsingMode="paradigms" component={PDContent}/>
     </Route>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
