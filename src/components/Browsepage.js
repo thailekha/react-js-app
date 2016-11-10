@@ -199,12 +199,15 @@ var BrowsepageContainer = React.createClass({
     };
   },
   switchBrowsingMode: function() {
+    //for when clicking switching button. notice that the children is supplied from the router, it cannot be modified (read-only)
     var nState = this.state['browsingMode'] === 'programminglanguages' ? 'paradigms' : 'programminglanguages';
+    this.props.children = this.state['browsingMode'] === 'programminglanguages' ? PLContent : PDContent;
     this.setState({
       browsingMode: nState
     });
   },
   changeBrowsingMode: function(mode) {
+    //for when clicking subparadigms while viewing programming language
     if (mode === 'programminglanguages' || mode === 'paradigms') {
       this.setState({
         browsingMode: mode

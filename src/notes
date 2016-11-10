@@ -1,6 +1,7 @@
 -next: use the "having" to display more detailss
 -issue with re-rendering createbox when switching browsing mode
 -add paradigms: add parent and childparadigm
+-switch button only switches the navigation bar
 
 React does not allow any object with keys i.e. ID to be sent down the hierarchy as props
 
