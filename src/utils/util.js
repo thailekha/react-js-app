@@ -90,6 +90,20 @@ const _API = {
       result = items[index];
     }
     return result;
+  },
+  getAllHavings: function(library) {
+    return library['Having'];
+  },
+  getRelatedParadigms: function(library,programmingLanguageID) {
+    var havings = this.getAllHavings(library);
+    var relatedParadigms = [];
+    for(var i = 0; i < havings.length; i++) {
+      var having = havings[i];
+      if(U.isDefined(having['pl-id']) && U.isDefined(having['pd-id']) && having['pl-id'] === programmingLanguageID) {
+        relatedParadigms.push(this.getParadigm(library['Paradigms'],having['pd-id']));
+      }
+    }
+    return relatedParadigms;
   }
 }
 

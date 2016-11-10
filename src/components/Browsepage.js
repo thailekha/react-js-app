@@ -17,11 +17,16 @@ var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
     var programmingLanguage = _API.getProgrammingLanguage(this.props.items, this.props.routeParams['id']);
+    var relatedParadigms = _API.getRelatedParadigms(this.props.library,programmingLanguage['pl-id']).map(function(paradigm,index){
+      return <Link key={index} to={'/browse/pd/' + paradigm['pd-id']}>{paradigm['name']}</Link>
+    });
     return (
       <div>
         <h3>{programmingLanguage['name']}</h3>
         <b>{programmingLanguage['type']}</b>
         <p>{programmingLanguage['details']}</p>
+        <b>Related paradigms</b>
+        {relatedParadigms}
       </div>
     );
   }
@@ -210,6 +215,7 @@ var BrowsepageContainer = React.createClass({
       console.log('Browsepage Cloning children');
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
+        library: library,
         addPLHandler: this.handleAddPL,
         addPDHandler: this.handleAddPD,
         items: items
