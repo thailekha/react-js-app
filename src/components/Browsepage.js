@@ -207,6 +207,7 @@ var SubNavigationBar = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationBar');
     var linkToCreateBox = this.state.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
+    console.log('$$$');
     var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['pl-id']) {

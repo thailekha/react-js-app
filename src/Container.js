@@ -46,6 +46,7 @@ var Container = React.createClass({
       });
 
       var theState = {profile: extractAuth(this).getProfile()};
+      console.log(theState);
       if(extractAuth(this).loggedIn()) {
         theState['library'] = undefined;
       }
@@ -66,7 +67,9 @@ var Container = React.createClass({
       //req, component, toDoWithRes
       //make request to server to get the library
       U.makeReq('libraries/?email=' + email, this, function(component,objectFromServer) {
+        console.log('******');
         if(Array.isArray(objectFromServer) && objectFromServer.length === 1) {
+          console.log('~~~~~');
           component.setState({
             library: objectFromServer[0]
           });
@@ -82,7 +85,7 @@ var Container = React.createClass({
   addProgrammingLanguage:  function(name, details, type, paradigmIds) {
     if(loggedInAndHasEmail(this)) {
       console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
-      _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds);
+      _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds,this);
     }
   },
   addParadigm: function(name, details, subparadigms) {
@@ -107,7 +110,8 @@ var Container = React.createClass({
   },
   getProgrammingLanguage: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
-      console.log('***');
+      console.log('***$$$');
+      console.log(this.state.library['ProgrammingLanguages']);
       return _API.getProgrammingLanguage(this.state.library['ProgrammingLanguages'],programmingLanguageID);
     }
   },

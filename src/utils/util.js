@@ -66,31 +66,51 @@ const U = {
       console.log(response);
       console.log('util got response')
       console.log(typeof component);
+      component.setState({library: JSON.parse(response)});
+    });
+  },
+  updateLibrary: function(nLibrary, component) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3001/libraries/" + nLibrary.id,
+      "method": "PATCH",
+      "headers": {
+        "content-type": "application/json",
+        "cache-control": "no-cache",
+      },
+      "processData": false,
+      data: JSON.stringify(nLibrary)
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log('update library');
+      console.log(response);
       component.setState({library: response});
     });
   },
-  // deleteLibrary: function(id, component) {
-  //   var settings = {
-  //     "async": true,
-  //     "crossDomain": true,
-  //     "url": "http://localhost:3001/libraries/" + id,
-  //     "method": "DELETE",
-  //     "headers": {
-  //       "content-type": "application/json",
-  //       "cache-control": "no-cache"
-  //     }
-  //   }
-  //
-  //   $.ajax(settings).done(function (response) {
-  //     console.log(response);
-  //     console.log(response.statusCode);
-  //     if(response.statusCode === 200) {
-  //       component.setState({
-  //
-  //       });
-  //     }
-  //   });
-  // }
+  deleteLibrary: function(id, component, callback) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3001/libraries/" + id,
+      "method": "DELETE",
+      "headers": {
+        "cache-control": "no-cache"
+      }
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      console.log(response.statusCode);
+      if(response.statusCode === 200) {
+        // component.setState({
+        //   library: undefined
+        // });
+        callback(component,response)
+      }
+    });
+  }
 }
 
 const _API = {
@@ -107,7 +127,7 @@ const _API = {
   getProgrammingLanguage: function(items, id) {
     var result = null;
     var index = _.findIndex(items, function(item) {
-      return item['pl-id'] === id;
+      return item['pl-id'] + '' === id + '';
     });
     if (index !== -1) {
       result = items[index];
@@ -147,9 +167,26 @@ const _API = {
     console.log(maxIDStr);
     return parseInt(maxIDStr) + 1;
   },
-  addProgrammingLanguage: function(library,name,details,type,paradigms) {
+  addProgrammingLanguage: function(library,name,details,type,paradigmIDs,component) {
+    var nProgrammingLanguage = {
+      name: name,
+      details: details,
+      type: type
+    };
     var ID = this.getNextProgrammingLanguageID(library);
-    console.log(ID);
+    nProgrammingLanguage['pl-id'] = ID;
+    var Havings = [];
+    paradigmIDs.forEach(function(pd) {
+      Havings.push({
+        "pl-id": ID,
+        "pd-id": pd
+      });
+    });
+
+    var oldHavings = library['Having'];
+    library['ProgrammingLanguages'].push(nProgrammingLanguage);
+    library['Having'] = oldHavings.concat(Havings);
+    U.updateLibrary(library,component)
   }
 }
 

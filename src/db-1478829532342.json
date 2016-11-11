@@ -3,7 +3,7 @@
     {
       "id": 1,
       "email": "abc@yahoo.sample.com",
-      "name": "Sample repo 999",
+      "name": "Sample repo 1",
       "public": true,
       "Paradigms": [
         {
@@ -40,42 +40,6 @@
           "name": "Javascript",
           "details": "a high-level, dynamic, untyped, and interpreted programming language",
           "type": "interpreted"
-        },
-        {
-          "name": "a",
-          "details": "b",
-          "type": "c",
-          "pl-id": 3
-        },
-        {
-          "name": "d",
-          "details": "e",
-          "type": "f",
-          "pl-id": 4
-        },
-        {
-          "name": "z",
-          "details": "x",
-          "type": "c",
-          "pl-id": 5
-        },
-        {
-          "name": "q",
-          "details": "w",
-          "type": "e",
-          "pl-id": 6
-        },
-        {
-          "name": "j",
-          "details": "k",
-          "type": "l",
-          "pl-id": 7
-        },
-        {
-          "name": "aa",
-          "details": "bb",
-          "type": "cc",
-          "pl-id": 8
         }
       ],
       "Having": [
@@ -86,20 +50,17 @@
         {
           "pd-id": "1",
           "pl-id": "2"
-        },
-        {
-          "pl-id": 3,
-          "pd-id": {
-            "pd-id": "3",
-            "name": "Class-based",
-            "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
-            "subParadigms": []
-          }
         }
       ]
     },
     {
-      "id": 2
+      "id": 2,
+      "email": "30sectomars@email.com",
+      "name": "fantasy",
+      "public": true,
+      "Paradigms": [],
+      "ProgrammingLanguages": [],
+      "Having": []
     }
   ]
 }
