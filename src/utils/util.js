@@ -149,14 +149,17 @@ const _API = {
     return relatedParadigms;
   },
   getParadigmId: function(library,paradigmName) {
+    console.log('_API/finding ID of paradigm' + paradigmName);
     var result = null;
     var items = library['Paradigms'];
+    //this is the index of the PD in the PDs array, not pd-id
     var index = _.findIndex(items, function(item) {
       return item['name'].toLowerCase() === paradigmName.toLowerCase();
     });
     if (index !== -1) {
-      result = items[index];
+      result = items[index]['pd-id'];
     }
+    console.log('_API/result: ' + result);
     return result;
   },
   getNextProgrammingLanguageID: function(library) {
@@ -187,6 +190,10 @@ const _API = {
     library['ProgrammingLanguages'].push(nProgrammingLanguage);
     library['Having'] = oldHavings.concat(Havings);
     U.updateLibrary(library,component)
+  },
+  deleteProgrammingLanguage: function(library, programmingLanguageID) {
+    //PLs
+    //Havings
   }
 }
 

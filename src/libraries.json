@@ -76,6 +76,12 @@
           "details": "bb",
           "type": "cc",
           "pl-id": 8
+        },
+        {
+          "name": "g",
+          "details": "h",
+          "type": "j",
+          "pl-id": 9
         }
       ],
       "Having": [
@@ -95,6 +101,10 @@
             "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
             "subParadigms": []
           }
+        },
+        {
+          "pl-id": 9,
+          "pd-id": 1
         }
       ]
     },
