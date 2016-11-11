@@ -97,10 +97,26 @@ var Container = React.createClass({
   },
   getParadigmID: function(name) {
     if(loggedInAndHasEmail(this)) {
-      _API.getParadigmId(this.state.library,name);
+      return _API.getParadigmId(this.state.library,name);
     }
   },
-  //TODO if(loggedInAndHasEmail(this))
+  getRelatedParadigms: function(programmingLanguageID) {
+    if(loggedInAndHasEmail(this)) {
+      return _API.getRelatedParadigms(this.state.library,programmingLanguageID);
+    }
+  },
+  getProgrammingLanguage: function(programmingLanguageID) {
+    if(loggedInAndHasEmail(this)){
+      console.log('***');
+      return _API.getProgrammingLanguage(this.state.library['ProgrammingLanguages'],programmingLanguageID);
+    }
+  },
+  getParadigm: function(paradigmID) {
+    if(loggedInAndHasEmail(this)) {
+      return _API.getParadigm(this.state.library['Paradigms'], paradigmID);
+    }
+  },
+  //TODO if(loggedInAndHasEmail(this)), this.state.library
 
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
@@ -120,9 +136,12 @@ var Container = React.createClass({
         reload: this.setLibrary,
         delete: library ? this.deleteLibrary: undefined,
         addPL: library ? this.addProgrammingLanguage : undefined,
+        getPL: library ? this.getProgrammingLanguage : undefined,
         addPD: library ? this.addParadigm : undefined,
+        getPD:library ? this.getParadigm : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
         getPDID: library ? this.getParadigmID : undefined,
+        getRelatedParadigms: library ? this.getRelatedParadigms : undefined,
         available: U.isDefined(library)
         //TODO ADD PL,PD, ETC.
       };

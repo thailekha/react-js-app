@@ -3,6 +3,7 @@
  */
 var request = require('superagent');
 var $ = require('jquery');
+var _ = require('lodash');
 
 //statusCode
 const U = {

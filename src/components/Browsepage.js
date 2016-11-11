@@ -1,8 +1,6 @@
 import React, {PropTypes as T} from 'react';
 import logger from '../utils/logger';
 import {Button} from 'react-bootstrap';
-import {_API} from '../utils/util';
-import _ from 'lodash';
 import {Link, Route, Router, hashHistory} from 'react-router';
 
 //TODO: fix " == undefined" to 'typeof ...'
@@ -16,8 +14,8 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
-    var programmingLanguage = _API.getProgrammingLanguage(this.props.items, this.props.routeParams['id']);
-    var relatedParadigms = _API.getRelatedParadigms(this.props.library, programmingLanguage['pl-id']).map(function(paradigm, index) {
+    var programmingLanguage = this.props.libraryManager.getPL(this.props.routeParams['id']);
+    var relatedParadigms = this.props.libraryManager.getRelatedParadigms(programmingLanguage['pl-id']).map(function(paradigm, index) {
       return <Link key={index} to={'/browse/pd/' + paradigm['pd-id']}>{paradigm['name']}</Link>
     });
     return (
@@ -35,11 +33,11 @@ var PLContent = React.createClass({
 var PDContent = React.createClass({
   render: function() {
     logger.reportRender('PDContent');
-    var paradigm = _API.getParadigm(this.props.items, this.props.routeParams['id']);
+    var paradigm = this.props.libraryManager.getPD(this.props.routeParams['id']);
     var subParadigms = paradigm['subParadigms'].map(function(subParadigmID, index) {
       //subParadigm pd-ids in items are strings !!!
       return <Link key={index}
-                   to={'/browse/pd/' + subParadigmID}>{_API.getParadigm(this.props.items, subParadigmID + '')['name']}</Link>
+                   to={'/browse/pd/' + subParadigmID}>{this.props.libraryManager.getPD(subParadigmID + '')['name']}</Link>
     }.bind(this));
     return (
       <div>
@@ -77,6 +75,7 @@ var BrowsepageCreateBoxPL = React.createClass({
     this.setState({paradigm: e.target.value});
   },
   handleAddParadigm: function(e) {
+    e.preventDefault();
     var nParadigm = this.state.paradigm;
     var pdid = this.props.libraryManager.getPDID(nParadigm);
     if (nParadigm.length > 0 && pdid) {
@@ -243,9 +242,8 @@ var BrowsepageContainer = React.createClass({
     if (this.props.children) {
       console.log('Browsepage Cloning children');
 
-
       var libraryManager = this.props.libraryManager;
-      
+
       var programmingLanguages = [];
       var paradigms = [];
       if (libraryManager.available) {
