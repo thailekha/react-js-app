@@ -126,14 +126,32 @@ const _API = {
     return result;
   },
   getProgrammingLanguage: function(items, id) {
-    console.log('_API/getProgrammingLanguage ' + id + ', from ' + items);
+    console.log('_API/getProgrammingLanguage ' + id + ', from ');
+    console.log(items);
+    console.log(items.length);
     var result = null;
-    var index = _.findIndex(items, function(item) {
-      return item['pl-id'] + '' === id + '';
-    });
-    if (index !== -1) {
-      result = items[index];
+
+    for(var i = 0; i < items.length; i++) {
+      console.log('#########');
+      console.log(items[i]);
+      if(items[i]['pl-id'] + '' === id + '') {
+        result = items[i];
+      }
     }
+    //for some reason lodash does not look at the last item of the array
+    // var index = _.findIndex(items, function(item) {
+    //   console.log(item);
+    //   console.log('_API/getProgrammingLanguage -> item ' + item['name']);
+    //   return item['pl-id'] + '' === id + '';
+    // });
+    // if (index !== -1) {
+    //   result = items[index];
+    // }
+    console.log('_API/getProgrammingLanguage/ result: ');
+    console.log('%');
+    console.log(result);
+    console.log('$');
+    console.log(result['pl-id']);
     return result;
   },
   getAllHavings: function(library) {

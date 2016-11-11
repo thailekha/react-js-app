@@ -110,6 +110,7 @@ var Container = React.createClass({
   },
   getProgrammingLanguage: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
+      console.log('Container/getProgrammingLanguage()');
       return _API.getProgrammingLanguage(this.state.library['ProgrammingLanguages'],programmingLanguageID);
     }
   },
