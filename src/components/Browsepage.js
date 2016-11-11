@@ -158,7 +158,7 @@ var BrowsepageCreateBoxPD = React.createClass({
   handleAdd: function(e) {
     if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.subParadigms.length > 0) {
       e.preventDefault();
-      this.props.addPDHandler(this.state.name, this.state.details, this.state.subParadigms);
+      this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.subParadigms);
       this.setState({
         name: '',
         details: '',
@@ -237,12 +237,8 @@ var SubNavigationBar = React.createClass({
 
 //must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
-  handleAddPD: function(name, details, subparadigms) {
-    console.log('Create new PD ' + name + details + subparadigms);
-  },
   render: function() {
     logger.reportRender('BrowsepageContainer');
-
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
@@ -258,7 +254,6 @@ var BrowsepageContainer = React.createClass({
         //Must clone children to pass arguments to them
         library: library,
         libraryManager: this.props.libraryManager,
-        addPDHandler: this.handleAddPD,
         items: items
       })
     }

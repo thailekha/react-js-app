@@ -85,6 +85,9 @@ var Container = React.createClass({
       _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds);
     }
   },
+  addParadigm: function(name, details, subparadigms) {
+    console.log('Create new PD ' + name + details + subparadigms);
+  },
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
@@ -103,7 +106,7 @@ var Container = React.createClass({
         reload: this.setLibrary,
         delete: library ? this.deleteLibrary: undefined,
         addPL: library ? this.addProgrammingLanguage : undefined,
-
+        addPD: library ? this.addParadigm : undefined,
         //TODO ADD PL,PD, ETC.
       };
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
