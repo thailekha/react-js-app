@@ -114,6 +114,7 @@ const U = {
 }
 
 const _API = {
+  //This set of methods deal with the local library object then makes change to the library object on the server if needed
   getParadigm: function(items, id) {
     var result = null;
     var index = _.findIndex(items, function(item) {
@@ -125,6 +126,7 @@ const _API = {
     return result;
   },
   getProgrammingLanguage: function(items, id) {
+    console.log('_API');
     var result = null;
     var index = _.findIndex(items, function(item) {
       return item['pl-id'] + '' === id + '';
@@ -191,9 +193,25 @@ const _API = {
     library['Having'] = oldHavings.concat(Havings);
     U.updateLibrary(library,component)
   },
-  deleteProgrammingLanguage: function(library, programmingLanguageID) {
+  deleteProgrammingLanguage: function(library, programmingLanguageID, component) {
+    var identity = function(item) {
+      if(typeof item['pl-id'] !== typeof programmingLanguageID)
+        console.log('_API/deleting PL: unexpected types');
+      return item['pl-id'] === programmingLanguageID;
+    };
+
     //PLs
+    var pls = library['ProgrammingLanguages'];
+    var removedIDFromPls = _.remove(pls,identity);
+    console.log('_API/removed from PLs: ' + removedIDFromPls);
+
     //Havings
+    var havings = library['Having'];
+    var removedIDFromHavings = _.remove(havings,identity);
+    console.log('_API/removed from Havings: ' + removedIDFromHavings);
+
+    //update library on server
+    U.updateLibrary(library,component);
   }
 }
 

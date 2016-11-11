@@ -12,6 +12,9 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 // }
 
 var PLContent = React.createClass({
+  handleDelete: function() {
+    this.props.libraryManager.deletePL(this.props.routeParams['id']);
+  },
   render: function() {
     logger.reportRender('PLContent');
     var programmingLanguage = this.props.libraryManager.getPL(this.props.routeParams['id']);
@@ -25,6 +28,7 @@ var PLContent = React.createClass({
         <p>{programmingLanguage['details']}</p>
         <b>Related paradigms</b>
         {relatedParadigms}
+        <Button onClick={this.handleDelete}>Delete</Button>
       </div>
     );
   }
@@ -251,6 +255,10 @@ var BrowsepageContainer = React.createClass({
         programmingLanguages = libraryManager.getAttr('ProgrammingLanguages');
         paradigms = libraryManager.getAttr('Paradigms');
       }
+
+      console.log('&&&');
+      console.log(programmingLanguages.concat(paradigms));
+
       var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them

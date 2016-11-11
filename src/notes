@@ -1,5 +1,7 @@
 PATCH VS PUT ?
 
+-CRUD for any model
+
 -library CRUD methods are at container and passed down as inverse flow
 -create locally & update the whole library (this includes delete the current library on the server)
 vs update the library on the server (this includes changing the model eg. pl-id to pl_id and use filter request + many async requests)
@@ -34,7 +36,7 @@ To refactor:
 -id fields of library is string after retrieving from localstograge ?
 -e.preventDefault
 -this.setState(this.getInitialState()) (be careful)
--util _API to be object having library object, updated when library is updated i.e. setLibrary => no need to pass props (this may be hard so just make _API methods to universaly use library as 1st argument, and use context -check react doc- to make library available everywhere)
+-general validator: has attr (array of attrs), attr of expected type, range, size of array
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

@@ -110,9 +110,12 @@ var Container = React.createClass({
   },
   getProgrammingLanguage: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
-      console.log('***$$$');
-      console.log(this.state.library['ProgrammingLanguages']);
       return _API.getProgrammingLanguage(this.state.library['ProgrammingLanguages'],programmingLanguageID);
+    }
+  },
+  deleteProgrammingLanguage: function(programmingLanguageID) {
+    if(loggedInAndHasEmail(this)){
+      _API.deleteProgrammingLanguage(this.state.library,programmingLanguageID,this);
     }
   },
   getParadigm: function(paradigmID) {
@@ -141,6 +144,7 @@ var Container = React.createClass({
         delete: library ? this.deleteLibrary: undefined,
         addPL: library ? this.addProgrammingLanguage : undefined,
         getPL: library ? this.getProgrammingLanguage : undefined,
+        deletePL: library ? this.deleteProgrammingLanguage : undefined,
         addPD: library ? this.addParadigm : undefined,
         getPD:library ? this.getParadigm : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
