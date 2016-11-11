@@ -1,6 +1,7 @@
 /**
  * Created by HP on 11/4/2016.
  */
+
 var request = require('superagent');
 var $ = require('jquery');
 var _ = require('lodash');

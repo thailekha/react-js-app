@@ -55,7 +55,8 @@
     "start": "cross-env NODE_ENV=development hjs-dev-server",
     "build": "react-scripts build",
     "test": "mocha --require babel-core/register \"./src/tests/Browsepage.test.js\"",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "runtypecheck": "flow"
   },
   "optionalDependencies": {}
 }
