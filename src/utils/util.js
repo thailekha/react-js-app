@@ -116,13 +116,21 @@ const U = {
 const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
   getParadigm: function(items, id) {
+    console.log('_API/getParadigm');
+    console.log(items);
+    console.log(id);
     var result = null;
     var index = _.findIndex(items, function(item) {
-      return item['pd-id'] === id;
+      console.log(item['pd-id']);
+      console.log('===');
+      console.log(id);
+      return item['pd-id'] + '' === id + '';
     });
     if (index !== -1) {
       result = items[index];
     }
+    console.log('^^^');
+    console.log(result);
     return result;
   },
   getProgrammingLanguage: function(items, id) {
