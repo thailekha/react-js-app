@@ -86,8 +86,22 @@ var Container = React.createClass({
     }
   },
   addParadigm: function(name, details, subparadigms) {
-    console.log('Create new PD ' + name + details + subparadigms);
+    if(loggedInAndHasEmail(this)) {
+      console.log('Create new PD ' + name + details + subparadigms);
+    }
   },
+  getPropertyFromLibrary: function(property) {
+    if(loggedInAndHasEmail(this)) {
+      return this.state.library[property];
+    }
+  },
+  getParadigmID: function(name) {
+    if(loggedInAndHasEmail(this)) {
+      _API.getParadigmId(this.state.library,name);
+    }
+  },
+  //TODO if(loggedInAndHasEmail(this))
+
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
@@ -107,6 +121,9 @@ var Container = React.createClass({
         delete: library ? this.deleteLibrary: undefined,
         addPL: library ? this.addProgrammingLanguage : undefined,
         addPD: library ? this.addParadigm : undefined,
+        getAttr: library ? this.getPropertyFromLibrary : undefined,
+        getPDID: library ? this.getParadigmID : undefined,
+        available: U.isDefined(library)
         //TODO ADD PL,PD, ETC.
       };
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;

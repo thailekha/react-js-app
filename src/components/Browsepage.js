@@ -78,7 +78,7 @@ var BrowsepageCreateBoxPL = React.createClass({
   },
   handleAddParadigm: function(e) {
     var nParadigm = this.state.paradigm;
-    var pdid = _API.getParadigmId(this.props.library,nParadigm)
+    var pdid = this.props.libraryManager.getPDID(nParadigm);
     if (nParadigm.length > 0 && pdid) {
       var oldState = this.state.paradigms;
       var newState = oldState + (oldState.length === 0 ? '' : ',') + nParadigm;
@@ -242,18 +242,20 @@ var BrowsepageContainer = React.createClass({
     let children = null;
     if (this.props.children) {
       console.log('Browsepage Cloning children');
-      var library = this.props.library;
+
+
+      var libraryManager = this.props.libraryManager;
+      
       var programmingLanguages = [];
       var paradigms = [];
-      if (library !== undefined) {
-        programmingLanguages = library['ProgrammingLanguages'];
-        paradigms = library['Paradigms'];
+      if (libraryManager.available) {
+        programmingLanguages = libraryManager.getAttr('ProgrammingLanguages');
+        paradigms = libraryManager.getAttr('Paradigms');
       }
       var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
-        library: library,
-        libraryManager: this.props.libraryManager,
+        libraryManager: libraryManager,
         items: items
       })
     }
