@@ -126,7 +126,7 @@ const _API = {
     return result;
   },
   getProgrammingLanguage: function(items, id) {
-    console.log('_API');
+    console.log('_API/getProgrammingLanguage ' + id + ', from ' + items);
     var result = null;
     var index = _.findIndex(items, function(item) {
       return item['pl-id'] + '' === id + '';
