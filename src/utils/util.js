@@ -161,9 +161,8 @@ var U = {
       if (res) {
         //response will be an array of libraries, whose length will be used as the ID for the new library
         var libraries = JSON.parse(res.text);
-        typify.assert('array', libraries)
+        typify.assert('array library', libraries)
         var newID = libraries.length;
-        console.log('util createing new lib, id: ' + newID);
         this.reqCreateLibrary(newID, email, libName, component);
       } else {
         console.log(error);
@@ -187,20 +186,26 @@ var U = {
 
     $.ajax(settings).done(function(response, textStatus) {
       console.log('reqCreateLibrary()/response');
-      console.log(response);
-      doTypeCheck('library', response, 'IS NOT library', function(invalidObject) {
-        //component is set to null since setState isn't needed
-        this.deleteLibrary(invalidObject.id, null, function(component, response) {
-          //compoennt is null here
-          console.log('Invalid library deleted');
-        });
-
-        //TODO: notice the 2 bindings
-      }.bind(this));
-      //component.setState({library: response});
+      //validate textStatus
+      if (typify.check('textStatus', textStatus) && textStatus === 'success') {
+        //validate response
+        doTypeCheck('library', response, 'IS NOT library',
+          function(validResponse) {
+            component.setState({library: validResponse});
+          }.bind(this),
+          function(invalidRespone) {
+            //component is set to null since setState isn't needed
+            this.deleteLibrary(invalidRespone.id, null, function(component, response) {
+              //component is null here
+              console.log('Invalid library deleted');
+            });
+          });
+        //
+      }
     }.bind(this));
   }),
   updateLibrary: typify('updateLibrary :: library -> * -> *', function(nLibrary, component) {
+    console.log('updateLibrary()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -214,11 +219,18 @@ var U = {
       data: JSON.stringify(nLibrary)
     }
 
-    $.ajax(settings).done(function(response) {
-      console.log('update library');
-      console.log(response);
-      component.setState({library: response});
-    });
+    $.ajax(settings).done(function(response, textStatus) {
+      console.log('updateLibrary()/response');
+      //validate textStatus
+      if (typify.check('textStatus', textStatus) && textStatus === 'success') {
+        //validate response
+        //type, object, catchMessage, successCallback, finallyCallback
+        doTypeCheck('library', response, 'IS NOT library object',
+          function(validResponse) {
+            component.setState({library: validResponse});
+          }.bind(this), null);
+      }
+    }.bind(this));
   }),
   //component can be null in case setState is not needed
   deleteLibrary: typify('deleteLibrary :: number -> * -> function -> *', function(id, component, callback) {
