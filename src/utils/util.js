@@ -92,7 +92,9 @@ const U = {
     .end(function(error, res) {
       if (res) {
         //response will be an array of libraries, whose length will be used as the ID for the new library
-        var newID = JSON.parse(res.text).length;
+        var libraries = JSON.parse(res.text);
+        typify.assert('array', libraries)
+        var newID = libraries.length;
         console.log('util createing new lib, id: ' + newID);
         this.reqCreateLibrary(newID, email, libName, component);
       } else {
@@ -101,6 +103,7 @@ const U = {
     }.bind(this));
   }),
   reqCreateLibrary: typify('reqCreateLibrary :: number -> string -> string -> * -> *', function(id, email, libName, component) {
+    console.log('reqCreateLibrary()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -111,14 +114,23 @@ const U = {
         "cache-control": "no-cache"
       },
       "processData": false,
-      "data": "{\"id\": " + id + ",\"email\": \"" + email + "\",\"name\": \"" + libName + "\",\"public\": true,\"paradigms\": [],\"programminglanguages\": [],\"Having\": []}"
+      "data": "{\"id\": " + id + ",\"email\": \"" + email + "\",\"name\": \"" + libName + "\",\"public\": true,\"paradigms\": [],\"programminglanguages\": [],\"havings\": []}"
     }
 
     $.ajax(settings).done(function(response) {
+      console.log('reqCreateLibrary()/response');
       console.log(response);
-      console.log('util got response')
-      console.log(typeof component);
-      component.setState({library: JSON.parse(response)});
+      try {
+        typify.assert('library', response);
+      }
+      catch (err) {
+        console.log(response);
+        console.log('IS NOT library');
+      }
+      finally {
+        //delete library
+      }
+      component.setState({library: response});
     });
   }),
   updateLibrary: typify('updateLibrary :: library -> * -> *', function(nLibrary, component) {
