@@ -40,8 +40,8 @@ var PLContent = React.createClass({
 var PDContent = React.createClass({
   render: function() {
     logger.reportRender('PDContent');
-    var paradigm = this.props.libraryManager.getPD(this.props.routeParams['id']);
-    var subParadigms = paradigm['subParadigms'].map(function(subParadigmID, index) {
+    var paradigm = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id']));
+    var subParadigms = paradigm['subparadigms'].map(function(subParadigmID, index) {
       //subParadigm pd-ids in items are strings !!!
       return <Link key={index}
                    to={'/browse/pd/' + subParadigmID}>{this.props.libraryManager.getPD(subParadigmID)['name']}</Link>

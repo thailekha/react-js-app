@@ -50,6 +50,7 @@ To refactor:
 -general validator: has attr (array of attrs), attr of expected type, range, size of array
 -make a type for react component
 -bind statements
+-createPL: add PD => retrieve all subparadigms
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route
