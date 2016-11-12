@@ -64,22 +64,28 @@ typify.type("textStatus", function(t) {
  * Refer to: http://api.jquery.com/jquery.ajax/
  * textStatus can be: "success", "notmodified", "nocontent", "error", "timeout", "abort", or "parsererror"
  *
+ * bind => argument of surrounding function is also in scope
  * */
 
-const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> *', function(type, object, catchMessage, finallyCallback) {
-  try {
-    typify.assert(type, object);
-    //success callback
+const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> function | null -> *',
+  function(type, object, catchMessage, successCallback, finallyCallback) {
+    try {
+      console.log(object[0].id);
+      typify.assert(type, object);
+      successCallback(object);
+    }
+    catch (err) {
+      console.warn(err);
+      console.log(object);
+      console.warn(catchMessage);
+    }
+    finally {
+      if(finallyCallback) {
+        finallyCallback(object);
+      }
+    }
   }
-  catch (err) {
-    console.warn(err);
-    console.log(object);
-    console.warn(catchMessage);
-  }
-  finally {
-    finallyCallback(object);
-  }
-});
+);
 
 const getNewLibraryObjectInString = typify('getNewLibraryObjectInString :: number -> string -> string -> string', function(id, email, libName) {
   return JSON.stringify({
@@ -98,14 +104,8 @@ var U = {
   isDefined: typify('isDefined :: * -> boolean', function(object) {
     return typeof object !== 'undefined';
   }),
-  // propertiesNumberToString: function(object, properties) {
-  //   for (var i = 0; i < properties.length; i++) {
-  //     if (this.isDefined(object[properties[i]]) && typeof object[properties[i]] === 'number') {
-  //       object[properties[i]] += '';
-  //     }
-  //   }
-  // },
   getLibrary: typify('getLibrary :: string -> * -> *', function(email, component) {
+    console.log('getLibrary()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -115,21 +115,25 @@ var U = {
         "cache-control": "no-cache"
       }
     }
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-      //response is an array of library objects
-      typify.assert('(array library)', response);
-      if (response.statusCode === 200) {
-        if (response.length > 0 && response <= 1) {
-          component.setState({
-            library: response[0]
-          });
-        }
-        else {
-          console.log('Error: util/getLibrary() gets more than 1 libraries');
-        }
+    $.ajax(settings).done(function(response, textStatus) {
+      console.log('getLibrary()/response');
+      //validate textStatus
+      if (typify.check('textStatus', textStatus) && textStatus === 'success') {
+        //validate response
+        doTypeCheck('array', response, 'IS NOT array of library objects', function(validResponse) {
+          //component is visible when binded carefully
+          if (validResponse.length >= 0 && validResponse.length <= 1) {
+            component.setState({
+              library: validResponse[0]
+            });
+          }
+          else {
+            console.log('Error: util/getLibrary() gets more than 1 libraries');
+          }
+        }.bind(this),null);
       }
-    });
+    }.bind(this));
+
   }),
   createLibrary: typify('createLibrary :: string -> string -> * -> *', function(email, libName, component) {
     request.get('http://localhost:3001/libraries')
@@ -158,10 +162,10 @@ var U = {
         "cache-control": "no-cache"
       },
       "processData": false,
-      "data": getNewLibraryObjectInString(id,email,libName)
+      "data": getNewLibraryObjectInString(id, email, libName)
     }
 
-    $.ajax(settings).done(function(response) {
+    $.ajax(settings).done(function(response, textStatus) {
       console.log('reqCreateLibrary()/response');
       console.log(response);
       doTypeCheck('library', response, 'IS NOT library', function(invalidObject) {
