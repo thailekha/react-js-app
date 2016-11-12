@@ -1,13 +1,63 @@
 {
   "libraries": [
     {
-      "id": 1,
-      "email": "flash@email.com",
-      "name": "justice league",
+      "id": 0,
+      "email": "abc@yahoo.sample.com",
+      "name": "Sample repo 1",
       "public": true,
-      "paradigms": [],
-      "programminglanguages": [],
-      "havings": []
+      "paradigms": [
+        {
+          "pdid": 1,
+          "name": "Object-oriented",
+          "details": "Object-oriented programming (OOP) is a programming paradigm based on the concept of \"objects\"",
+          "subparadigms": [
+            2,
+            3
+          ]
+        },
+        {
+          "pdid": 2,
+          "name": "Actor-based",
+          "details": "The actor model in computer science is a mathematical model of concurrent computation that treats \"actors\" as the universal primitives of concurrent computation",
+          "subparadigms": []
+        },
+        {
+          "pdid": 3,
+          "name": "Class-based",
+          "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
+          "subparadigms": []
+        }
+      ],
+      "programminglanguages": [
+        {
+          "plid": 1,
+          "name": "Java",
+          "details": "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible",
+          "type": "compiled"
+        },
+        {
+          "plid": 2,
+          "name": "Javascript",
+          "details": "a high-level, dynamic, untyped, and interpreted programming language",
+          "type": "interpreted"
+        }
+      ],
+      "havings": [
+        {
+          "pdid": 1,
+          "plid": 1
+        },
+        {
+          "pdid": 1,
+          "plid": 2
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "email": "batman@yahoo.sample.com",
+      "name": "Sample repo 2",
+      "public": false
     }
   ]
 }

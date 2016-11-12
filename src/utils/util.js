@@ -45,14 +45,56 @@ typify.type("having", function(hv) {
     && hv.plid >= 1
 });
 
+typify.type("textStatus", function(t) {
+  return typeof t === 'string' && (
+      t === "success"
+      || t === "notmodified"
+      || t === "nocontent"
+      || t === "error"
+      || t === "timeout"
+      || t === "abort"
+      || t === "parsererror"
+    );
+});
+
 /*
  *
  * NOTICE: response from jquery HTTP is already parse to an object, don't parse again
+ * response object of jquery ajax does not have statusCode
+ * Refer to: http://api.jquery.com/jquery.ajax/
+ * textStatus can be: "success", "notmodified", "nocontent", "error", "timeout", "abort", or "parsererror"
  *
  * */
 
+const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> *', function(type, object, catchMessage, finallyCallback) {
+  try {
+    typify.assert(type, object);
+    //success callback
+  }
+  catch (err) {
+    console.warn(err);
+    console.log(object);
+    console.warn(catchMessage);
+  }
+  finally {
+    finallyCallback(object);
+  }
+});
+
+const getNewLibraryObjectInString = typify('getNewLibraryObjectInString :: number -> string -> string -> string', function(id, email, libName) {
+  return JSON.stringify({
+    id: id,
+    email: email,
+    name: libName,
+    public: true,
+    paradigms: [],
+    programminglanguages: [],
+    havings: []
+  });
+});
+
 //statusCode
-const U = {
+var U = {
   isDefined: typify('isDefined :: * -> boolean', function(object) {
     return typeof object !== 'undefined';
   }),
@@ -77,13 +119,15 @@ const U = {
       console.log(response);
       //response is an array of library objects
       typify.assert('(array library)', response);
-      if (response.length == 1) {
-        component.setState({
-          library: response[0]
-        });
-      }
-      else {
-        console.log('Error: util/getLibrary() gets more than 1 libraries');
+      if (response.statusCode === 200) {
+        if (response.length > 0 && response <= 1) {
+          component.setState({
+            library: response[0]
+          });
+        }
+        else {
+          console.log('Error: util/getLibrary() gets more than 1 libraries');
+        }
       }
     });
   }),
@@ -114,24 +158,23 @@ const U = {
         "cache-control": "no-cache"
       },
       "processData": false,
-      "data": "{\"id\": " + id + ",\"email\": \"" + email + "\",\"name\": \"" + libName + "\",\"public\": true,\"paradigms\": [],\"programminglanguages\": [],\"havings\": []}"
+      "data": getNewLibraryObjectInString(id,email,libName)
     }
 
     $.ajax(settings).done(function(response) {
       console.log('reqCreateLibrary()/response');
       console.log(response);
-      try {
-        typify.assert('library', response);
-      }
-      catch (err) {
-        console.log(response);
-        console.log('IS NOT library');
-      }
-      finally {
-        //delete library
-      }
-      component.setState({library: response});
-    });
+      doTypeCheck('library', response, 'IS NOT library', function(invalidObject) {
+        //component is set to null since setState isn't needed
+        this.deleteLibrary(invalidObject.id, null, function(component, response) {
+          //compoennt is null here
+          console.log('Invalid library deleted');
+        });
+
+        //TODO: notice the 2 bindings
+      }.bind(this));
+      //component.setState({library: response});
+    }.bind(this));
   }),
   updateLibrary: typify('updateLibrary :: library -> * -> *', function(nLibrary, component) {
     var settings = {
@@ -153,7 +196,9 @@ const U = {
       component.setState({library: response});
     });
   }),
+  //component can be null in case setState is not needed
   deleteLibrary: typify('deleteLibrary :: number -> * -> function -> *', function(id, component, callback) {
+    console.log('deleteLibrary()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -163,11 +208,9 @@ const U = {
         "cache-control": "no-cache"
       }
     }
-
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-      console.log(response.statusCode);
-      if (response.statusCode === 200) {
+    $.ajax(settings).done(function(response, textStatus) {
+      console.log('deleteLibrary()/response');
+      if (typify.check('textStatus', textStatus) && textStatus === 'success') {
         // component.setState({
         //   library: undefined
         // });
@@ -238,13 +281,12 @@ const _API = {
   }),
   getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
     //_.maxBy
-    var maxIDStr = 1;
+    var maxID = 0;
     //TODO : check what lodash return if terating through empty array
-    maxIDStr = _.maxBy(library['programminglanguages'], function(item) {
+    maxID = _.maxBy(library['programminglanguages'], function(item) {
       return item['plid'];
     })['plid'];
-    console.log(maxIDStr);
-    return parseInt(maxIDStr) + 1;
+    return maxID + 1;
   }),
   //nothing is returned so -> *
   addProgrammingLanguage: typify('addProgrammingLanguage :: library -> string -> string -> string -> (array number) -> * -> *',
