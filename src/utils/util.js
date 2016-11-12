@@ -5,6 +5,10 @@
 var request = require('superagent');
 var $ = require('jquery');
 var _ = require('lodash');
+var typify = require('typify');
+
+//define library type
+typify.type("library",);
 
 //statusCode
 const U = {
