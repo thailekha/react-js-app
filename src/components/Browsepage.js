@@ -13,11 +13,12 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 
 var PLContent = React.createClass({
   handleDelete: function() {
-    this.props.libraryManager.deletePL(this.props.routeParams['id']);
+    this.props.libraryManager.deletePL(parseInt(this.props.routeParams['id']));
   },
   render: function() {
     logger.reportRender('PLContent');
-    var programmingLanguage = this.props.libraryManager.getPL(this.props.routeParams['id']);
+    var plid = parseInt(this.props.routeParams['id']);
+    var programmingLanguage = this.props.libraryManager.getPL(plid);
     console.log(this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']));
     var relatedParadigms = this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']).map(function(paradigm, index) {
       console.log('@@@' + paradigm);

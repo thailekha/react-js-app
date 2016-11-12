@@ -179,8 +179,8 @@ const _API = {
     }
     return result;
   }),
-  getProgrammingLanguage: function(library, id) {
-    console.log('_API/getProgrammingLanguage ');
+  getProgrammingLanguage: typify('getProgrammingLanguage :: library -> number -> programminglanguage',function(library, id) {
+    console.log('_API/getProgrammingLanguage()');
     var items = library['programminglanguages'];
     var result = null;
 
@@ -199,12 +199,9 @@ const _API = {
     //   result = items[index];
     // }
     return result;
-  },
-  getAllHavings: function(library) {
-    return library['havings'];
-  },
+  }),
   getRelatedParadigms: function(library, programmingLanguageID) {
-    var havings = this.getAllHavings(library);
+    var havings = library['havings'];
     var relatedParadigms = [];
     for (var i = 0; i < havings.length; i++) {
       var having = havings[i];
