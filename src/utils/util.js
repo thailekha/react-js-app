@@ -8,7 +8,9 @@ var _ = require('lodash');
 var typify = require('typify');
 
 //define library type
-//typify.type("library",);
+// typify.type("library",function(lib) {
+//   return typeof lib.id === 'number' && lib.id >= 1 && typeof lib.email === 'string' && typeof
+// });
 
 //statusCode
 const U = {
