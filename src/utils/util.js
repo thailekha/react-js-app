@@ -80,7 +80,7 @@ const U = {
       typify.assert('(array library)',response);
       if(response.length == 1) {
         component.setState({
-          library: response
+          library: response[0]
         });
       }
       else {

@@ -64,18 +64,6 @@ var Container = React.createClass({
   setLibrary: function() {
     if (loggedInAndHasEmail(this)) {
       var email = extractAuth(this).getProfile().email;
-      //req, component, toDoWithRes
-      //make request to server to get the library
-      // U.makeReq('libraries/?email=' + email, this, function(component,objectFromServer) {
-      //   console.log('******');
-      //   if(Array.isArray(objectFromServer) && objectFromServer.length === 1) {
-      //     console.log('~~~~~');
-      //     component.setState({
-      //       library: objectFromServer[0]
-      //     });
-      //   }
-      // });
-
       U.getLibrary(email,this);
     }
   },
