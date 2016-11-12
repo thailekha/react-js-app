@@ -96,7 +96,7 @@ var Container = React.createClass({
   getPDID: function(name) {
     if(loggedInAndHasEmail(this)) {
       console.log('Container/getPDID()');
-      return _API.getParadigmId(this.state.library,name);
+      return _API.getParadigmID(this.state.library,name);
     }
   },
   getRelatedPDs: function(programmingLanguageID) {
