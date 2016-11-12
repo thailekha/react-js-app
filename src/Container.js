@@ -54,31 +54,31 @@ var Container = React.createClass({
     }
     return null;
   },
-  createLibrary: function(libName) {
+  createLib: function(libName) {
     if (loggedInAndHasEmail(this)) {
       console.log('Homepage create library');
       //server will response with the new library object so U will handle setting state
       U.createLibrary(extractAuth(this).getProfile().email, libName, this);
     }
   },
-  setLibrary: function() {
+  setLib: function() {
     if (loggedInAndHasEmail(this)) {
       var email = extractAuth(this).getProfile().email;
       U.getLibrary(email,this);
     }
   },
-  deleteLibrary: function() {
+  deleteLib: function() {
     if(loggedInAndHasEmail(this)) {
       console.log('delete library called');
     }
   },
-  addProgrammingLanguage:  function(name, details, type, paradigmIds) {
+  addPL:  function(name, details, type, paradigmIds) {
     if(loggedInAndHasEmail(this)) {
       console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
       _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds,this);
     }
   },
-  addParadigm: function(name, details, subparadigms) {
+  addPD: function(name, details, subparadigms) {
     if(loggedInAndHasEmail(this)) {
       console.log('Create new PD ' + name + details + subparadigms);
     }
@@ -88,28 +88,28 @@ var Container = React.createClass({
       return this.state.library[property];
     }
   },
-  getParadigmID: function(name) {
+  getPDID: function(name) {
     if(loggedInAndHasEmail(this)) {
       return _API.getParadigmId(this.state.library,name);
     }
   },
-  getRelatedParadigms: function(programmingLanguageID) {
+  getRelatedPDs: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)) {
       return _API.getRelatedParadigms(this.state.library,programmingLanguageID);
     }
   },
-  getProgrammingLanguage: function(programmingLanguageID) {
+  getPL: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
       console.log('Container/getProgrammingLanguage()');
       return _API.getProgrammingLanguage(this.state.library,programmingLanguageID);
     }
   },
-  deleteProgrammingLanguage: function(programmingLanguageID) {
+  deletePL: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
       _API.deleteProgrammingLanguage(this.state.library,programmingLanguageID,this);
     }
   },
-  getParadigm: function(paradigmID) {
+  getPD: function(paradigmID) {
     if(loggedInAndHasEmail(this)) {
       console.log('Container/getParadigm()');
       return _API.getParadigm(this.state.library, paradigmID);
@@ -120,7 +120,7 @@ var Container = React.createClass({
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
-    this.setLibrary();
+    this.setLib();
   },
   render() {
     logger.reportRender('Container');
@@ -131,21 +131,21 @@ var Container = React.createClass({
       //note that json-server return filtered query as an array
       var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
       const libraryManager = {
-        create: library ? undefined : this.createLibrary,
-        reload: this.setLibrary,
-        delete: library ? this.deleteLibrary: undefined,
-        addPL: library ? this.addProgrammingLanguage : undefined,
-        getPL: library ? this.getProgrammingLanguage : undefined,
-        deletePL: library ? this.deleteProgrammingLanguage : undefined,
-        addPD: library ? this.addParadigm : undefined,
-        getPD:library ? this.getParadigm : undefined,
+        create: library ? undefined : this.createLib,
+        reload: this.setLib,
+        delete: library ? this.deleteLib : undefined,
+        addPL: library ? this.addPL : undefined,
+        getPL: library ? this.getPL : undefined,
+        deletePL: library ? this.deletePL : undefined,
+        addPD: library ? this.addPD : undefined,
+        getPD:library ? this.getPD : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
-        getPDID: library ? this.getParadigmID : undefined,
-        getRelatedParadigms: library ? this.getRelatedParadigms : undefined,
+        getPDID: library ? this.getPDID : undefined,
+        getRelatedPDs: library ? this.getRelatedPDs : undefined,
         available: U.isDefined(library)
         //TODO ADD PL,PD, ETC.
       };
-      var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLibrary: undefined;
+      var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib: undefined;
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
