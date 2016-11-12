@@ -3,11 +3,11 @@
     {
       "id": 1,
       "email": "abc@yahoo.sample.com",
-      "name": "Sample repo 999",
+      "name": "Sample repo 1",
       "public": true,
       "Paradigms": [
         {
-          "pd-id": "1",
+          "pd": 1,
           "name": "Object-oriented",
           "details": "Object-oriented programming (OOP) is a programming paradigm based on the concept of \"objects\"",
           "subParadigms": [
@@ -16,13 +16,13 @@
           ]
         },
         {
-          "pd-id": "2",
+          "pdid": 2,
           "name": "Actor-based",
           "details": "The actor model in computer science is a mathematical model of concurrent computation that treats \"actors\" as the universal primitives of concurrent computation",
           "subParadigms": []
         },
         {
-          "pd-id": "3",
+          "pdid": 3,
           "name": "Class-based",
           "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
           "subParadigms": []
@@ -30,86 +30,34 @@
       ],
       "ProgrammingLanguages": [
         {
-          "pl-id": "1",
+          "plid": 1,
           "name": "Java",
           "details": "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible",
           "type": "compiled"
         },
         {
-          "pl-id": "2",
+          "plid": 2,
           "name": "Javascript",
           "details": "a high-level, dynamic, untyped, and interpreted programming language",
           "type": "interpreted"
-        },
-        {
-          "name": "a",
-          "details": "b",
-          "type": "c",
-          "pl-id": 3
-        },
-        {
-          "name": "d",
-          "details": "e",
-          "type": "f",
-          "pl-id": 4
-        },
-        {
-          "name": "z",
-          "details": "x",
-          "type": "c",
-          "pl-id": 5
-        },
-        {
-          "name": "q",
-          "details": "w",
-          "type": "e",
-          "pl-id": 6
-        },
-        {
-          "name": "j",
-          "details": "k",
-          "type": "l",
-          "pl-id": 7
-        },
-        {
-          "name": "aa",
-          "details": "bb",
-          "type": "cc",
-          "pl-id": 8
-        },
-        {
-          "name": "g",
-          "details": "h",
-          "type": "j",
-          "pl-id": 9
         }
       ],
       "Having": [
         {
-          "pd-id": "1",
-          "pl-id": "1"
+          "pdid": 1,
+          "plid": 1
         },
         {
-          "pd-id": "1",
-          "pl-id": "2"
-        },
-        {
-          "pl-id": 3,
-          "pd-id": {
-            "pd-id": "3",
-            "name": "Class-based",
-            "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
-            "subParadigms": []
-          }
-        },
-        {
-          "pl-id": 9,
-          "pd-id": 1
+          "pdid": 1,
+          "plid": 2
         }
       ]
     },
     {
-      "id": 2
+      "id": 2,
+      "email": "batman@yahoo.sample.com",
+      "name": "Sample repo 2",
+      "public": false
     }
   ]
 }
