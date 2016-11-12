@@ -324,7 +324,7 @@ const _API = {
       var oldHavings = library['havings'];
       library['programminglanguages'].push(nProgrammingLanguage);
       library['havings'] = oldHavings.concat(Havings);
-      U.updateLibrary(library, component, function(component,validResponse){
+      U.updateLibrary(library, component, function(component, validResponse) {
         component.setState({library: validResponse});
       })
     }),
@@ -364,6 +364,18 @@ const _API = {
     }
     return relatedParadigms;
   }),
+  getNextParadigmID: typify('getNextParadigmID :: library -> number', function(library) {
+    console.log('_API/getNextParadigmID(' + library + ')');
+    //_.maxBy
+    //TODO : ldoash returns undefined if the given array is empty
+    if (library['paradigms'].length > 0) {
+      var maxID = _.maxBy(library['paradigms'], function(item) {
+        return item['pdid'];
+      })['pdid'];
+      return maxID + 1;
+    }
+    return 1;
+  }),
   getParadigm: typify('getParadigm :: library -> number -> paradigm | null', function(library, id) {
     console.log('_API/getParadigm(' + library + ',' + id + ')');
     var items = library['paradigms'];
@@ -388,7 +400,22 @@ const _API = {
       result = items[index]['pdid'];
     }
     return result;
-  })
+  }),
+  addParadigm: typify('addParadigm :: library -> string -> string -> (array number) -> * -> *',
+    function(library, name, details, subparadigms, component) {
+      console.log('_API/addParadigm(' + library + ',' + name + ',' + details + ',' + subparadigms + ',' + component + ')');
+      var nParadigm = {
+        pdid: this.getNextParadigmID(library),
+        name: name,
+        details: details,
+        subparadigms: subparadigms
+      }
+
+      library['paradigms'].push(nParadigm);
+      U.updateLibrary(library, component, function(component, validResponse) {
+        component.setState({library: validResponse});
+      })
+    })
 }
 
 export {U, _API, defineLibraryAppDataTypes};

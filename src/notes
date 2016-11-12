@@ -40,6 +40,9 @@ when logging in, check if localstorage already have library object that does not
 
 To refactor:
 -a button to report renders
+-first arg of some methods is number => to represent the chain of methods
+eg. getX(1, ...) => first print out _getX...
+ getY(3, ...) => print ___getY...
 -use proptypes to ensure auth object is trustable, refer to Home.old.js
 -is time required to be sync w auth0 server ? (laptop is UTC + 7)
 -clear "libraryundefined" in localStorage
@@ -52,6 +55,9 @@ To refactor:
 -bind statements
 -createPL: add PD => retrieve all subparadigms
 -check if get methods need to return null
+-duplicate havings
+-duplicate pd or subpd being added
+-void and not_logged_in in container (already defined in util?)
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

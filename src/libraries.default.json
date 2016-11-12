@@ -26,14 +26,6 @@
           "name": "Class-based",
           "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
           "subparadigms": []
-        },
-        {
-          "pdid": 4,
-          "name": "qe",
-          "details": "zxc",
-          "subparadigms": [
-            3
-          ]
         }
       ],
       "programminglanguages": [

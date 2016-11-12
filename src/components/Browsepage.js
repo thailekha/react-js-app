@@ -148,7 +148,9 @@ var BrowsepageCreateBoxPD = React.createClass({
     return {
       name: '',
       details: '',
-      subParadigms: ''
+      subParadigm: '',
+      subParadigms: '',
+      spdids: []
     };
   },
   handleNameChange: function(e) {
@@ -157,41 +159,62 @@ var BrowsepageCreateBoxPD = React.createClass({
   handleDetailsChange: function(e) {
     this.setState({details: e.target.value});
   },
-  handleSubParadigmsChange: function(e) {
-    this.setState({subParadigms: e.target.value});
+  handleSubParadigmChange: function(e) {
+    this.setState({subParadigm: e.target.value});
+  },
+  handleAddSubParadigm: function(e) {
+    e.preventDefault();
+    var nSubParadigm = this.state.subParadigm;
+    var spdid = this.props.libraryManager.getPDID(nSubParadigm);
+    if (nSubParadigm.length > 0 && spdid) {
+      var oldState = this.state.subParadigms;
+      var newState = oldState + (oldState.length === 0 ? '' : ',') + nSubParadigm;
+      this.state.spdids.push(spdid);
+      console.log(newState);
+      this.setState({
+        subParadigm: '',
+        subParadigms: newState
+      });
+    }
   },
   handleAdd: function(e) {
-    if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.subParadigms.length > 0) {
+    if (this.state.name.length > 0 && this.state.details.length > 0) {
       e.preventDefault();
-      this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.subParadigms);
-      this.setState({
-        name: '',
-        details: '',
-        subParadigms: ''
-      });
+      this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.spdids);
+      this.setState(this.getInitialState());
     }
   },
   render: function() {
     logger.reportRender('CreateBox');
     return (
-      <form style={{marginTop: '30px'}}>
-        <h3>Add a new paradigm</h3>
-        <div className="form-group">
-          <input type="text"
-                 className="form-control" placeholder="Name"
-                 value={this.state.name}
-                 onChange={this.handleNameChange}></input>
-          <input type="text"
-                 className="form-control" placeholder="Details"
-                 value={this.state.details}
-                 onChange={this.handleDetailsChange}></input>
-          <input type="text"
-                 className="form-control" placeholder="SubParadigms"
-                 value={this.state.subParadigms}
-                 onChange={this.handleSubParadigmsChange}></input>
-        </div>
-        <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
-      </form>
+      <div>
+        <form style={{marginTop: '30px'}}>
+          <h3>Add a new paradigm</h3>
+          <div className="form-group">
+            <input type="text"
+                   className="form-control" placeholder="Name"
+                   value={this.state.name}
+                   onChange={this.handleNameChange}></input>
+            <input type="text"
+                   className="form-control" placeholder="Details"
+                   value={this.state.details}
+                   onChange={this.handleDetailsChange}></input>
+            <input type="text" disabled
+                   className="form-control"
+                   value={this.state.subParadigms}></input>
+          </div>
+          <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
+        </form>
+        <form>
+          <h3>What subparadigms does this have ?</h3>
+          <div className="form-group">
+            <input type="text"
+                   className="form-control" placeholder="Paragidms"
+                   value={this.state.subParadigm} onChange={this.handleSubParadigmChange}></input>
+            <Button onClick={this.handleAddSubParadigm}>Add PD</Button>
+          </div>
+        </form>
+      </div>
     );
   }
 });

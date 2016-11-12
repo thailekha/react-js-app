@@ -115,14 +115,14 @@ var Container = React.createClass({
       }
       return NOT_LOGGED_IN;
     }),
-  getPL: typify('getPL :: number -> programminglanguage | null | NOT_LOGGED_IN',function(programmingLanguageID) {
+  getPL: typify('getPL :: number -> programminglanguage | null | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getPL()');
       return _API.getProgrammingLanguage(this.state.library, programmingLanguageID);
     }
     return NOT_LOGGED_IN;
   }),
-  deletePL: typify('deletePL :: number -> VOID | NOT_LOGGED_IN',function(programmingLanguageID) {
+  deletePL: typify('deletePL :: number -> VOID | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/deletePL()');
       _API.deleteProgrammingLanguage(this.state.library, programmingLanguageID, this);
@@ -130,7 +130,7 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
-  getRelatedPDs: typify('getRelatedPDs :: number -> (array paradigm) | NOT_LOGGED_IN',function(programmingLanguageID) {
+  getRelatedPDs: typify('getRelatedPDs :: number -> (array paradigm) | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getRelatedPDs()');
       return _API.getRelatedParadigms(this.state.library, programmingLanguageID);
@@ -142,6 +142,7 @@ var Container = React.createClass({
       if (loggedInAndHasEmail(this)) {
         console.log('Container/addPD()');
         console.log('Create new PD ' + name + details + subparadigms);
+        _API.addParadigm(this.state.library, name, details, subparadigms, this);
         return VOID;
       }
       return NOT_LOGGED_IN;
@@ -153,7 +154,7 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
-  getPD: typify('getPD :: number -> paradigm | null | NOT_LOGGED_IN',function(paradigmID) {
+  getPD: typify('getPD :: number -> paradigm | null | NOT_LOGGED_IN', function(paradigmID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getPD()');
       return _API.getParadigm(this.state.library, paradigmID);
