@@ -214,7 +214,6 @@ var SubNavigationBar = React.createClass({
   render: function() {
     logger.reportRender('SubNavigationBar');
     var linkToCreateBox = this.state.browsingMode === 'programminglanguages' ? '/browse/createboxpl' : '/browse/createboxpd';
-    console.log('$$$');
     var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['plid']) {
@@ -258,10 +257,7 @@ var BrowsepageContainer = React.createClass({
         programmingLanguages = libraryManager.getAttr('programminglanguages');
         paradigms = libraryManager.getAttr('paradigms');
       }
-
-      console.log('&&&');
       console.log(programmingLanguages.concat(paradigms));
-
       var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them

@@ -53,16 +53,16 @@ typify.type("having", function(hv) {
 
 //statusCode
 const U = {
-  isDefined: function(object) {
+  isDefined: typify('isDefined :: * -> boolean', function(object) {
     return typeof object !== 'undefined';
-  },
-  propertiesNumberToString: function(object, properties) {
-    for (var i = 0; i < properties.length; i++) {
-      if (this.isDefined(object[properties[i]]) && typeof object[properties[i]] === 'number') {
-        object[properties[i]] += '';
-      }
-    }
-  },
+  }),
+  // propertiesNumberToString: function(object, properties) {
+  //   for (var i = 0; i < properties.length; i++) {
+  //     if (this.isDefined(object[properties[i]]) && typeof object[properties[i]] === 'number') {
+  //       object[properties[i]] += '';
+  //     }
+  //   }
+  // },
   getLibrary: typify('getLibrary :: string -> * -> *', function(email, component) {
     var settings = {
       "async": true,
@@ -87,7 +87,7 @@ const U = {
       }
     });
   }),
-  createLibrary: function(email, libName, component) {
+  createLibrary: typify('createLibrary :: string -> string -> * -> *', function(email, libName, component) {
     request.get('http://localhost:3001/libraries')
     .end(function(error, res) {
       if (res) {
@@ -99,8 +99,8 @@ const U = {
         console.log(error);
       }
     }.bind(this));
-  },
-  reqCreateLibrary: function(id, email, libName, component) {
+  }),
+  reqCreateLibrary: typify('reqCreateLibrary :: number -> string -> string -> * -> *', function(id, email, libName, component) {
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -120,8 +120,8 @@ const U = {
       console.log(typeof component);
       component.setState({library: JSON.parse(response)});
     });
-  },
-  updateLibrary: function(nLibrary, component) {
+  }),
+  updateLibrary: typify('updateLibrary :: library -> * -> *', function(nLibrary, component) {
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -140,8 +140,8 @@ const U = {
       console.log(response);
       component.setState({library: response});
     });
-  },
-  deleteLibrary: function(id, component, callback) {
+  }),
+  deleteLibrary: typify('deleteLibrary :: number -> * -> function -> *', function(id, component, callback) {
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -162,7 +162,7 @@ const U = {
         callback(component, response)
       }
     });
-  }
+  })
 }
 
 const _API = {
@@ -237,27 +237,27 @@ const _API = {
   //nothing is returned so -> *
   addProgrammingLanguage: typify('addProgrammingLanguage :: library -> string -> string -> string -> (array number) -> * -> *',
     function(library, name, details, type, paradigmIDs, component) {
-    var nProgrammingLanguage = {
-      name: name,
-      details: details,
-      type: type
-    };
-    var ID = this.getNextProgrammingLanguageID(library);
-    nProgrammingLanguage['plid'] = ID;
-    var Havings = [];
-    paradigmIDs.forEach(function(pd) {
-      Havings.push({
-        "plid": ID,
-        "pdid": pd
+      var nProgrammingLanguage = {
+        name: name,
+        details: details,
+        type: type
+      };
+      var ID = this.getNextProgrammingLanguageID(library);
+      nProgrammingLanguage['plid'] = ID;
+      var Havings = [];
+      paradigmIDs.forEach(function(pd) {
+        Havings.push({
+          "plid": ID,
+          "pdid": pd
+        });
       });
-    });
 
-    var oldHavings = library['havings'];
-    library['programminglanguages'].push(nProgrammingLanguage);
-    library['havings'] = oldHavings.concat(Havings);
-    U.updateLibrary(library, component)
-  }),
-  deleteProgrammingLanguage: typify('deleteProgrammingLanguage :: library -> number -> * -> *',function(library, programmingLanguageID, component) {
+      var oldHavings = library['havings'];
+      library['programminglanguages'].push(nProgrammingLanguage);
+      library['havings'] = oldHavings.concat(Havings);
+      U.updateLibrary(library, component)
+    }),
+  deleteProgrammingLanguage: typify('deleteProgrammingLanguage :: library -> number -> * -> *', function(library, programmingLanguageID, component) {
     var identity = function(item) {
       if (typeof item['plid'] !== typeof programmingLanguageID)
         console.log('_API/deleting PL: unexpected types');

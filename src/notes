@@ -42,6 +42,7 @@ To refactor:
 -e.preventDefault
 -this.setState(this.getInitialState()) (be careful)
 -general validator: has attr (array of attrs), attr of expected type, range, size of array
+-make a type for react component
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route
