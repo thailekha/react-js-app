@@ -115,21 +115,29 @@ var BrowsepageCreateBoxPL = React.createClass({
         <form style={{marginTop: '30px'}}>
           <h3>Add a new Programming language</h3>
           <div className="form-group">
-            <input type="text"
-                   className="form-control" placeholder="Name"
-                   value={this.state.name}
-                   onChange={this.handleNameChange}></input>
-            <input type="text"
-                   className="form-control" placeholder="Details"
-                   value={this.state.details}
-                   onChange={this.handleDetailsChange}></input>
-            <input type="text"
-                   className="form-control" placeholder="Type"
-                   value={this.state.type}
-                   onChange={this.handleTypeChange}></input>
-            <input type="text" disabled
-                   className="form-control"
-                   value={this.state.paradigms}></input>
+            <div>
+              <input type="text"
+                     className="form-control" placeholder="Name"
+                     value={this.state.name}
+                     onChange={this.handleNameChange}></input>
+            </div>
+            <div>
+            <textarea type="text"
+                      className="form-control" placeholder="Details"
+                      value={this.state.details}
+                      onChange={this.handleDetailsChange}></textarea>
+            </div>
+            <div>
+              <input type="text"
+                     className="form-control" placeholder="Type"
+                     value={this.state.type}
+                     onChange={this.handleTypeChange}></input>
+            </div>
+            <div>
+              <input type="text" disabled
+                     className="form-control"
+                     value={this.state.paradigms}></input>
+            </div>
           </div>
           <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
 
@@ -197,17 +205,23 @@ var BrowsepageCreateBoxPD = React.createClass({
         <form style={{marginTop: '30px'}}>
           <h3>Add a new paradigm</h3>
           <div className="form-group">
-            <input type="text"
-                   className="form-control" placeholder="Name"
-                   value={this.state.name}
-                   onChange={this.handleNameChange}></input>
-            <input type="text"
-                   className="form-control" placeholder="Details"
-                   value={this.state.details}
-                   onChange={this.handleDetailsChange}></input>
-            <input type="text" disabled
-                   className="form-control"
-                   value={this.state.subParadigms}></input>
+            <div>
+              <input type="text"
+                     className="form-control" placeholder="Name"
+                     value={this.state.name}
+                     onChange={this.handleNameChange}></input>
+            </div>
+            <div>
+            <textarea type="text"
+                      className="form-control" placeholder="Details"
+                      value={this.state.details}
+                      onChange={this.handleDetailsChange}></textarea>
+            </div>
+            <div>
+              <input type="text" disabled
+                     className="form-control"
+                     value={this.state.subParadigms}></input>
+            </div>
           </div>
           <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
         </form>

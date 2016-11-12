@@ -422,7 +422,7 @@ const _API = {
     var identity = function(item) {
       if (typeof item['pdid'] !== typeof paradigmID)
         console.log('_API/deleting PD: unexpected types');
-      console.log('#' + item['pdid'] + ' === ' + paradigmID + ' ? ' + item['pdid'] === paradigmID);
+      //console.log('#' + item['pdid'] + ' === ' + paradigmID + ' ? ' + item['pdid'] === paradigmID);
       return item['pdid'] === paradigmID;
     };
 

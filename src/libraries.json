@@ -46,6 +46,12 @@
           "details": "345",
           "type": "678",
           "plid": 3
+        },
+        {
+          "name": "a",
+          "details": "zzxccccccccccccccccccccccccccccccc",
+          "type": "xcvbcbvcvb",
+          "plid": 4
         }
       ],
       "havings": [
