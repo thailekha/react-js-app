@@ -8,9 +8,42 @@ var _ = require('lodash');
 var typify = require('typify');
 
 //define library type
-// typify.type("library",function(lib) {
-//   return typeof lib.id === 'number' && lib.id >= 1 && typeof lib.email === 'string' && typeof
-// });
+typify.type("library", function(lib) {
+  return typeof lib.id === 'number'
+    && lib.id >= 1
+    && typeof lib.email === 'string'
+    && typeof lib.name === 'string'
+    && typeof lib.public === 'boolean'
+    && Array.isArray(lib.paradigms)
+    && Array.isArray(lib.programminglanguages)
+    && Array.isArray(lib.havings)
+});
+
+//define programminglanguage type
+typify.type("programminglanguage", function(pl) {
+  return typeof pl.plid === 'number'
+    && pl.plid >= 1
+    && typeof pl.name === 'string'
+    && typeof pl.details === 'string'
+    && typeof pl.type === 'string'
+});
+
+//define paradigm type
+typify.type("paradigm", function(pd) {
+  return typeof pd.pdid === 'number'
+    && pd.pdid >= 1
+    && typeof pd.name === 'string'
+    && typeof pd.details === 'string'
+    && Array.isArray(pd.subparadigms)
+});
+
+//define having type
+typify.type("having", function(hv) {
+  return typeof hv.pdid === 'number'
+  && typeof hv.plid === 'number'
+  && hv.pdid >= 1
+  && hv.plid >= 1
+});
 
 //statusCode
 const U = {
@@ -26,7 +59,7 @@ const U = {
         if (saveToLocalstorage && itemName)
           localStorage.setItem(itemName, JSON.stringify(json));
 
-        toDoWithRes(component,json);
+        toDoWithRes(component, json);
       } else {
         console.log(error);
       }
@@ -90,7 +123,7 @@ const U = {
       data: JSON.stringify(nLibrary)
     }
 
-    $.ajax(settings).done(function (response) {
+    $.ajax(settings).done(function(response) {
       console.log('update library');
       console.log(response);
       component.setState({library: response});
@@ -107,14 +140,14 @@ const U = {
       }
     }
 
-    $.ajax(settings).done(function (response) {
+    $.ajax(settings).done(function(response) {
       console.log(response);
       console.log(response.statusCode);
-      if(response.statusCode === 200) {
+      if (response.statusCode === 200) {
         // component.setState({
         //   library: undefined
         // });
-        callback(component,response)
+        callback(component, response)
       }
     });
   }
@@ -139,8 +172,8 @@ const _API = {
     var items = library['ProgrammingLanguages'];
     var result = null;
 
-    for(var i = 0; i < items.length; i++) {
-      if(items[i]['pl-id'] + '' === id + '') {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i]['pl-id'] + '' === id + '') {
         result = items[i];
       }
     }
@@ -158,18 +191,18 @@ const _API = {
   getAllHavings: function(library) {
     return library['Having'];
   },
-  getRelatedParadigms: function(library,programmingLanguageID) {
+  getRelatedParadigms: function(library, programmingLanguageID) {
     var havings = this.getAllHavings(library);
     var relatedParadigms = [];
-    for(var i = 0; i < havings.length; i++) {
+    for (var i = 0; i < havings.length; i++) {
       var having = havings[i];
-      if(U.isDefined(having['pl-id']) && U.isDefined(having['pd-id']) && having['pl-id'] === programmingLanguageID) {
-        relatedParadigms.push(this.getParadigm(library['Paradigms'],having['pd-id']));
+      if (U.isDefined(having['pl-id']) && U.isDefined(having['pd-id']) && having['pl-id'] === programmingLanguageID) {
+        relatedParadigms.push(this.getParadigm(library['Paradigms'], having['pd-id']));
       }
     }
     return relatedParadigms;
   },
-  getParadigmId: function(library,paradigmName) {
+  getParadigmId: function(library, paradigmName) {
     console.log('_API/finding ID of paradigm' + paradigmName);
     var result = null;
     var items = library['Paradigms'];
@@ -191,7 +224,7 @@ const _API = {
     console.log(maxIDStr);
     return parseInt(maxIDStr) + 1;
   },
-  addProgrammingLanguage: function(library,name,details,type,paradigmIDs,component) {
+  addProgrammingLanguage: function(library, name, details, type, paradigmIDs, component) {
     var nProgrammingLanguage = {
       name: name,
       details: details,
@@ -210,27 +243,27 @@ const _API = {
     var oldHavings = library['Having'];
     library['ProgrammingLanguages'].push(nProgrammingLanguage);
     library['Having'] = oldHavings.concat(Havings);
-    U.updateLibrary(library,component)
+    U.updateLibrary(library, component)
   },
   deleteProgrammingLanguage: function(library, programmingLanguageID, component) {
     var identity = function(item) {
-      if(typeof item['pl-id'] !== typeof programmingLanguageID)
+      if (typeof item['pl-id'] !== typeof programmingLanguageID)
         console.log('_API/deleting PL: unexpected types');
       return item['pl-id'] === programmingLanguageID;
     };
 
     //PLs
     var pls = library['ProgrammingLanguages'];
-    var removedIDFromPls = _.remove(pls,identity);
+    var removedIDFromPls = _.remove(pls, identity);
     console.log('_API/removed from PLs: ' + removedIDFromPls);
 
     //Havings
     var havings = library['Having'];
-    var removedIDFromHavings = _.remove(havings,identity);
+    var removedIDFromHavings = _.remove(havings, identity);
     console.log('_API/removed from Havings: ' + removedIDFromHavings);
 
     //update library on server
-    U.updateLibrary(library,component);
+    U.updateLibrary(library, component);
   }
 }
 

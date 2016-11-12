@@ -122,40 +122,41 @@ http://www.objgen.com/json
 
 json-server libraries.json --port 3001
 
+
 libraries[0]
   id n = 1
   email = abc@yahoo.sample.com
   name = Sample repo 1
   public b = true
-  Paradigms[0]
-    pd n = 1
+  paradigms[0]
+    pdid n = 1
     name = Object-oriented
     details s = Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects"
-    subParadigms[] n = 2,3
-  Paradigms[1]
+    subparadigms[] n = 2,3
+  paradigms[1]
     pdid n = 2
     name = Actor-based
     details s = The actor model in computer science is a mathematical model of concurrent computation that treats "actors" as the universal primitives of concurrent computation
-    subParadigms[] n
-  Paradigms[2]
+    subparadigms[] n
+  paradigms[2]
     pdid n = 3
     name = Class-based
     details s = a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects
-    subParadigms[] n
-  ProgrammingLanguages[0]
+    subparadigms[] n
+  programminglanguages[0]
     plid n = 1
     name = Java
     details = Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible
     type = compiled
-  ProgrammingLanguages[1]
+  programminglanguages[1]
     plid n = 2
     name = Javascript
     details =  a high-level, dynamic, untyped, and interpreted programming language
     type = interpreted
-  Having[0]
+  havings[0]
     pdid n = 1
     plid n = 1
-  Having[1]
+  havings[1]
     pdid n = 1
     plid n = 2
 libraries[1]
