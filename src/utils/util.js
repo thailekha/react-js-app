@@ -9,8 +9,29 @@ var typify = require('typify');
 
 //define library type
 typify.type("library", function(lib) {
+  /**
+   * for debug mode, do not delete
+   */
+  // console.log('Checking library type');
+  // console.log('typeof lib.id === \'number\' ');
+  // console.log(typeof lib.id === 'number');
+  // console.log('lib.id >= 0');
+  // console.log(lib.id >= 0);
+  // console.log('typeof lib.email === \'string\' ');
+  // console.log(typeof lib.email === 'string');
+  // console.log('typeof lib.name === \'string\' ');
+  // console.log(typeof lib.name === 'string');
+  // console.log('typeof lib.public === \'boolean\' ');
+  // console.log(typeof lib.public === 'boolean');
+  // console.log('Array.isArray(lib.paradigms) ');
+  // console.log(Array.isArray(lib.paradigms));
+  // console.log('Array.isArray(lib.programminglanguages) ');
+  // console.log(Array.isArray(lib.programminglanguages));
+  // console.log('Array.isArray(lib.havings) ');
+  // console.log(Array.isArray(lib.havings));
+
   return typeof lib.id === 'number'
-    && lib.id >= 1
+    && lib.id >= 0
     && typeof lib.email === 'string'
     && typeof lib.name === 'string'
     && typeof lib.public === 'boolean'
@@ -70,7 +91,6 @@ typify.type("textStatus", function(t) {
 const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> function | null -> *',
   function(type, object, catchMessage, successCallback, finallyCallback) {
     try {
-      console.log(object[0].id);
       typify.assert(type, object);
       successCallback(object);
     }
@@ -80,7 +100,7 @@ const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> 
       console.warn(catchMessage);
     }
     finally {
-      if(finallyCallback) {
+      if (finallyCallback) {
         finallyCallback(object);
       }
     }
@@ -120,7 +140,7 @@ var U = {
       //validate textStatus
       if (typify.check('textStatus', textStatus) && textStatus === 'success') {
         //validate response
-        doTypeCheck('array', response, 'IS NOT array of library objects', function(validResponse) {
+        doTypeCheck('(array library)', response, 'IS NOT array of library objects', function(validResponse) {
           //component is visible when binded carefully
           if (validResponse.length >= 0 && validResponse.length <= 1) {
             component.setState({
@@ -130,7 +150,7 @@ var U = {
           else {
             console.log('Error: util/getLibrary() gets more than 1 libraries');
           }
-        }.bind(this),null);
+        }.bind(this), null);
       }
     }.bind(this));
 
