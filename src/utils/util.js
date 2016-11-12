@@ -119,7 +119,6 @@ const getNewLibraryObjectInString = typify('getNewLibraryObjectInString :: numbe
   });
 });
 
-//statusCode
 var U = {
   isDefined: typify('isDefined :: * -> boolean', function(object) {
     return typeof object !== 'undefined';
@@ -317,12 +316,14 @@ const _API = {
   }),
   getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
     //_.maxBy
-    var maxID = 0;
-    //TODO : check what lodash return if terating through empty array
-    maxID = _.maxBy(library['programminglanguages'], function(item) {
-      return item['plid'];
-    })['plid'];
-    return maxID + 1;
+    //TODO : ldoash returns undefined if the given array is empty
+    if(library['programminglanguages'].length > 0) {
+      var maxID = _.maxBy(library['programminglanguages'], function(item) {
+        return item['plid'];
+      })['plid'];
+      return maxID + 1;
+    }
+    return 1;
   }),
   //nothing is returned so -> *
   addProgrammingLanguage: typify('addProgrammingLanguage :: library -> string -> string -> string -> (array number) -> * -> *',
