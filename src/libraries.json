@@ -26,14 +26,6 @@
           "name": "Class-based",
           "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
           "subparadigms": []
-        },
-        {
-          "pdid": 4,
-          "name": "qe",
-          "details": "zxc",
-          "subparadigms": [
-            3
-          ]
         }
       ],
       "programminglanguages": [
@@ -48,6 +40,12 @@
           "name": "Javascript",
           "details": "a high-level, dynamic, untyped, and interpreted programming language",
           "type": "interpreted"
+        },
+        {
+          "name": "123",
+          "details": "345",
+          "type": "678",
+          "plid": 3
         }
       ],
       "havings": [

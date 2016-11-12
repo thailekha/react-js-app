@@ -410,12 +410,38 @@ const _API = {
         details: details,
         subparadigms: subparadigms
       }
-
       library['paradigms'].push(nParadigm);
       U.updateLibrary(library, component, function(component, validResponse) {
         component.setState({library: validResponse});
       })
-    })
+    }),
+  deleteParadigm: typify('deleteParadigm :: library -> number -> * -> *', function(library, paradigmID, component) {
+    console.log('_API/deleteParadigm(' + library + ' ,' + paradigmID + ' ,' + component);
+
+    //to be passed to _
+    var identity = function(item) {
+      if (typeof item['pdid'] !== typeof paradigmID)
+        console.log('_API/deleting PD: unexpected types');
+      console.log('#' + item['pdid'] + ' === ' + paradigmID + ' ? ' + item['pdid'] === paradigmID);
+      return item['pdid'] === paradigmID;
+    };
+
+    //PDs
+    var pds = library['paradigms'];
+    var removedIDFromPDs = _.remove(pds, identity);
+    console.log('_API/removed from PDs: ' + removedIDFromPDs);
+
+    //Havings
+    var havings = library['havings'];
+    var removedIDFromHavings = _.remove(havings, identity);
+    console.log('_API/removed from Havings: ' + removedIDFromHavings);
+
+    //update library on server
+    U.updateLibrary(library, component, function(component, validResponse) {
+      component.context.router.replace({pathname: '/browse'});
+      component.setState({library: validResponse});
+    });
+  }),
 }
 
 export {U, _API, defineLibraryAppDataTypes};

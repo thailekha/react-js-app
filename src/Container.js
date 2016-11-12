@@ -161,6 +161,14 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
+  deletePD: typify('deletePD :: number -> VOID | NOT_LOGGED_IN', function(paradigmID) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/deletePD()');
+      _API.deleteParadigm(this.state.library, paradigmID, this);
+      return VOID;
+    }
+    return NOT_LOGGED_IN;
+  }),
   //TODO if(loggedInAndHasEmail(this)), this.state.library
 
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
@@ -180,14 +188,15 @@ var Container = React.createClass({
         create: library ? undefined : this.createLib,
         reload: this.setLib,
         delete: library ? this.deleteLib : undefined,
+        getAttr: library ? this.getPropertyFromLibrary : undefined,
         addPL: library ? this.addPL : undefined,
         getPL: library ? this.getPL : undefined,
         deletePL: library ? this.deletePL : undefined,
+        getRelatedPDs: library ? this.getRelatedPDs : undefined,
+        getPDID: library ? this.getPDID : undefined,
         addPD: library ? this.addPD : undefined,
         getPD: library ? this.getPD : undefined,
-        getAttr: library ? this.getPropertyFromLibrary : undefined,
-        getPDID: library ? this.getPDID : undefined,
-        getRelatedPDs: library ? this.getRelatedPDs : undefined,
+        deletePD: library ? this.deletePD : undefined,
         available: U.isDefined(library)
         //TODO ADD PL,PD, ETC.
       };

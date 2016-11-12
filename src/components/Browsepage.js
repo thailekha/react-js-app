@@ -12,7 +12,8 @@ import {Link, Route, Router, hashHistory} from 'react-router';
 // }
 
 var PLContent = React.createClass({
-  handleDelete: function() {
+  handleDelete: function(e) {
+    e.preventDefault();
     this.props.libraryManager.deletePL(parseInt(this.props.routeParams['id']));
   },
   render: function() {
@@ -37,6 +38,10 @@ var PLContent = React.createClass({
 });
 
 var PDContent = React.createClass({
+  handleDelete: function(e) {
+    e.preventDefault();
+    this.props.libraryManager.deletePD(parseInt(this.props.routeParams['id']));
+  },
   render: function() {
     logger.reportRender('PDContent');
     var paradigm = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id']));
@@ -50,6 +55,7 @@ var PDContent = React.createClass({
         <h3>{paradigm['name']}</h3>
         {subParadigms}
         <p>{paradigm['details']}</p>
+        <Button onClick={this.handleDelete}>Delete</Button>
       </div>
     );
   }
