@@ -1,4 +1,4 @@
--check if get methods need to return null
+-when deleting anything, if the routing on the item to be deleted, redirect the page !!!
 
 add more typify.assert to the HTTP responses
 -try-catch to remove faulty created library
@@ -51,6 +51,7 @@ To refactor:
 -make a type for react component
 -bind statements
 -createPL: add PD => retrieve all subparadigms
+-check if get methods need to return null
 
 Old logout solution:
 -pass auth to nav bar and logout directly from there, cannot use logout stub because cannot pass auth to a route

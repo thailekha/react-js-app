@@ -46,7 +46,7 @@ const routes = (
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
 
     /*Move browsepage container here maybe*/
-    <Route path="browse" navID="browse/" component={BrowsepageContainer} onEnter={requireAuth}>
+    <Route path="browse" navID="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
       <Route path="createboxpl" sendToChildren="pl" component={BrowsepageCreateBoxPL}/>
       <Route path="createboxpd" sendToChildren="pd" component={BrowsepageCreateBoxPD}/>

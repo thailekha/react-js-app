@@ -21,7 +21,6 @@ var PLContent = React.createClass({
     var programmingLanguage = this.props.libraryManager.getPL(plid);
     console.log(this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']));
     var relatedParadigms = this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']).map(function(paradigm, index) {
-      console.log('@@@' + paradigm);
       return <Link key={index} to={'/browse/pd/' + paradigm['pdid']}>{paradigm['name']}</Link>
     });
     return (

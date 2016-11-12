@@ -214,7 +214,7 @@ var U = {
       }
     }.bind(this));
   }),
-  updateLibrary: typify('updateLibrary :: library -> * -> *', function(nLibrary, component) {
+  updateLibrary: typify('updateLibrary :: library -> * -> function -> *', function(nLibrary, component, callback) {
     console.log('updateLibrary()');
     var settings = {
       "async": true,
@@ -237,7 +237,7 @@ var U = {
         //type, object, catchMessage, successCallback, finallyCallback
         doTypeCheck('library', response, 'IS NOT library object',
           function(validResponse) {
-            component.setState({library: validResponse});
+            callback(component, validResponse);
           }.bind(this), null);
       }
     }.bind(this));
@@ -269,7 +269,7 @@ var U = {
 const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
   getParadigm: typify('getParadigm :: library -> number -> paradigm | null', function(library, id) {
-    console.log('_API/getParadigm()');
+    console.log('_API/getParadigm(' + library + ',' + id + ')');
     var items = library['paradigms'];
     var result = null;
     var index = _.findIndex(items, function(item) {
@@ -281,7 +281,7 @@ const _API = {
     return result;
   }),
   getProgrammingLanguage: typify('getProgrammingLanguage :: library -> number -> programminglanguage | null', function(library, id) {
-    console.log('_API/getProgrammingLanguage()');
+    console.log('_API/getProgrammingLanguage(' + library + ',' + id + ')');
     var items = library['programminglanguages'];
     var result = null;
 
@@ -302,6 +302,7 @@ const _API = {
     return result;
   }),
   getRelatedParadigms: typify('getRelatedParadigms :: library -> number -> (array paradigm)', function(library, programmingLanguageID) {
+    console.log('_API/getRelatedParadigms(' + library + ',' + programmingLanguageID + ')');
     var havings = library['havings'];
     var relatedParadigms = [];
     for (var i = 0; i < havings.length; i++) {
@@ -313,7 +314,7 @@ const _API = {
     return relatedParadigms;
   }),
   getParadigmID: typify('getParadigmID :: library -> string -> number | null', function(library, paradigmName) {
-    console.log('_API/getParadigmId()');
+    console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
     var result = null;
     var items = library['paradigms'];
     //this is the index of the PD in the PDs array, not pdid
@@ -326,6 +327,7 @@ const _API = {
     return result;
   }),
   getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
+    console.log('_API/getNextProgrammingLanguageID(' + library + ')');
     //_.maxBy
     //TODO : ldoash returns undefined if the given array is empty
     if (library['programminglanguages'].length > 0) {
@@ -339,6 +341,8 @@ const _API = {
   //nothing is returned so -> *
   addProgrammingLanguage: typify('addProgrammingLanguage :: library -> string -> string -> string -> (array number) -> * -> *',
     function(library, name, details, type, paradigmIDs, component) {
+      console.log('_API/addProgrammingLanguage(' + library + ' ,' +
+        name + ' ,' + details + ' ,' + type + ' ,' + paradigmIDs + ' ,' + component + ')');
       var nProgrammingLanguage = {
         name: name,
         details: details,
@@ -357,9 +361,12 @@ const _API = {
       var oldHavings = library['havings'];
       library['programminglanguages'].push(nProgrammingLanguage);
       library['havings'] = oldHavings.concat(Havings);
-      U.updateLibrary(library, component)
+      U.updateLibrary(library, component, function(component,validResponse){
+        component.setState({library: validResponse});
+      })
     }),
   deleteProgrammingLanguage: typify('deleteProgrammingLanguage :: library -> number -> * -> *', function(library, programmingLanguageID, component) {
+    console.log('_API/deleteProgrammingLanguage(' + library + ' ,' + programmingLanguageID + ' ,' + component);
     var identity = function(item) {
       if (typeof item['plid'] !== typeof programmingLanguageID)
         console.log('_API/deleting PL: unexpected types');
@@ -377,7 +384,10 @@ const _API = {
     console.log('_API/removed from Havings: ' + removedIDFromHavings);
 
     //update library on server
-    U.updateLibrary(library, component);
+    U.updateLibrary(library, component, function(component, validResponse) {
+      component.context.router.replace({pathname: '/browse'});
+      component.setState({library: validResponse});
+    });
   })
 }
 

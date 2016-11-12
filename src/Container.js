@@ -81,7 +81,7 @@ var Container = React.createClass({
   }),
   setLib: typify('setLib :: VOID | NOT_LOGGED_IN', function() {
     if (loggedInAndHasEmail(this)) {
-      console.log('Container/setLib()');
+      console.warn('Container/setLib()');
       var email = extractAuth(this).getProfile().email;
       U.getLibrary(email, this);
       return VOID;
