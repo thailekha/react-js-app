@@ -167,18 +167,18 @@ const U = {
 
 const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
-  getParadigm: function(library, id) {
-    console.log('_API/getParadigm');
+  getParadigm: typify('getParadigm :: library -> number -> paradigm', function(library, id) {
+    console.log('_API/getParadigm()');
     var items = library['paradigms'];
     var result = null;
     var index = _.findIndex(items, function(item) {
-      return item['pdid'] + '' === id + '';
+      return item['pdid'] === id;
     });
     if (index !== -1) {
       result = items[index];
     }
     return result;
-  },
+  }),
   getProgrammingLanguage: function(library, id) {
     console.log('_API/getProgrammingLanguage ');
     var items = library['programminglanguages'];

@@ -111,6 +111,7 @@ var Container = React.createClass({
   },
   getParadigm: function(paradigmID) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/getParadigm()');
       return _API.getParadigm(this.state.library, paradigmID);
     }
   },
