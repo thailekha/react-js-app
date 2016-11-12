@@ -56,62 +56,70 @@ var Container = React.createClass({
   },
   createLib: function(libName) {
     if (loggedInAndHasEmail(this)) {
-      console.log('Homepage create library');
+      console.log('Container/createLib()');
       //server will response with the new library object so U will handle setting state
       U.createLibrary(extractAuth(this).getProfile().email, libName, this);
     }
   },
   setLib: function() {
     if (loggedInAndHasEmail(this)) {
+      console.log('Container/setLib()');
       var email = extractAuth(this).getProfile().email;
       U.getLibrary(email,this);
     }
   },
   deleteLib: function() {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/deleteLib()');
       console.log('delete library called');
     }
   },
   addPL:  function(name, details, type, paradigmIds) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/addPL()');
       console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
       _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds,this);
     }
   },
   addPD: function(name, details, subparadigms) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/addPD()');
       console.log('Create new PD ' + name + details + subparadigms);
     }
   },
   getPropertyFromLibrary: function(property) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/getPropertyFromLibrary()');
       return this.state.library[property];
     }
   },
   getPDID: function(name) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/getPDID()');
       return _API.getParadigmId(this.state.library,name);
     }
   },
   getRelatedPDs: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)) {
+      console.log('Container/getRelatedPDs()');
       return _API.getRelatedParadigms(this.state.library,programmingLanguageID);
     }
   },
   getPL: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
-      console.log('Container/getProgrammingLanguage()');
+      console.log('Container/getPL()');
       return _API.getProgrammingLanguage(this.state.library,programmingLanguageID);
     }
   },
   deletePL: function(programmingLanguageID) {
     if(loggedInAndHasEmail(this)){
+      console.log('Container/deletePL()');
       _API.deleteProgrammingLanguage(this.state.library,programmingLanguageID,this);
     }
   },
   getPD: function(paradigmID) {
     if(loggedInAndHasEmail(this)) {
-      console.log('Container/getParadigm()');
+      console.log('Container/getPD()');
       return _API.getParadigm(this.state.library, paradigmID);
     }
   },

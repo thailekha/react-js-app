@@ -209,7 +209,7 @@ const _API = {
     for (var i = 0; i < havings.length; i++) {
       var having = havings[i];
       if (U.isDefined(having['plid']) && U.isDefined(having['pdid']) && having['plid'] === programmingLanguageID) {
-        relatedParadigms.push(this.getParadigm(library['paradigms'], having['pdid']));
+        relatedParadigms.push(this.getParadigm(library, having['pdid']));
       }
     }
     return relatedParadigms;
