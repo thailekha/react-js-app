@@ -1,6 +1,8 @@
+-check if get methods need to return null
+
 add more typify.assert to the HTTP responses
 -try-catch to remove faulty created library
--dataflow: children sends data up, container do parsing and convert to the proper type and pass on to util who carries the core task
+-dataflow: children do parsing and convert to the proper type, send data up to container who passes on them to util who carries the core task
 
 -choosing a type checking utility library again, requirements:
 ->declare type when declaring function

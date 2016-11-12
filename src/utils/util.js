@@ -2,68 +2,79 @@
  * Created by HP on 11/4/2016.
  */
 
+console.log('util.js');
+
 var request = require('superagent');
 var $ = require('jquery');
 var _ = require('lodash');
 var typify = require('typify');
 
 //define library type
-typify.type("library", function(lib) {
-  /**
-   * for debug mode, do not delete
-   */
-  // console.log('Checking library type');
-  // console.log('typeof lib.id === \'number\' ');
-  // console.log(typeof lib.id === 'number');
-  // console.log('lib.id >= 0');
-  // console.log(lib.id >= 0);
-  // console.log('typeof lib.email === \'string\' ');
-  // console.log(typeof lib.email === 'string');
-  // console.log('typeof lib.name === \'string\' ');
-  // console.log(typeof lib.name === 'string');
-  // console.log('typeof lib.public === \'boolean\' ');
-  // console.log(typeof lib.public === 'boolean');
-  // console.log('Array.isArray(lib.paradigms) ');
-  // console.log(Array.isArray(lib.paradigms));
-  // console.log('Array.isArray(lib.programminglanguages) ');
-  // console.log(Array.isArray(lib.programminglanguages));
-  // console.log('Array.isArray(lib.havings) ');
-  // console.log(Array.isArray(lib.havings));
+const defineLibraryAppDataTypes = function(typify) {
+  typify.type("library", function(lib) {
+    /**
+     * for debug mode, do not delete
+     */
+    // console.log('Checking library type');
+    // console.log('typeof lib.id === \'number\' ');
+    // console.log(typeof lib.id === 'number');
+    // console.log('lib.id >= 0');
+    // console.log(lib.id >= 0);
+    // console.log('typeof lib.email === \'string\' ');
+    // console.log(typeof lib.email === 'string');
+    // console.log('typeof lib.name === \'string\' ');
+    // console.log(typeof lib.name === 'string');
+    // console.log('typeof lib.public === \'boolean\' ');
+    // console.log(typeof lib.public === 'boolean');
+    // console.log('Array.isArray(lib.paradigms) ');
+    // console.log(Array.isArray(lib.paradigms));
+    // console.log('Array.isArray(lib.programminglanguages) ');
+    // console.log(Array.isArray(lib.programminglanguages));
+    // console.log('Array.isArray(lib.havings) ');
+    // console.log(Array.isArray(lib.havings));
 
-  return typeof lib.id === 'number'
-    && lib.id >= 0
-    && typeof lib.email === 'string'
-    && typeof lib.name === 'string'
-    && typeof lib.public === 'boolean'
-    && Array.isArray(lib.paradigms)
-    && Array.isArray(lib.programminglanguages)
-    && Array.isArray(lib.havings)
-});
+    return typeof lib.id === 'number'
+      && lib.id >= 0
+      && typeof lib.email === 'string'
+      && typeof lib.name === 'string'
+      && typeof lib.public === 'boolean'
+      && Array.isArray(lib.paradigms)
+      && Array.isArray(lib.programminglanguages)
+      && Array.isArray(lib.havings)
+  });
 
 //define programminglanguage type
-typify.type("programminglanguage", function(pl) {
-  return typeof pl.plid === 'number'
-    && pl.plid >= 1
-    && typeof pl.name === 'string'
-    && typeof pl.details === 'string'
-    && typeof pl.type === 'string'
-});
+  typify.type("programminglanguage", function(pl) {
+    return typeof pl.plid === 'number'
+      && pl.plid >= 1
+      && typeof pl.name === 'string'
+      && typeof pl.details === 'string'
+      && typeof pl.type === 'string'
+  });
 
 //define paradigm type
-typify.type("paradigm", function(pd) {
-  return typeof pd.pdid === 'number'
-    && pd.pdid >= 1
-    && typeof pd.name === 'string'
-    && typeof pd.details === 'string'
-    && Array.isArray(pd.subparadigms)
-});
+  typify.type("paradigm", function(pd) {
+    return typeof pd.pdid === 'number'
+      && pd.pdid >= 1
+      && typeof pd.name === 'string'
+      && typeof pd.details === 'string'
+      && Array.isArray(pd.subparadigms)
+  });
 
 //define having type
-typify.type("having", function(hv) {
-  return typeof hv.pdid === 'number'
-    && typeof hv.plid === 'number'
-    && hv.pdid >= 1
-    && hv.plid >= 1
+  typify.type("having", function(hv) {
+    return typeof hv.pdid === 'number'
+      && typeof hv.plid === 'number'
+      && hv.pdid >= 1
+      && hv.plid >= 1
+  });
+}
+
+defineLibraryAppDataTypes(typify);
+
+const VOID = -999; //used if a function being registered with typify does not return anything
+typify.type('VOID', function(i) {
+  return i === -999;
 });
 
 typify.type("textStatus", function(t) {
@@ -317,7 +328,7 @@ const _API = {
   getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
     //_.maxBy
     //TODO : ldoash returns undefined if the given array is empty
-    if(library['programminglanguages'].length > 0) {
+    if (library['programminglanguages'].length > 0) {
       var maxID = _.maxBy(library['programminglanguages'], function(item) {
         return item['plid'];
       })['plid'];
@@ -370,4 +381,4 @@ const _API = {
   })
 }
 
-export {U, _API};
+export {U, _API, defineLibraryAppDataTypes};
