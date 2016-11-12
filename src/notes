@@ -1,4 +1,7 @@
--the reason that "type" syntax is working is babel
+-choosing a type checking utility library again, requirements:
+->declare type when declaring function
+->throw error if type is not expected
+-decision: typify
 
 PATCH VS PUT ?
 
