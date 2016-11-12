@@ -88,6 +88,15 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
+  getPropertyFromLibrary: typify('getPropertyFromLibrary :: string -> ' +
+    'number | string | boolean | (array programminglanguage) | (array paradigm) | (array having) | null | NOT_LOGGED_IN',
+    function(property) {
+      if (loggedInAndHasEmail(this)) {
+        console.log('Container/getPropertyFromLibrary()');
+        return typeof this.state.library[property] === 'undefined' ? null : this.state.library[property];
+      }
+      return NOT_LOGGED_IN;
+    }),
   deleteLib: typify('deleteLib :: VOID | NOT_LOGGED_IN', function() {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/deleteLib()');
@@ -106,38 +115,6 @@ var Container = React.createClass({
       }
       return NOT_LOGGED_IN;
     }),
-  addPD: typify('addPD :: string -> string -> (array number) -> VOID | NOT_LOGGED_IN',
-    function(name, details, subparadigms) {
-      if (loggedInAndHasEmail(this)) {
-        console.log('Container/addPD()');
-        console.log('Create new PD ' + name + details + subparadigms);
-        return VOID;
-      }
-      return NOT_LOGGED_IN;
-    }),
-  getPropertyFromLibrary: typify('getPropertyFromLibrary :: string -> ' +
-    'number | string | boolean | (array programminglanguage) | (array paradigm) | (array having) | null | NOT_LOGGED_IN',
-    function(property) {
-      if (loggedInAndHasEmail(this)) {
-        console.log('Container/getPropertyFromLibrary()');
-        return typeof this.state.library[property] === 'undefined' ? null : this.state.library[property];
-      }
-      return NOT_LOGGED_IN;
-    }),
-  getPDID: typify('getPDID :: string -> number | null | NOT_LOGGED_IN', function(name) {
-    if (loggedInAndHasEmail(this)) {
-      console.log('Container/getPDID()');
-      return _API.getParadigmID(this.state.library, name);
-    }
-    return NOT_LOGGED_IN;
-  }),
-  getRelatedPDs: typify('getRelatedPDs :: number -> (array paradigm) | NOT_LOGGED_IN',function(programmingLanguageID) {
-    if (loggedInAndHasEmail(this)) {
-      console.log('Container/getRelatedPDs()');
-      return _API.getRelatedParadigms(this.state.library, programmingLanguageID);
-    }
-    return NOT_LOGGED_IN;
-  }),
   getPL: typify('getPL :: number -> programminglanguage | null | NOT_LOGGED_IN',function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getPL()');
@@ -150,6 +127,29 @@ var Container = React.createClass({
       console.log('Container/deletePL()');
       _API.deleteProgrammingLanguage(this.state.library, programmingLanguageID, this);
       return VOID;
+    }
+    return NOT_LOGGED_IN;
+  }),
+  getRelatedPDs: typify('getRelatedPDs :: number -> (array paradigm) | NOT_LOGGED_IN',function(programmingLanguageID) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/getRelatedPDs()');
+      return _API.getRelatedParadigms(this.state.library, programmingLanguageID);
+    }
+    return NOT_LOGGED_IN;
+  }),
+  addPD: typify('addPD :: string -> string -> (array number) -> VOID | NOT_LOGGED_IN',
+    function(name, details, subparadigms) {
+      if (loggedInAndHasEmail(this)) {
+        console.log('Container/addPD()');
+        console.log('Create new PD ' + name + details + subparadigms);
+        return VOID;
+      }
+      return NOT_LOGGED_IN;
+    }),
+  getPDID: typify('getPDID :: string -> number | null | NOT_LOGGED_IN', function(name) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/getPDID()');
+      return _API.getParadigmID(this.state.library, name);
     }
     return NOT_LOGGED_IN;
   }),

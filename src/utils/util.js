@@ -268,17 +268,17 @@ var U = {
 
 const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
-  getParadigm: typify('getParadigm :: library -> number -> paradigm | null', function(library, id) {
-    console.log('_API/getParadigm(' + library + ',' + id + ')');
-    var items = library['paradigms'];
-    var result = null;
-    var index = _.findIndex(items, function(item) {
-      return item['pdid'] === id;
-    });
-    if (index !== -1) {
-      result = items[index];
+  getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
+    console.log('_API/getNextProgrammingLanguageID(' + library + ')');
+    //_.maxBy
+    //TODO : ldoash returns undefined if the given array is empty
+    if (library['programminglanguages'].length > 0) {
+      var maxID = _.maxBy(library['programminglanguages'], function(item) {
+        return item['plid'];
+      })['plid'];
+      return maxID + 1;
     }
-    return result;
+    return 1;
   }),
   getProgrammingLanguage: typify('getProgrammingLanguage :: library -> number -> programminglanguage | null', function(library, id) {
     console.log('_API/getProgrammingLanguage(' + library + ',' + id + ')');
@@ -300,43 +300,6 @@ const _API = {
     //   result = items[index];
     // }
     return result;
-  }),
-  getRelatedParadigms: typify('getRelatedParadigms :: library -> number -> (array paradigm)', function(library, programmingLanguageID) {
-    console.log('_API/getRelatedParadigms(' + library + ',' + programmingLanguageID + ')');
-    var havings = library['havings'];
-    var relatedParadigms = [];
-    for (var i = 0; i < havings.length; i++) {
-      var having = havings[i];
-      if (U.isDefined(having['plid']) && U.isDefined(having['pdid']) && having['plid'] === programmingLanguageID) {
-        relatedParadigms.push(this.getParadigm(library, having['pdid']));
-      }
-    }
-    return relatedParadigms;
-  }),
-  getParadigmID: typify('getParadigmID :: library -> string -> number | null', function(library, paradigmName) {
-    console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
-    var result = null;
-    var items = library['paradigms'];
-    //this is the index of the PD in the PDs array, not pdid
-    var index = _.findIndex(items, function(item) {
-      return item['name'].toLowerCase() === paradigmName.toLowerCase();
-    });
-    if (index !== -1) {
-      result = items[index]['pdid'];
-    }
-    return result;
-  }),
-  getNextProgrammingLanguageID: typify('getNextProgrammingLanguageID :: library -> number', function(library) {
-    console.log('_API/getNextProgrammingLanguageID(' + library + ')');
-    //_.maxBy
-    //TODO : ldoash returns undefined if the given array is empty
-    if (library['programminglanguages'].length > 0) {
-      var maxID = _.maxBy(library['programminglanguages'], function(item) {
-        return item['plid'];
-      })['plid'];
-      return maxID + 1;
-    }
-    return 1;
   }),
   //nothing is returned so -> *
   addProgrammingLanguage: typify('addProgrammingLanguage :: library -> string -> string -> string -> (array number) -> * -> *',
@@ -388,6 +351,43 @@ const _API = {
       component.context.router.replace({pathname: '/browse'});
       component.setState({library: validResponse});
     });
+  }),
+  getRelatedParadigms: typify('getRelatedParadigms :: library -> number -> (array paradigm)', function(library, programmingLanguageID) {
+    console.log('_API/getRelatedParadigms(' + library + ',' + programmingLanguageID + ')');
+    var havings = library['havings'];
+    var relatedParadigms = [];
+    for (var i = 0; i < havings.length; i++) {
+      var having = havings[i];
+      if (U.isDefined(having['plid']) && U.isDefined(having['pdid']) && having['plid'] === programmingLanguageID) {
+        relatedParadigms.push(this.getParadigm(library, having['pdid']));
+      }
+    }
+    return relatedParadigms;
+  }),
+  getParadigm: typify('getParadigm :: library -> number -> paradigm | null', function(library, id) {
+    console.log('_API/getParadigm(' + library + ',' + id + ')');
+    var items = library['paradigms'];
+    var result = null;
+    var index = _.findIndex(items, function(item) {
+      return item['pdid'] === id;
+    });
+    if (index !== -1) {
+      result = items[index];
+    }
+    return result;
+  }),
+  getParadigmID: typify('getParadigmID :: library -> string -> number | null', function(library, paradigmName) {
+    console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
+    var result = null;
+    var items = library['paradigms'];
+    //this is the index of the PD in the PDs array, not pdid
+    var index = _.findIndex(items, function(item) {
+      return item['name'].toLowerCase() === paradigmName.toLowerCase();
+    });
+    if (index !== -1) {
+      result = items[index]['pdid'];
+    }
+    return result;
   })
 }
 
