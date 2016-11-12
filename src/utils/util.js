@@ -116,33 +116,24 @@ const U = {
 
 const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
-  getParadigm: function(items, id) {
+  getParadigm: function(library, id) {
     console.log('_API/getParadigm');
-    console.log(items);
-    console.log(id);
+    var items = library['Paradigms'];
     var result = null;
     var index = _.findIndex(items, function(item) {
-      console.log(item['pd-id']);
-      console.log('===');
-      console.log(id);
       return item['pd-id'] + '' === id + '';
     });
     if (index !== -1) {
       result = items[index];
     }
-    console.log('^^^');
-    console.log(result);
     return result;
   },
-  getProgrammingLanguage: function(items, id) {
-    console.log('_API/getProgrammingLanguage ' + id + ', from ');
-    console.log(items);
-    console.log(items.length);
+  getProgrammingLanguage: function(library, id) {
+    console.log('_API/getProgrammingLanguage ');
+    var items = library['ProgrammingLanguages'];
     var result = null;
 
     for(var i = 0; i < items.length; i++) {
-      console.log('#########');
-      console.log(items[i]);
       if(items[i]['pl-id'] + '' === id + '') {
         result = items[i];
       }
@@ -156,11 +147,6 @@ const _API = {
     // if (index !== -1) {
     //   result = items[index];
     // }
-    console.log('_API/getProgrammingLanguage/ result: ');
-    console.log('%');
-    console.log(result);
-    console.log('$');
-    console.log(result['pl-id']);
     return result;
   },
   getAllHavings: function(library) {

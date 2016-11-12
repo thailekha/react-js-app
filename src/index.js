@@ -15,12 +15,6 @@ import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './Container';
 
-console.log('$$$$$$$$$$$$$$$$$$$$$$$$');
-var str: number = 'hello world!';
-console.log(str);
-console.log(typeof str);
-console.log('$$$$$$$$$$$$$$$$$$$$$$$$');
-
 
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 
