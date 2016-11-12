@@ -45,26 +45,14 @@ typify.type("having", function(hv) {
   && hv.plid >= 1
 });
 
+/*
+*
+* NOTICE: response from jquery HTTP is already parse to an object, don't parse again
+*
+* */
+
 //statusCode
 const U = {
-  makeReq: function(req, component, toDoWithRes, saveToLocalstorage = undefined, itemName = undefined) {
-    console.log('http://localhost:3001/' + req);
-    request.get('http://localhost:3001/' + req)
-    .end(function(error, res) {
-      if (res) {
-        //console.log(res);
-        var json = JSON.parse(res.text);
-        //localStorage.clear();
-        //cannot clear localStorage because session token will also be cleared => name the item uniquely
-        if (saveToLocalstorage && itemName)
-          localStorage.setItem(itemName, JSON.stringify(json));
-
-        toDoWithRes(component, json);
-      } else {
-        console.log(error);
-      }
-    });
-  },
   isDefined: function(object) {
     return typeof object !== 'undefined';
   },
@@ -75,6 +63,31 @@ const U = {
       }
     }
   },
+  getLibrary: typify('getLibrary :: string -> * -> *',function(email,component) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3001/libraries/?email=" + email,
+      "method": "GET",
+      "headers": {
+        "cache-control": "no-cache"
+      }
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      //response is an array of library objects
+      typify.assert('(array library)',response);
+      if(response.length == 1) {
+        component.setState({
+          library: response
+        });
+      }
+      else {
+        console.log('Error: util/getLibrary() gets more than 1 libraries');
+      }
+    });
+  }),
   createLibrary: function(email, libName, component) {
     request.get('http://localhost:3001/libraries')
     .end(function(error, res) {
