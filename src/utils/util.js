@@ -321,6 +321,8 @@ const _API = {
         });
       });
 
+
+      console.log('############################');
       var oldHavings = library['havings'];
       library['programminglanguages'].push(nProgrammingLanguage);
       library['havings'] = oldHavings.concat(Havings);

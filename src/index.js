@@ -8,7 +8,9 @@ import logger from './utils/logger';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
-import {BrowsepageContainer, BrowsepageCreateBoxPL, BrowsepageCreateBoxPD, PLContent, PDContent} from './components/Browsepage';
+import BrowsepageContainer from './components/Browsepage/Browsepage';
+import {BrowsepageCreateBoxPL, BrowsepageCreateBoxPD} from './components/Browsepage/CreateEditBox';
+import {PLContent, PDContent} from './components/Browsepage/Content';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
