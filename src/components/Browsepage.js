@@ -18,10 +18,10 @@ var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
     var programmingLanguage = this.props.libraryManager.getPL(this.props.routeParams['id']);
-    console.log(this.props.libraryManager.getRelatedParadigms(programmingLanguage['pl-id']));
-    var relatedParadigms = this.props.libraryManager.getRelatedParadigms(programmingLanguage['pl-id']).map(function(paradigm, index) {
+    console.log(this.props.libraryManager.getRelatedParadigms(programmingLanguage['plid']));
+    var relatedParadigms = this.props.libraryManager.getRelatedParadigms(programmingLanguage['plid']).map(function(paradigm, index) {
       console.log('@@@' + paradigm);
-      return <Link key={index} to={'/browse/pd/' + paradigm['pd-id']}>{paradigm['name']}</Link>
+      return <Link key={index} to={'/browse/pd/' + paradigm['pdid']}>{paradigm['name']}</Link>
     });
     return (
       <div>
@@ -216,15 +216,15 @@ var SubNavigationBar = React.createClass({
     console.log('$$$');
     var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
       this.props.subNavigationItems.map(function(navItem, index) {
-        if (navItem['pl-id']) {
+        if (navItem['plid']) {
           return <Link key={index}
-                       to={'/browse/pl/' + navItem['pl-id']}>{navItem['name']}</Link>
+                       to={'/browse/pl/' + navItem['plid']}>{navItem['name']}</Link>
         }
       }) :
       this.props.subNavigationItems.map(function(navItem, index) {
-        if (navItem['pd-id']) {
+        if (navItem['pdid']) {
           return <Link key={index}
-                       to={'/browse/pd/' + navItem['pd-id']}>{navItem['name']}</Link>
+                       to={'/browse/pd/' + navItem['pdid']}>{navItem['name']}</Link>
         }
       });
     return (
@@ -254,8 +254,8 @@ var BrowsepageContainer = React.createClass({
       var programmingLanguages = [];
       var paradigms = [];
       if (libraryManager.available) {
-        programmingLanguages = libraryManager.getAttr('ProgrammingLanguages');
-        paradigms = libraryManager.getAttr('Paradigms');
+        programmingLanguages = libraryManager.getAttr('programminglanguages');
+        paradigms = libraryManager.getAttr('paradigms');
       }
 
       console.log('&&&');

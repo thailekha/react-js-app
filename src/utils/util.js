@@ -73,7 +73,6 @@ const U = {
         "cache-control": "no-cache"
       }
     }
-
     $.ajax(settings).done(function (response) {
       console.log(response);
       //response is an array of library objects
@@ -112,7 +111,7 @@ const U = {
         "cache-control": "no-cache"
       },
       "processData": false,
-      "data": "{\"id\": " + id + ",\"email\": \"" + email + "\",\"name\": \"" + libName + "\",\"public\": true,\"Paradigms\": [],\"ProgrammingLanguages\": [],\"Having\": []}"
+      "data": "{\"id\": " + id + ",\"email\": \"" + email + "\",\"name\": \"" + libName + "\",\"public\": true,\"paradigms\": [],\"programminglanguages\": [],\"Having\": []}"
     }
 
     $.ajax(settings).done(function(response) {
@@ -170,10 +169,10 @@ const _API = {
   //This set of methods deal with the local library object then makes change to the library object on the server if needed
   getParadigm: function(library, id) {
     console.log('_API/getParadigm');
-    var items = library['Paradigms'];
+    var items = library['paradigms'];
     var result = null;
     var index = _.findIndex(items, function(item) {
-      return item['pd-id'] + '' === id + '';
+      return item['pdid'] + '' === id + '';
     });
     if (index !== -1) {
       result = items[index];
@@ -182,11 +181,11 @@ const _API = {
   },
   getProgrammingLanguage: function(library, id) {
     console.log('_API/getProgrammingLanguage ');
-    var items = library['ProgrammingLanguages'];
+    var items = library['programminglanguages'];
     var result = null;
 
     for (var i = 0; i < items.length; i++) {
-      if (items[i]['pl-id'] + '' === id + '') {
+      if (items[i]['plid'] + '' === id + '') {
         result = items[i];
       }
     }
@@ -194,7 +193,7 @@ const _API = {
     // var index = _.findIndex(items, function(item) {
     //   console.log(item);
     //   console.log('_API/getProgrammingLanguage -> item ' + item['name']);
-    //   return item['pl-id'] + '' === id + '';
+    //   return item['plid'] + '' === id + '';
     // });
     // if (index !== -1) {
     //   result = items[index];
@@ -202,15 +201,15 @@ const _API = {
     return result;
   },
   getAllHavings: function(library) {
-    return library['Having'];
+    return library['havings'];
   },
   getRelatedParadigms: function(library, programmingLanguageID) {
     var havings = this.getAllHavings(library);
     var relatedParadigms = [];
     for (var i = 0; i < havings.length; i++) {
       var having = havings[i];
-      if (U.isDefined(having['pl-id']) && U.isDefined(having['pd-id']) && having['pl-id'] === programmingLanguageID) {
-        relatedParadigms.push(this.getParadigm(library['Paradigms'], having['pd-id']));
+      if (U.isDefined(having['plid']) && U.isDefined(having['pdid']) && having['plid'] === programmingLanguageID) {
+        relatedParadigms.push(this.getParadigm(library['paradigms'], having['pdid']));
       }
     }
     return relatedParadigms;
@@ -218,22 +217,22 @@ const _API = {
   getParadigmId: function(library, paradigmName) {
     console.log('_API/finding ID of paradigm' + paradigmName);
     var result = null;
-    var items = library['Paradigms'];
-    //this is the index of the PD in the PDs array, not pd-id
+    var items = library['paradigms'];
+    //this is the index of the PD in the PDs array, not pdid
     var index = _.findIndex(items, function(item) {
       return item['name'].toLowerCase() === paradigmName.toLowerCase();
     });
     if (index !== -1) {
-      result = items[index]['pd-id'];
+      result = items[index]['pdid'];
     }
     console.log('_API/result: ' + result);
     return result;
   },
   getNextProgrammingLanguageID: function(library) {
     //_.maxBy
-    var maxIDStr = _.maxBy(library['ProgrammingLanguages'], function(item) {
-      return item['pl-id'];
-    })['pl-id'];
+    var maxIDStr = _.maxBy(library['programminglanguages'], function(item) {
+      return item['plid'];
+    })['plid'];
     console.log(maxIDStr);
     return parseInt(maxIDStr) + 1;
   },
@@ -244,34 +243,34 @@ const _API = {
       type: type
     };
     var ID = this.getNextProgrammingLanguageID(library);
-    nProgrammingLanguage['pl-id'] = ID;
+    nProgrammingLanguage['plid'] = ID;
     var Havings = [];
     paradigmIDs.forEach(function(pd) {
       Havings.push({
-        "pl-id": ID,
-        "pd-id": pd
+        "plid": ID,
+        "pdid": pd
       });
     });
 
-    var oldHavings = library['Having'];
-    library['ProgrammingLanguages'].push(nProgrammingLanguage);
-    library['Having'] = oldHavings.concat(Havings);
+    var oldHavings = library['havings'];
+    library['programminglanguages'].push(nProgrammingLanguage);
+    library['havings'] = oldHavings.concat(Havings);
     U.updateLibrary(library, component)
   },
   deleteProgrammingLanguage: function(library, programmingLanguageID, component) {
     var identity = function(item) {
-      if (typeof item['pl-id'] !== typeof programmingLanguageID)
+      if (typeof item['plid'] !== typeof programmingLanguageID)
         console.log('_API/deleting PL: unexpected types');
-      return item['pl-id'] === programmingLanguageID;
+      return item['plid'] === programmingLanguageID;
     };
 
     //PLs
-    var pls = library['ProgrammingLanguages'];
+    var pls = library['programminglanguages'];
     var removedIDFromPls = _.remove(pls, identity);
     console.log('_API/removed from PLs: ' + removedIDFromPls);
 
     //Havings
-    var havings = library['Having'];
+    var havings = library['havings'];
     var removedIDFromHavings = _.remove(havings, identity);
     console.log('_API/removed from Havings: ' + removedIDFromHavings);
 
