@@ -320,12 +320,45 @@ const _API = {
           "pdid": pd
         });
       });
-
-
-      console.log('############################');
       var oldHavings = library['havings'];
       library['programminglanguages'].push(nProgrammingLanguage);
       library['havings'] = oldHavings.concat(Havings);
+      U.updateLibrary(library, component, function(component, validResponse) {
+        component.setState({library: validResponse});
+      })
+    }),
+  editProgrammingLanguage: typify('editProgrammingLanguage :: library -> number -> string -> string -> string -> (array number) -> * -> *',
+    function(library, plid, name, details, type, paradigmIDs, component) {
+      console.log('_API/editProgrammingLanguage(' + library + ' ,' +
+        name + ' ,' + plid + ',' + details + ' ,' + type + ' ,' + paradigmIDs + ' ,' + component + ')');
+      var nProgrammingLanguage = {
+        plid: plid,
+        name: name,
+        details: details,
+        type: type
+      };
+      var havings = [];
+      library['havings'].forEach(function(having) {
+        //get all havings that are not to do with this pl first
+        if (having.plid !== plid) {
+          havings.push(having);
+        }
+      });
+      paradigmIDs.forEach(function(pdid) {
+        havings.push({
+          plid: plid,
+          pdid: pdid
+        });
+      });
+
+      var plIndex = null;
+      library['programminglanguages'].forEach(function(pl,index){
+        if(pl.plid === plid) {
+          plIndex = index
+        }
+      });
+      library['programminglanguages'][plIndex] = nProgrammingLanguage;
+      library['havings'] = havings;
       U.updateLibrary(library, component, function(component, validResponse) {
         component.setState({library: validResponse});
       })

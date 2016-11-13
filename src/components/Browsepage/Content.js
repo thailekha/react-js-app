@@ -24,6 +24,7 @@ var PLContent = React.createClass({
         <b>Related paradigms</b>
         {relatedParadigms}
         <Button onClick={this.handleDelete}>Delete</Button>
+        <Button><Link to={"/browse/editboxpl/" + parseInt(this.props.routeParams['id'])}>Edit</Link></Button>
       </div>
     );
   }
@@ -48,6 +49,7 @@ var PDContent = React.createClass({
         {subParadigms}
         <p>{paradigm['details']}</p>
         <Button onClick={this.handleDelete}>Delete</Button>
+        <Button><Link to={"/browse/editboxpd/" + parseInt(this.props.routeParams['id'])}>Edit</Link></Button>
       </div>
     );
   }

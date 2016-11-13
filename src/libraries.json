@@ -37,7 +37,7 @@
         },
         {
           "plid": 2,
-          "name": "Javascript",
+          "name": "Javascri",
           "details": "a high-level, dynamic, untyped, and interpreted programming language",
           "type": "interpreted"
         },
@@ -46,22 +46,12 @@
           "details": "345",
           "type": "678",
           "plid": 3
-        },
-        {
-          "name": "a",
-          "details": "zzxccccccccccccccccccccccccccccccc",
-          "type": "xcvbcbvcvb",
-          "plid": 4
         }
       ],
       "havings": [
         {
           "pdid": 1,
           "plid": 1
-        },
-        {
-          "pdid": 1,
-          "plid": 2
         }
       ]
     },

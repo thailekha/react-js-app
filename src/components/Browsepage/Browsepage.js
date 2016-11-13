@@ -27,12 +27,12 @@ var BrowsepageContainer = React.createClass({
         paradigms = libraryManager.getAttr('paradigms');
 
       }
-      console.log(programmingLanguages.concat(paradigms));
-      var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
+      //console.log(programmingLanguages.concat(paradigms));
+      //var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
         libraryManager: libraryManager,
-        items: items
+        boxmode: this.props.children.props.route.sendToChildren
       })
     }
     else {

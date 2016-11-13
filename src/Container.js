@@ -115,6 +115,16 @@ var Container = React.createClass({
       }
       return NOT_LOGGED_IN;
     }),
+  editPL: typify('editPL :: number -> string -> string -> string -> (array number) -> VOID | NOT_LOGGED_IN',
+    function(plid, name, details, type, paradigmIds) {
+      if (loggedInAndHasEmail(this)) {
+        console.log('Container/editPL()');
+        console.log('Edit PL ' + plid + ' ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+        _API.editProgrammingLanguage(this.state.library, plid, name, details, type, paradigmIds, this);
+        return VOID;
+      }
+      return NOT_LOGGED_IN;
+    }),
   getPL: typify('getPL :: number -> programminglanguage | null | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getPL()');
@@ -190,6 +200,7 @@ var Container = React.createClass({
         delete: library ? this.deleteLib : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
         addPL: library ? this.addPL : undefined,
+        editPL: library ? this.editPL : undefined,
         getPL: library ? this.getPL : undefined,
         deletePL: library ? this.deletePL : undefined,
         getRelatedPDs: library ? this.getRelatedPDs : undefined,

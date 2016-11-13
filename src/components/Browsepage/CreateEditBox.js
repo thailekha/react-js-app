@@ -5,15 +5,39 @@ import {Button} from 'react-bootstrap';
 var BrowsepageCreateBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-    return {
-      name: '',
-      details: '',
-      type: '',
-      paradigm: '',
-      paradigms: '',
-      pdids: [],
-      error: ''
-    };
+    var mode = this.props.boxmode;
+    if (mode === 'edit') {
+      var pl = this.props.libraryManager.getPL(parseInt(this.props.routeParams['id']));
+      var relatedPDs = this.props.libraryManager.getRelatedPDs(parseInt(this.props.routeParams['id']));
+      var relatedPDsNames = '';
+      var relatedPDsIDs = [];
+      for (var i = 0; i < relatedPDs.length; i++) {
+        relatedPDsNames += relatedPDs[i].name + (i + 1 === relatedPDs.length ? '' : ',');
+        relatedPDsIDs.push(relatedPDs[i].pdid);
+      }
+      return {
+        name: pl.name,
+        details: pl.details,
+        type: pl.type,
+        paradigm: '',
+        paradigms: relatedPDsNames,
+        pdids: relatedPDsIDs,
+      }
+    }
+    else if (mode === 'create') {
+      return {
+        name: '',
+        details: '',
+        type: '',
+        paradigm: '',
+        paradigms: '',
+        pdids: [],
+        error: ''
+      };
+    }
+    else {
+      console.warn('Unexpected box mdoe');
+    }
   },
   handleNameChange: function(e) {
     this.setState({name: e.target.value});
@@ -42,19 +66,38 @@ var BrowsepageCreateBoxPL = React.createClass({
       });
     }
   },
-  handleAdd: function(e) {
+  handleRemoveParadigm: function(e) {
+    e.preventDefault();
+    if (this.state.paradigms.length > 0 && this.state.pdids.length > 0) {
+      var paradigms = this.state.paradigms.split(',');//string
+      paradigms.pop();
+      this.state.pdids.pop();//array
+      this.setState({
+        paradigms: paradigms.join(',')
+      });
+    }
+  },
+  handleSubmit: function(e) {
     if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.type.length > 0) {
       e.preventDefault();
-      this.props.libraryManager.addPL(this.state.name, this.state.details, this.state.type, this.state.pdids);
+      if (this.props.boxmode === 'create')
+        this.props.libraryManager.addPL(this.state.name, this.state.details, this.state.type, this.state.pdids);
+      else if (this.props.boxmode === 'edit')
+        this.props.libraryManager.editPL(parseInt(this.props.routeParams['id']), this.state.name, this.state.details, this.state.type, this.state.pdids);
+      else
+        console.warn('Unexpected mode');
       this.setState(this.getInitialState());
     }
   },
   render: function() {
     logger.reportRender('CreateBox');
+    var header = this.props.boxmode === 'create'
+      ? 'Add a new Programming language'
+      : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id']))['name'];
     return (
       <div>
         <form style={{marginTop: '30px'}}>
-          <h3>Add a new Programming language</h3>
+          <h3>{header}</h3>
           <div className="form-group">
             <div>
               <input type="text"
@@ -78,9 +121,10 @@ var BrowsepageCreateBoxPL = React.createClass({
               <input type="text" disabled
                      className="form-control"
                      value={this.state.paradigms}></input>
+              <Button onClick={this.handleRemoveParadigm}>Remove PD</Button>
             </div>
           </div>
-          <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
+          <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
 
         </form>
         <form>
@@ -180,4 +224,4 @@ var BrowsepageCreateBoxPD = React.createClass({
   }
 });
 
-export {BrowsepageCreateBoxPL,BrowsepageCreateBoxPD};
+export {BrowsepageCreateBoxPL, BrowsepageCreateBoxPD};
