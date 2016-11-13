@@ -33,7 +33,9 @@ const defineLibraryAppDataTypes = function(typify) {
     // console.log('Array.isArray(lib.havings) ');
     // console.log(Array.isArray(lib.havings));
 
-    return typeof lib.id === 'number'
+    return typeof lib !== 'undefiend'
+      && typeof lib !== 'null'
+      && typeof lib.id === 'number'
       && lib.id >= 0
       && typeof lib.email === 'string'
       && typeof lib.name === 'string'
@@ -45,7 +47,9 @@ const defineLibraryAppDataTypes = function(typify) {
 
 //define programminglanguage type
   typify.type("programminglanguage", function(pl) {
-    return typeof pl.plid === 'number'
+    return typeof pl !== 'undefiend'
+      && typeof pl !== 'null'
+      && typeof pl.plid === 'number'
       && pl.plid >= 1
       && typeof pl.name === 'string'
       && typeof pl.details === 'string'
@@ -54,7 +58,9 @@ const defineLibraryAppDataTypes = function(typify) {
 
 //define paradigm type
   typify.type("paradigm", function(pd) {
-    return typeof pd.pdid === 'number'
+    return typeof pd !== 'undefiend'
+      && typeof pd !== 'null'
+      && typeof pd.pdid === 'number'
       && pd.pdid >= 1
       && typeof pd.name === 'string'
       && typeof pd.details === 'string'
@@ -352,8 +358,8 @@ const _API = {
       });
 
       var plIndex = null;
-      library['programminglanguages'].forEach(function(pl,index){
-        if(pl.plid === plid) {
+      library['programminglanguages'].forEach(function(pl, index) {
+        if (pl.plid === plid) {
           plIndex = index
         }
       });
@@ -463,8 +469,8 @@ const _API = {
       };
 
       var pdIndex = null;
-      library['paradigms'].forEach(function(pd,index){
-        if(pd.pdid === pdid) {
+      library['paradigms'].forEach(function(pd, index) {
+        if (pd.pdid === pdid) {
           pdIndex = index
         }
       });

@@ -203,7 +203,7 @@ var Container = React.createClass({
       console.log('Cloning children');
 
       //note that json-server return filtered query as an array
-      var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
+      var library = loggedInAndHasEmail(this) && typify.check('library',this.state['library']) ? this.state['library'] : null;
       const libraryManager = {
         create: library ? undefined : this.createLib,
         delete: library ? this.deleteLib : undefined,
@@ -218,20 +218,20 @@ var Container = React.createClass({
         editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
-        available: U.isDefined(library)
-        //TODO ADD PL,PD, ETC.
+        available: typify.check('library',library)
       };
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib : undefined;
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
-        library: library,
+        //library: library,
         setLibraryHandler: setLibraryHandler,
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined,
         libraryManager: libraryManager
       })
     }
 
+    console.warn('End of container/render');
     return (
       <Jumbotron id="containerRoot">
         <h2>

@@ -2,6 +2,9 @@ import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
 import logger from '../utils/logger';
 
+import {PieChart} from 'react-easy-chart';
+
+
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
@@ -42,18 +45,33 @@ var Homepage = React.createClass({
   // },
   render: function() {
     logger.reportRender('Homepage');
-    var numberOfLanguages = 10;
-    var numberOfParadigms = 10;
+    var numberOfLanguages = 0;
+    var numberOfParadigms = 0;
+    var header = (<h3>Welcome</h3>);
+    var chart = (<div></div>);
+    var createBox = this.props.libraryManager
+      ? (<CreateBox libraryManager={this.props.libraryManager}/>)
+      : (<div></div>);
+    if (this.props.libraryManager && this.props.libraryManager.available) {
+      createBox = (<div></div>);
+      numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
+      numberOfParadigms = this.props.libraryManager.getAttr('paradigms').length;
+
+
+      header = (<h3>{this.props.libraryManager.getAttr('name')}</h3>);
+      //chart = (<PieChart data={data} options={options} width="600" height="250"/>);
+    }
+    const pieData = [
+      {key: 'Cats', value: 100},
+      {key: 'Dogs', value: 200},
+      {key: 'Other', value: 50}
+    ];
     return (
       <div>
-        <h2>A programmer repo</h2>
-        <h3>Programming languages: {numberOfLanguages}</h3>
-        <h3>Paradigms: {numberOfParadigms}</h3>
-        {
-          this.props.libraryManager.available ?
-            (<h3>{this.props.libraryManager.getAttr('name')}</h3>) :
-            (<CreateBox libraryManager={this.props.libraryManager}/>)
-        }
+        {header}
+        {chart}
+        {createBox}
+        <PieChart data={pieData} size={300} />
       </div>
     );
   },

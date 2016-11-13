@@ -68,9 +68,9 @@ var Findpage = React.createClass({
       var strict = textFind.length > 3 && textFind.charAt(0) === '\"' && textFind.charAt(textFind.length - 1) === '\"';
       var query = strict ? textFind.substring(1, textFind.length - 1) : textToLowerCaseAlphanumericArray(textFind);
 
+      //go through item to do searching
       items.forEach(function(i) {
         var rank = 0;
-        
         if(strict) {
           if(i.details.includes(query))
             rank++;
@@ -160,15 +160,7 @@ var Findpage = React.createClass({
             </div>
           ) : (<div></div>)
         }
-        {
-          resultToDisplay ? (
-            <div>
-              <ul>
-                {resultToDisplay}
-              </ul>
-            </div>
-          ) : (<div></div>)
-        }
+        {resultToDisplay ? (<div><ul>{resultToDisplay}</ul></div>) : (<div><h4>No result</h4></div>)        }
       </div>
     );
   }
