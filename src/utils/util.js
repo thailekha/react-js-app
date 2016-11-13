@@ -33,9 +33,10 @@ const defineLibraryAppDataTypes = function(typify) {
     // console.log('Array.isArray(lib.havings) ');
     // console.log(Array.isArray(lib.havings));
 
-    return typeof lib !== 'undefiend'
-      && typeof lib !== 'null'
-      && typeof lib.id === 'number'
+    if(typeof lib !== 'undefiend'|| typeof lib !== 'null')
+      return false;
+
+    return typeof lib.id === 'number'
       && lib.id >= 0
       && typeof lib.email === 'string'
       && typeof lib.name === 'string'
