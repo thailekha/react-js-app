@@ -1,4 +1,4 @@
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
+//import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MyApp from './App';
@@ -12,6 +12,7 @@ import Profilepage from './components/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
 import {BrowsepageCreateBoxPL, BrowsepageCreateBoxPD} from './components/Browsepage/CreateEditBox';
 import {PLContent, PDContent} from './components/Browsepage/Content';
+import Findpage from './components/Findpage';
 
 //Auth0 and router
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
@@ -47,8 +48,6 @@ const routes = (
     <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Login}/>
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
-
-    /*Move browsepage container here maybe*/
     <Route path="browse" navID="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
       <Route path="createboxpl" sendToChildren="create" component={BrowsepageCreateBoxPL}/>
@@ -58,6 +57,7 @@ const routes = (
       <Route path="pl/:id" component={PLContent}/>
       <Route path="pd/:id" component={PDContent}/>
     </Route>
+    <Route path="find" navID="find" component={Findpage} onEnter={requireAuth}/>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Login}/> //to prevent router errors
   </Route>

@@ -1,7 +1,6 @@
 import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
 import logger from '../utils/logger';
-import {U} from '../utils/util';
 
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -37,10 +36,10 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
-  componentDidMount: function() {
-    console.log('Homepage/reload');
-    this.props.libraryManager.setLibraryHandler();
-  },
+  // componentDidMount: function() {
+  //   console.log('Homepage/reload');
+  //   this.props.libraryManager.setLibraryHandler();
+  // },
   render: function() {
     logger.reportRender('Homepage');
     var numberOfLanguages = 10;
