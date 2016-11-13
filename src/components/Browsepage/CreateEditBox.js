@@ -144,14 +144,36 @@ var BrowsepageCreateBoxPL = React.createClass({
 var BrowsepageCreateBoxPD = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-    return {
-      name: '',
-      details: '',
-      subParadigm: '',
-      subParadigms: '',
-      spdids: []
-    };
+    var mode = this.props.boxmode;
+    if (mode === 'edit') {
+      var pd = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id']));
+      var subPDIDs = pd.subparadigms;
+      var subPDs = '';
+      subPDIDs.forEach(function(spdid, index) {
+        subPDs += this.props.libraryManager.getPD(spdid).name + (index + 1 === subPDIDs.length ? '' : ',');
+      }.bind(this));
+      return {
+        name: pd.name,
+        details: pd.details,
+        subParadigm: '',
+        subParadigms: subPDs,
+        spdids: subPDIDs
+      };
+    }
+    else if (mode === 'create') {
+      return {
+        name: '',
+        details: '',
+        subParadigm: '',
+        subParadigms: '',
+        spdids: []
+      };
+    }
+    else {
+      console.warn('Unexpected mode');
+    }
   },
+
   handleNameChange: function(e) {
     this.setState({name: e.target.value});
   },
@@ -176,19 +198,41 @@ var BrowsepageCreateBoxPD = React.createClass({
       });
     }
   },
-  handleAdd: function(e) {
+  handleRemoveSubParadigm: function(e) {
+    e.preventDefault();
+    if (this.state.subParadigms.length > 0 && this.state.spdids.length > 0) {
+      var subPDs = this.state.subParadigms.split(',');
+      subPDs.pop();
+      this.state.spdids.pop();
+      this.setState({
+        subParadigms: subPDs
+      });
+    }
+  },
+  handleSubmit: function(e) {
     if (this.state.name.length > 0 && this.state.details.length > 0) {
       e.preventDefault();
-      this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.spdids);
+      if (this.props.boxmode === 'create') {
+        this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.spdids);
+      }
+      else if (this.props.boxmode === 'edit') {
+        this.props.libraryManager.editPD(parseInt(this.props.routeParams['id']), this.state.name, this.state.details, this.state.spdids);
+      }
+      else {
+        console.warn('Unexpected mode');
+      }
       this.setState(this.getInitialState());
     }
   },
   render: function() {
     logger.reportRender('CreateBox');
+    var header = this.props.boxmode === 'create'
+      ? 'Add a new paradigm'
+      : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'])).name;
     return (
       <div>
         <form style={{marginTop: '30px'}}>
-          <h3>Add a new paradigm</h3>
+          <h3>{header}</h3>
           <div className="form-group">
             <div>
               <input type="text"
@@ -206,9 +250,10 @@ var BrowsepageCreateBoxPD = React.createClass({
               <input type="text" disabled
                      className="form-control"
                      value={this.state.subParadigms}></input>
+              <Button onClick={this.handleRemoveSubParadigm}>Remove</Button>
             </div>
           </div>
-          <Button type="submit" className="btn btn-primary" onClick={this.handleAdd}>Add</Button>
+          <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
         </form>
         <form>
           <h3>What subparadigms does this have ?</h3>

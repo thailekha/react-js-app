@@ -450,6 +450,29 @@ const _API = {
         component.setState({library: validResponse});
       })
     }),
+  editParadigm: typify('editParadigm :: library -> number -> string -> string -> (array number) -> * -> *',
+    function(library, pdid, name, details, subParadigmIDs, component) {
+      console.log('_API/editParadigm(' + library + ' ,' +
+        name + ' ,' + pdid + ',' + details + ' ,' + subParadigmIDs + ' ,' + component + ')');
+
+      var nParadigm = {
+        pdid: pdid,
+        name: name,
+        details: details,
+        subparadigms: subParadigmIDs
+      };
+
+      var pdIndex = null;
+      library['paradigms'].forEach(function(pd,index){
+        if(pd.pdid === pdid) {
+          pdIndex = index
+        }
+      });
+      library['paradigms'][pdIndex] = nParadigm;
+      U.updateLibrary(library, component, function(component, validResponse) {
+        component.setState({library: validResponse});
+      })
+    }),
   deleteParadigm: typify('deleteParadigm :: library -> number -> * -> *', function(library, paradigmID, component) {
     console.log('_API/deleteParadigm(' + library + ' ,' + paradigmID + ' ,' + component);
 

@@ -157,6 +157,16 @@ var Container = React.createClass({
       }
       return NOT_LOGGED_IN;
     }),
+  editPD: typify('editPD :: number -> string -> string -> (array number) -> VOID | NOT_LOGGED_IN',
+    function(pdid, name, details, subParadigmIds) {
+      if (loggedInAndHasEmail(this)) {
+        console.log('Container/editPD()');
+        console.log('Edit PD ' + pdid + ' ' + name + ' ' + details  + ' ' + subParadigmIds);
+        _API.editParadigm(this.state.library, pdid, name, details, subParadigmIds, this);
+        return VOID;
+      }
+      return NOT_LOGGED_IN;
+    }),
   getPDID: typify('getPDID :: string -> number | null | NOT_LOGGED_IN', function(name) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/getPDID()');
@@ -206,6 +216,7 @@ var Container = React.createClass({
         getRelatedPDs: library ? this.getRelatedPDs : undefined,
         getPDID: library ? this.getPDID : undefined,
         addPD: library ? this.addPD : undefined,
+        editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
         available: U.isDefined(library)

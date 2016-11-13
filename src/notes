@@ -1,3 +1,4 @@
+-update paradigm -> check parent paradigm
 -when deleting anything, if the routing on the item to be deleted, redirect the page !!!
 
 add more typify.assert to the HTTP responses
