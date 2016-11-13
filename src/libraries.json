@@ -7,6 +7,15 @@
       "public": true,
       "paradigms": [
         {
+          "pdid": 1,
+          "name": "Object-oriented",
+          "details": "Object-oriented programming (OOP) is a programming paradigm based on the concept of \"objects\"",
+          "subparadigms": [
+            2,
+            3
+          ]
+        },
+        {
           "pdid": 2,
           "name": "Actor-based",
           "details": "The actor model in computer science is a mathematical model of concurrent computation that treats \"actors\" as the universal primitives of concurrent computation",
@@ -28,18 +37,21 @@
         },
         {
           "plid": 2,
-          "name": "Javascri",
+          "name": "Javascript",
           "details": "a high-level, dynamic, untyped, and interpreted programming language",
           "type": "interpreted"
-        },
-        {
-          "name": "123",
-          "details": "345",
-          "type": "678",
-          "plid": 3
         }
       ],
-      "havings": []
+      "havings": [
+        {
+          "pdid": 1,
+          "plid": 1
+        },
+        {
+          "pdid": 1,
+          "plid": 2
+        }
+      ]
     },
     {
       "id": 1,

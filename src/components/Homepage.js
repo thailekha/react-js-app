@@ -2,7 +2,8 @@ import React, {PropTypes as T} from 'react';
 import {Button} from 'react-bootstrap';
 import logger from '../utils/logger';
 
-import {PieChart} from 'react-easy-chart';
+import {PieChart, Legend} from 'react-easy-chart';
+var randomHexColor = require('random-hex-color');
 
 
 var CreateBox = React.createClass({
@@ -43,35 +44,106 @@ var Homepage = React.createClass({
   //   console.log('Homepage/reload');
   //   this.props.libraryManager.setLibraryHandler();
   // },
+  getInitialState: function() {
+    return {view: 'all'};
+  },
+  handleChangeMode: function(e) {
+    e.preventDefault();
+    this.setState({view: e.target.value});
+  },
   render: function() {
     logger.reportRender('Homepage');
-    var numberOfLanguages = 0;
-    var numberOfParadigms = 0;
+    //Default view
     var header = (<h3>Welcome</h3>);
     var chart = (<div></div>);
+    var selectModeBox = (<div></div>);
     var createBox = this.props.libraryManager
       ? (<CreateBox libraryManager={this.props.libraryManager}/>)
       : (<div></div>);
+
     if (this.props.libraryManager && this.props.libraryManager.available) {
-      createBox = (<div></div>);
-      numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
-      numberOfParadigms = this.props.libraryManager.getAttr('paradigms').length;
-
-
+      //Full view
       header = (<h3>{this.props.libraryManager.getAttr('name')}</h3>);
-      //chart = (<PieChart data={data} options={options} width="600" height="250"/>);
+      createBox = (<div></div>);
+      selectModeBox = (
+        <div><h4>Overview mode</h4>
+          <select id="view" onChange={this.handleChangeMode}>
+            <option value="all">all</option>
+            <option value="programminglanguages">programming languages</option>
+            <option value="paradigms">paradigms</option>
+          </select>
+        </div>
+      );
+
+      if (this.state.view === 'all') {
+        var numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
+        var numberOfParadigms = this.props.libraryManager.getAttr('paradigms').length;
+        const pieData = [
+          {key: 'programming languages', value: numberOfLanguages, color: '#800080'},
+          {key: 'paradigms', value: numberOfParadigms, color: '#2d8b59'}
+        ];
+        const config = [
+          {color: '#800080'},
+          {color: '#2d8b59'}
+        ];
+        chart = (<div><PieChart data={pieData} size={300}/>
+          <Legend data={pieData} dataId={'key'} config={config}/></div>);
+      }
+      else if (this.state.view === 'programminglanguages') {
+        //1 language -> many paradigms
+        var dataPL = [];
+        var configDataPL = [];
+        var pls = this.props.libraryManager.getAttr('programminglanguages');
+        pls.forEach(function(pl){
+          var relatedPDs = this.props.libraryManager.getRelatedPDs(pl.plid).length;
+          var color = randomHexColor();
+          dataPL.push({
+            key: pl.name + ' (' + relatedPDs + ' paradigms)',
+            value: relatedPDs,
+            color: color
+          });
+          configDataPL.push({color: color});
+        }.bind(this));
+        const pieDataPL = dataPL;
+        const configPL = configDataPL;
+
+        chart = (<div><PieChart data={pieDataPL} size={300}/>
+          <Legend data={pieDataPL} dataId={'key'} config={configPL}/></div>);
+      }
+      else if (this.state.view === 'paradigms') {
+        //1 paradigm -> many languages
+        var dataPD = [];
+        var configDataPD = [];
+        var pds = this.props.libraryManager.getAttr('paradigms');
+        var havings = this.props.libraryManager.getAttr('havings');
+        pds.forEach(function(pd){
+          var numberOfPLs = 0;
+          havings.forEach(function(having){
+            if(having.pdid === pd.pdid) {
+              numberOfPLs++;
+            }
+          });
+          var color = randomHexColor();
+          dataPD.push({
+            key: pd.name + ' (' + numberOfPLs+ ' languages)',
+            value: numberOfPLs,
+            color: color
+          });
+          configDataPD.push({color: color});
+        }.bind(this));
+        const pieDataPD = dataPD;
+        const configPD = configDataPD;
+
+        chart = (<div><PieChart data={pieDataPD} size={300}/>
+          <Legend data={pieDataPD} dataId={'key'} config={configPD}/></div>);
+      }
     }
-    const pieData = [
-      {key: 'Cats', value: 100},
-      {key: 'Dogs', value: 200},
-      {key: 'Other', value: 50}
-    ];
     return (
       <div>
         {header}
+        {selectModeBox}
         {chart}
         {createBox}
-        <PieChart data={pieData} size={300} />
       </div>
     );
   },
