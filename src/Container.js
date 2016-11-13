@@ -206,7 +206,6 @@ var Container = React.createClass({
       var library = loggedInAndHasEmail(this) ? this.state['library'] : undefined;
       const libraryManager = {
         create: library ? undefined : this.createLib,
-        reload: this.setLib,
         delete: library ? this.deleteLib : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
         addPL: library ? this.addPL : undefined,

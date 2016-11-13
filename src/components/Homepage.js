@@ -9,7 +9,7 @@ var CreateBox = React.createClass({
     return {name: ''};
   },
   handleCreate: function(e) {
-    if(this.state.name.length > 0) {
+    if (this.state.name.length > 0) {
       e.preventDefault();
       this.props.libraryManager.create(this.state.name);
       this.setState({name: ''});
@@ -37,6 +37,10 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
+  componentDidMount: function() {
+    console.log('Homepage/reload');
+    this.props.libraryManager.setLibraryHandler();
+  },
   render: function() {
     logger.reportRender('Homepage');
     var numberOfLanguages = 10;
@@ -47,9 +51,9 @@ var Homepage = React.createClass({
         <h3>Programming languages: {numberOfLanguages}</h3>
         <h3>Paradigms: {numberOfParadigms}</h3>
         {
-          typeof library === 'undefined' ?
-            (<CreateBox libraryManager={this.props.libraryManager} />) :
-            (<h3>{library.name}</h3>)
+          this.props.libraryManager.available ?
+            (<h3>{this.props.libraryManager.getAttr('name')}</h3>) :
+            (<CreateBox libraryManager={this.props.libraryManager}/>)
         }
       </div>
     );
