@@ -35,7 +35,8 @@ var SubNavigationBar = React.createClass({
       });
     return (
       <div id="subNavigation">
-        <Button onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
+        <Button bsStyle={this.state.browsingMode === 'programminglanguages' ? "primary" : "success"}
+                onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
         <div id="subNavigationbar">
           <ul id="tabs">
             <Link to={linkToCreateBox}>Create</Link>
