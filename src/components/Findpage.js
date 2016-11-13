@@ -4,6 +4,21 @@ import {Button} from 'react-bootstrap';
 import {Link} from 'react-router';
 import _ from 'lodash';
 
+const LETTERS_AND_NUMBERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+const textToAlphanumericArray = function(str) {
+  //filter symbols that are not either letters, numbers or space
+  var result = _.filter(str.toLowerCase().split(''), function(w) {
+    return LETTERS_AND_NUMBERS.includes(w) || w === ' ';
+  });
+  //join and split again, this time by space, notice that '  '.split(' ') gives ['','','']
+  result = _.filter(result.join('').split(' '), function(w) {
+    return w !== "";
+  });
+  console.log(result);
+  return result;
+}
+
 var Findpage = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
@@ -25,11 +40,11 @@ var Findpage = React.createClass({
     });
   },
   handleFind: function() {
+    //get all programming languages and paradigms
+    var items = this.props.libraryManager.getAttr('programminglanguages').concat(this.props.libraryManager.getAttr('paradigms'));
+    var found = [];
     if (this.state.findMode === 'name') {
-      //get all programming languages and paradigms
-      var items = this.props.libraryManager.getAttr('programminglanguages').concat(this.props.libraryManager.getAttr('paradigms'));
       //go through the array to find ones that match the query
-      var found = [];
       items.forEach(function(i) {
         if (i.name.toLowerCase().includes(this.state.find.toLowerCase())) {
           found.push(i);
@@ -41,28 +56,69 @@ var Findpage = React.createClass({
           return item.name;
         })
       }
-      //set state
-      this.setState({
-        result: found
-      });
     }
+    else {
+      //(this.state.findMode === 'content')
+      var query = textToAlphanumericArray(this.state.find);
+
+      items.forEach(function(i) {
+        var rank = 0;
+        //turn item details to array of alphanumeric items
+        textToAlphanumericArray(i.details).forEach(function(word) {
+          if (query.includes(word))
+            rank++;
+        }.bind(this));
+        if (rank > 0) {
+          found.push({
+            foundItem: i,
+            rank: rank
+          });
+        }
+      }.bind(this));
+
+      //sort
+      if (found.length > 1) {
+        found = _.sortBy(found, function(item) {
+          return this.state.sort === 'relevance' ? item.rank : item.foundItem.name;
+        }.bind(this));
+      }
+    }
+    this.setState({
+      result: found
+    });
   },
   render: function() {
     logger.reportRender('Findpage');
     var resultToDisplay = null;
     if (this.state.result.length > 0) {
-      resultToDisplay = this.state.result.map(function(item, index) {
-        if (item.plid) {
-          return <Link key={index}
-                       to={'/browse/pl/' + item['plid']}>{item['name']}</Link>
-        }
-        else {
-          return <Link key={index}
-                       to={'/browse/pd/' + item['plid']}>{item['name']}</Link>
-        }
-      });
+      if (this.state.findMode === 'name') {
+        resultToDisplay = this.state.result.map(function(item, index) {
+          if (item.plid) {
+            return <Link key={index}
+                         to={'/browse/pl/' + item['plid']}>{item['name']}</Link>
+          }
+          else {
+            return <Link key={index}
+                         to={'/browse/pd/' + item['pdid']}>{item['name']}</Link>
+          }
+        }.bind(this));
+      }
+      else {
+        //Mode = content
+        resultToDisplay = this.state.result.map(function(item, index) {
+          var foundItem = item.foundItem;
+          var ranking = ' (Rank ' + item.rank + ')';
+          if (foundItem.plid) {
+            return <Link key={index}
+                         to={'/browse/pl/' + foundItem['plid']}>{foundItem['name'] + ranking}</Link>
+          }
+          else {
+            return <Link key={index}
+                         to={'/browse/pd/' + foundItem['pdid']}>{foundItem['name'] + ranking}</Link>
+          }
+        });
+      }
     }
-
     return (
       <div>
         <div className="form-group">
@@ -99,7 +155,8 @@ var Findpage = React.createClass({
         }
       </div>
     );
-  },
+  }
+  ,
 })
 
 export default Findpage;

@@ -49,8 +49,10 @@
     "react-bootstrap": "^0.30.0-rc.1",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.0",
+    "scatter-rank": "^1.0.0",
     "superagent": "1.6.1",
-    "typify": "^0.2.9"
+    "typify": "^0.2.9",
+    "wordnetjs": "^0.3.0"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development hjs-dev-server",
