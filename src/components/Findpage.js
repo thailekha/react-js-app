@@ -6,7 +6,8 @@ import _ from 'lodash';
 
 const LETTERS_AND_NUMBERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-const textToAlphanumericArray = function(str) {
+const textToLowerCaseAlphanumericArray = function(str) {
+  //str will be turned to lower case
   //filter symbols that are not either letters, numbers or space
   var result = _.filter(str.toLowerCase().split(''), function(w) {
     return LETTERS_AND_NUMBERS.includes(w) || w === ' ';
@@ -40,6 +41,9 @@ var Findpage = React.createClass({
     });
   },
   handleFind: function() {
+    if (this.state.find.trim().length === 0)
+      return;
+
     //get all programming languages and paradigms
     var items = this.props.libraryManager.getAttr('programminglanguages').concat(this.props.libraryManager.getAttr('paradigms'));
     var found = [];
@@ -59,15 +63,27 @@ var Findpage = React.createClass({
     }
     else {
       //(this.state.findMode === 'content')
-      var query = textToAlphanumericArray(this.state.find);
+      var textFind = this.state.find;
+      //strict mode eg. "java is object-oriented" (double-quotes)
+      var strict = textFind.length > 3 && textFind.charAt(0) === '\"' && textFind.charAt(textFind.length - 1) === '\"';
+      var query = strict ? textFind.substring(1, textFind.length - 1) : textToLowerCaseAlphanumericArray(textFind);
 
       items.forEach(function(i) {
         var rank = 0;
-        //turn item details to array of alphanumeric items
-        textToAlphanumericArray(i.details).forEach(function(word) {
-          if (query.includes(word))
+        
+        if(strict) {
+          if(i.details.includes(query))
             rank++;
-        }.bind(this));
+        }
+        else {
+          //turn item details to array of alphanumeric items
+          textToLowerCaseAlphanumericArray(i.details).forEach(function(word) {
+            if (query.includes(word))
+              rank++;
+          }.bind(this));
+        }
+
+        //put to found array
         if (rank > 0) {
           found.push({
             foundItem: i,
@@ -138,8 +154,8 @@ var Findpage = React.createClass({
             <div>
               <h4>Sort by</h4>
               < select id="sort" onChange={this.handleSortChange}>
-                <option value="name">Alphabetical</option>
                 <option value="relevance">Relevance</option>
+                <option value="name">Alphabetical</option>
               </select>
             </div>
           ) : (<div></div>)
