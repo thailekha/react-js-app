@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
-import logger from '../utils/logger';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import logger from '../utils/logger';
 
 //https://github.com/ReactTraining/react-router/blob/master/docs/API.md#link
 var NavigationBar = React.createClass({

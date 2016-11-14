@@ -1,7 +1,9 @@
 import React from 'react';
-import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
-import {Link}from 'react-router';
+import {Link} from 'react-router';
+import {LinkContainer} from 'react-router-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import logger from '../../utils/logger';
 
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -23,26 +25,29 @@ var SubNavigationBar = React.createClass({
     var subNavigationItems = this.state.browsingMode === 'programminglanguages' ?
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['plid']) {
-          return <Link key={index}
-                       to={'/browse/pl/' + navItem['plid']}>{navItem['name']}</Link>
+          return <LinkContainer key={index}
+                                to={'/browse/pl/' + navItem['plid']}>
+            <NavItem eventKey={index}>{navItem['name']}</NavItem>
+          </LinkContainer>;
         }
       }) :
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['pdid']) {
-          return <Link key={index}
-                       to={'/browse/pd/' + navItem['pdid']}>{navItem['name']}</Link>
+          return <LinkContainer key={index}
+                                to={'/browse/pd/' + navItem['pdid']}>
+            <NavItem eventKey={index}>{navItem['name']}</NavItem>
+          </LinkContainer>;
         }
       });
     return (
       <div id="subNavigation">
         <Button bsStyle={this.state.browsingMode === 'programminglanguages' ? "primary" : "success"}
                 onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
-        <div id="subNavigationbar">
-          <ul id="tabs">
-            <Link to={linkToCreateBox}>Create</Link>
-            {subNavigationItems}
-          </ul>
-        </div>
+
+        <Link to={linkToCreateBox}>Create</Link>
+        <Nav bsStyle="pills" stacked activeKey={1}>
+          {subNavigationItems}
+        </Nav>
       </div>
     );
   },
