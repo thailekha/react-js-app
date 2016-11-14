@@ -1,6 +1,7 @@
 import React from 'react';
 import logger from '../../utils/logger';
 import SubNavigationBar from './SubNavigationBar';
+import {Row,Col} from 'react-bootstrap';
 
 //TODO: fix " == undefined" to 'typeof ...'
 
@@ -40,8 +41,14 @@ var BrowsepageContainer = React.createClass({
     }
     return (
       <div>
-        <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
-        {children}
+        <Row className="show-grid">
+          <Col md={1}>
+            <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
+          </Col>
+          <Col md={8} mdOffset={2}>
+          {children}
+          </Col>
+        </Row>
       </div>
     );
   },
