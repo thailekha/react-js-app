@@ -12,7 +12,7 @@ var Login = React.createClass({
     auth: T.instanceOf(AuthService)
   },
   render: function() {
-    logger.reportCounter('Login')
+    logger.reportCounter('Loginpage')
     const {auth} = this.props
     return (
       <div>

@@ -22,7 +22,7 @@ var CreateBox = React.createClass({
     this.setState({name: e.target.value});
   },
   render: function() {
-    logger.reportRender('CreateBox');
+    logger.reportRender('HomepageCreateBox');
     return (
       <form style={{marginTop: '30px'}}>
         <h3>Create a new library</h3>

@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MyApp from './App';
 import './index.css';
-import logger from './utils/logger';
 
 //view components
 import Homepage from './components/Homepage';
@@ -64,12 +63,10 @@ const routes = (
   </Route>
 );
 
-console.log('index.js -> Render');
 ReactDOM.render(
   <MyApp history={hashHistory}
          routes={routes}/>,
   document.getElementById('root')
 );
-//logger.reportCounter();
 
 console.log();

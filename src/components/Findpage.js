@@ -168,7 +168,6 @@ var Findpage = React.createClass({
       </Pager.Item></Pager>
     );
   }
-  ,
 })
 
 export default Findpage;

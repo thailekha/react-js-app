@@ -90,7 +90,7 @@ var BrowsepageCreateBoxPL = React.createClass({
     }
   },
   render: function() {
-    logger.reportRender('CreateBox');
+    logger.reportRender('BrowsepageCreateBoxPL');
     var header = this.props.boxmode === 'create'
       ? 'Add a new Programming language'
       : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id']))['name'];
@@ -225,7 +225,7 @@ var BrowsepageCreateBoxPD = React.createClass({
     }
   },
   render: function() {
-    logger.reportRender('CreateBox');
+    logger.reportRender('BrowsepageCreateBoxPD');
     var header = this.props.boxmode === 'create'
       ? 'Add a new paradigm'
       : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'])).name;
