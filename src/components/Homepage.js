@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Pager} from 'react-bootstrap';
 import logger from '../utils/logger';
 
 import {PieChart, Legend} from 'react-easy-chart';
@@ -86,15 +86,17 @@ var Homepage = React.createClass({
           {color: '#800080'},
           {color: '#2d8b59'}
         ];
-        chart = (<div><PieChart data={pieData} size={300}/>
-          <Legend data={pieData} dataId={'key'} config={config}/></div>);
+        chart = (<Pager><Pager.Item>
+          <div><PieChart data={pieData} size={300}/>
+            <Legend data={pieData} dataId={'key'} config={config}/></div>
+        </Pager.Item></Pager>);
       }
       else if (this.state.view === 'programminglanguages') {
         //1 language -> many paradigms
         var dataPL = [];
         var configDataPL = [];
         var pls = this.props.libraryManager.getAttr('programminglanguages');
-        pls.forEach(function(pl){
+        pls.forEach(function(pl) {
           var relatedPDs = this.props.libraryManager.getRelatedPDs(pl.plid).length;
           var color = randomHexColor();
           dataPL.push({
@@ -107,8 +109,10 @@ var Homepage = React.createClass({
         const pieDataPL = dataPL;
         const configPL = configDataPL;
 
-        chart = (<div><PieChart data={pieDataPL} size={300}/>
-          <Legend data={pieDataPL} dataId={'key'} config={configPL}/></div>);
+        chart = (<Pager><Pager.Item>
+          <div><PieChart data={pieDataPL} size={300}/>
+            <Legend data={pieDataPL} dataId={'key'} config={configPL}/></div>
+        </Pager.Item></Pager>);
       }
       else if (this.state.view === 'paradigms') {
         //1 paradigm -> many languages
@@ -116,16 +120,16 @@ var Homepage = React.createClass({
         var configDataPD = [];
         var pds = this.props.libraryManager.getAttr('paradigms');
         var havings = this.props.libraryManager.getAttr('havings');
-        pds.forEach(function(pd){
+        pds.forEach(function(pd) {
           var numberOfPLs = 0;
-          havings.forEach(function(having){
-            if(having.pdid === pd.pdid) {
+          havings.forEach(function(having) {
+            if (having.pdid === pd.pdid) {
               numberOfPLs++;
             }
           });
           var color = randomHexColor();
           dataPD.push({
-            key: pd.name + ' (' + numberOfPLs+ ' languages)',
+            key: pd.name + ' (' + numberOfPLs + ' languages)',
             value: numberOfPLs,
             color: color
           });
@@ -134,8 +138,11 @@ var Homepage = React.createClass({
         const pieDataPD = dataPD;
         const configPD = configDataPD;
 
-        chart = (<div><PieChart data={pieDataPD} size={300}/>
-          <Legend data={pieDataPD} dataId={'key'} config={configPD}/></div>);
+        chart = (<Pager><Pager.Item>
+          <PieChart data={pieDataPD} size={300}/>
+          <Legend data={pieDataPD} dataId={'key'} config={configPD}/>
+        </Pager.Item>
+        </Pager>);
       }
     }
     return (

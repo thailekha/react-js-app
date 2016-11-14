@@ -1,3 +1,6 @@
+DESIGN DOCUMENT
+
+
 -modes: keywords, phrases, starts with; if "..." -> no split; found highlight
 -update paradigm -> check parent paradigm
 -when deleting anything, if the routing on the item to be deleted, redirect the page !!!
@@ -44,6 +47,7 @@ To refactor:
 -a button to report renders
 -use alert with empty input fields
 -notice typeof null returns object !!!
+-html header footer,graphviz
 -uninstall wordnet ?
 -first arg of some methods is number => to represent the chain of methods
 eg. getX(1, ...) => first print out _getX...

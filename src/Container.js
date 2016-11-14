@@ -5,6 +5,7 @@ import {U, _API, defineLibraryAppDataTypes} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 import typify from 'typify';
+import {Row, Col} from 'react-bootstrap';
 
 console.log('Container.js');
 
@@ -161,7 +162,7 @@ var Container = React.createClass({
     function(pdid, name, details, subParadigmIds) {
       if (loggedInAndHasEmail(this)) {
         console.log('Container/editPD()');
-        console.log('Edit PD ' + pdid + ' ' + name + ' ' + details  + ' ' + subParadigmIds);
+        console.log('Edit PD ' + pdid + ' ' + name + ' ' + details + ' ' + subParadigmIds);
         _API.editParadigm(this.state.library, pdid, name, details, subParadigmIds, this);
         return VOID;
       }
@@ -204,7 +205,7 @@ var Container = React.createClass({
       console.log('Cloning children');
 
       //note that json-server return filtered query as an array
-      var library = loggedInAndHasEmail(this) && typify.check('library',this.state['library']) ? this.state['library'] : null;
+      var library = loggedInAndHasEmail(this) && typify.check('library', this.state['library']) ? this.state['library'] : null;
       console.warn('1');
       const libraryManager = {
         create: library ? undefined : this.createLib,
@@ -220,7 +221,7 @@ var Container = React.createClass({
         editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
-        available: typify.check('library',library)
+        available: typify.check('library', library)
       };
       console.warn('2');
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib : undefined;
@@ -238,18 +239,18 @@ var Container = React.createClass({
 
     console.warn('End of container/render');
     return (
-      <Jumbotron id="containerRoot">
-        <h2>
-          Container
-          <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
-        </h2>
-        {
-          U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
-            (<div id={children.props.route.navID}><NavigationBar /></div>) :
-            (<div></div>)
-        }
-        {children}
-      </Jumbotron>
+        <Jumbotron id="containerRoot">
+          <h2>
+            Container
+            <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
+          </h2>
+          {
+            U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
+              (<div id={children.props.route.navID}><NavigationBar /></div>) :
+              (<div></div>)
+          }
+          {children}
+        </Jumbotron>
     )
   }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import logger from '../utils/logger'
-import {Button} from 'react-bootstrap';
+import {Button, Pager} from 'react-bootstrap';
 import {Link} from 'react-router';
 import _ from 'lodash';
 
@@ -71,8 +71,8 @@ var Findpage = React.createClass({
       //go through item to do searching
       items.forEach(function(i) {
         var rank = 0;
-        if(strict) {
-          if(i.details.includes(query))
+        if (strict) {
+          if (i.details.includes(query))
             rank++;
         }
         else {
@@ -136,32 +136,36 @@ var Findpage = React.createClass({
       }
     }
     return (
-      <div>
-        <div className="form-group">
-          <input type="text"
-                 className="form-control" placeholder="Query"
-                 value={this.state.find}
-                 onChange={this.handleFindChange}></input>
-          <Button onClick={this.handleFind}>Find</Button>
+      <Pager><Pager.Item>
+        <div>
+          <div className="form-group">
+            <input type="text"
+                   className="form-control" placeholder="Query"
+                   value={this.state.find}
+                   onChange={this.handleFindChange}></input>
+            <Button onClick={this.handleFind}>Find</Button>
+          </div>
+          <h4>Find mode</h4>
+          <select id="findmode" onChange={this.handleFindModeChange}>
+            <option value="name">Name</option>
+            <option value="content">Content</option>
+          </select>
+          {
+            this.state.findMode === 'content' ? (
+              <div>
+                <h4>Sort by</h4>
+                < select id="sort" onChange={this.handleSortChange}>
+                  <option value="relevance">Relevance</option>
+                  <option value="name">Alphabetical</option>
+                </select>
+              </div>
+            ) : (<div></div>)
+          }
+          {resultToDisplay ? (<div>
+            <ul>{resultToDisplay}</ul>
+          </div>) : (<div><h4>No result</h4></div>)        }
         </div>
-        <h4>Find mode</h4>
-        <select id="findmode" onChange={this.handleFindModeChange}>
-          <option value="name">Name</option>
-          <option value="content">Content</option>
-        </select>
-        {
-          this.state.findMode === 'content' ? (
-            <div>
-              <h4>Sort by</h4>
-              < select id="sort" onChange={this.handleSortChange}>
-                <option value="relevance">Relevance</option>
-                <option value="name">Alphabetical</option>
-              </select>
-            </div>
-          ) : (<div></div>)
-        }
-        {resultToDisplay ? (<div><ul>{resultToDisplay}</ul></div>) : (<div><h4>No result</h4></div>)        }
-      </div>
+      </Pager.Item></Pager>
     );
   }
   ,

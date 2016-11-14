@@ -45,7 +45,7 @@ var BrowsepageContainer = React.createClass({
           <Col md={1}>
             <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
           </Col>
-          <Col md={8} mdOffset={2}>
+          <Col md={8} mdOffset={3}>
           {children}
           </Col>
         </Row>
