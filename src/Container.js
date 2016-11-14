@@ -81,7 +81,7 @@ var Container = React.createClass({
   }),
   setLib: typify('setLib :: VOID | NOT_LOGGED_IN', function() {
     if (loggedInAndHasEmail(this)) {
-      console.warn('Container/setLib()');
+      //console.warn('Container/setLib()');
       var email = extractAuth(this).getProfile().email;
       U.getLibrary(email, this);
       return VOID;
@@ -194,7 +194,7 @@ var Container = React.createClass({
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     console.log('Container componentDidMount called');
-    this.setLib();
+    //this.setLib();
     console.log('Container componentDidMount finished');
   },
   render() {
@@ -205,7 +205,7 @@ var Container = React.createClass({
 
       //note that json-server return filtered query as an array
       var library = loggedInAndHasEmail(this) && typify.check('library',this.state['library']) ? this.state['library'] : null;
-      console.warn('1');
+      //console.warn('1');
       const libraryManager = {
         create: library ? undefined : this.createLib,
         delete: library ? this.deleteLib : undefined,
@@ -222,9 +222,9 @@ var Container = React.createClass({
         deletePD: library ? this.deletePD : undefined,
         available: typify.check('library',library)
       };
-      console.warn('2');
+      //console.warn('2');
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib : undefined;
-      console.warn('3');
+      //console.warn('3');
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
@@ -233,7 +233,7 @@ var Container = React.createClass({
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined,
         libraryManager: libraryManager
       })
-      console.warn('4');
+      //console.warn('4');
     }
 
     console.warn('End of container/render');

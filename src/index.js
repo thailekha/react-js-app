@@ -1,4 +1,4 @@
-//import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import MyApp from './App';

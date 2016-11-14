@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {LinkContainer} from 'react-router-bootstrap';
 import logger from '../utils/logger';
-import {Navbar,Nav,NavItem} from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 //https://github.com/ReactTraining/react-router/blob/master/docs/API.md#link
 var NavigationBar = React.createClass({
@@ -10,9 +11,11 @@ var NavigationBar = React.createClass({
     logger.reportRender('NavigationBar');
     var navigationItems = ['home', 'browse', 'Find', 'profile', 'logout'].map(function(navItem, index) {
       //if key={index} was left within <Link> tab error is thrown
-      return (<NavItem eventKey={index} key={index} id={'tab' + index}>
-        <Link to={navItem}>{navItem}</Link>
-      </NavItem>);
+      return (
+        <LinkContainer key={index} to={navItem}>
+          <NavItem key={index} eventKey={index} id={'tab' + index}>{navItem}</NavItem>
+        </LinkContainer>
+      );
     }.bind(this));
     return (
       <Navbar inverse collapseOnSelect>
