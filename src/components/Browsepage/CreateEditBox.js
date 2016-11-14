@@ -7,8 +7,8 @@ var BrowsepageCreateBoxPL = React.createClass({
   getInitialState: function() {
     var mode = this.props.boxmode;
     if (mode === 'edit') {
-      var pl = this.props.libraryManager.getPL(parseInt(this.props.routeParams['id']));
-      var relatedPDs = this.props.libraryManager.getRelatedPDs(parseInt(this.props.routeParams['id']));
+      var pl = this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'],10));
+      var relatedPDs = this.props.libraryManager.getRelatedPDs(parseInt(this.props.routeParams['id'],10));
       var relatedPDsNames = '';
       var relatedPDsIDs = [];
       for (var i = 0; i < relatedPDs.length; i++) {
@@ -83,7 +83,7 @@ var BrowsepageCreateBoxPL = React.createClass({
       if (this.props.boxmode === 'create')
         this.props.libraryManager.addPL(this.state.name, this.state.details, this.state.type, this.state.pdids);
       else if (this.props.boxmode === 'edit')
-        this.props.libraryManager.editPL(parseInt(this.props.routeParams['id']), this.state.name, this.state.details, this.state.type, this.state.pdids);
+        this.props.libraryManager.editPL(parseInt(this.props.routeParams['id'],10), this.state.name, this.state.details, this.state.type, this.state.pdids);
       else
         console.warn('Unexpected mode');
       this.setState(this.getInitialState());
@@ -93,7 +93,7 @@ var BrowsepageCreateBoxPL = React.createClass({
     logger.reportRender('BrowsepageCreateBoxPL');
     var header = this.props.boxmode === 'create'
       ? 'Add a new Programming language'
-      : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id']))['name'];
+      : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'],10))['name'];
     return (
       <div>
         <form style={{marginTop: '30px'}}>
@@ -146,7 +146,7 @@ var BrowsepageCreateBoxPD = React.createClass({
   getInitialState: function() {
     var mode = this.props.boxmode;
     if (mode === 'edit') {
-      var pd = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id']));
+      var pd = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10));
       var subPDIDs = pd.subparadigms;
       var subPDs = '';
       subPDIDs.forEach(function(spdid, index) {
@@ -216,7 +216,7 @@ var BrowsepageCreateBoxPD = React.createClass({
         this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.spdids);
       }
       else if (this.props.boxmode === 'edit') {
-        this.props.libraryManager.editPD(parseInt(this.props.routeParams['id']), this.state.name, this.state.details, this.state.spdids);
+        this.props.libraryManager.editPD(parseInt(this.props.routeParams['id'],10), this.state.name, this.state.details, this.state.spdids);
       }
       else {
         console.warn('Unexpected mode');
@@ -228,7 +228,7 @@ var BrowsepageCreateBoxPD = React.createClass({
     logger.reportRender('BrowsepageCreateBoxPD');
     var header = this.props.boxmode === 'create'
       ? 'Add a new paradigm'
-      : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'])).name;
+      : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10)).name;
     return (
       <div>
         <form style={{marginTop: '30px'}}>

@@ -5,9 +5,8 @@ import {U, _API, defineLibraryAppDataTypes} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 import typify from 'typify';
-import {Row, Col} from 'react-bootstrap';
-
-console.log('Container.js');
+//import {Row, Col} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 //defineLibraryAppDataTypes(typify);
 
@@ -190,8 +189,10 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
-  //TODO if(loggedInAndHasEmail(this)), this.state.library
-
+  handleManuallySetState: function(e){
+    e.preventDefault();
+    this.setState({});
+  },
   //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     this.setLib();
@@ -219,7 +220,7 @@ var Container = React.createClass({
         editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
-        available: typify.check('library', library)
+        libraryIsAvailable: typify.check('library', library)
       };
       //console.warn('2');
       var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib : undefined;
@@ -248,6 +249,7 @@ var Container = React.createClass({
               (<div></div>)
           }
           {children}
+          <Button onClick={this.handleManuallySetState}>Manually Set State of Container</Button>
         </Jumbotron>
     )
   }

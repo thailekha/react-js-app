@@ -6,11 +6,11 @@ import {Link} from 'react-router';
 var PLContent = React.createClass({
   handleDelete: function(e) {
     e.preventDefault();
-    this.props.libraryManager.deletePL(parseInt(this.props.routeParams['id']));
+    this.props.libraryManager.deletePL(parseInt(this.props.routeParams['id'],10));
   },
   render: function() {
     logger.reportRender('PLContent');
-    var plid = parseInt(this.props.routeParams['id']);
+    var plid = parseInt(this.props.routeParams['id'],10);
     var programmingLanguage = this.props.libraryManager.getPL(plid);
     console.log(this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']));
     var relatedParadigms = this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']).map(function(paradigm, index) {
@@ -24,7 +24,7 @@ var PLContent = React.createClass({
         <b>Related paradigms</b>
         {relatedParadigms}
         <Button onClick={this.handleDelete}>Delete</Button>
-        <Button><Link to={"/browse/editboxpl/" + parseInt(this.props.routeParams['id'])}>Edit</Link></Button>
+        <Button><Link to={"/browse/editboxpl/" + parseInt(this.props.routeParams['id'],10)}>Edit</Link></Button>
       </div>
     );
   }
@@ -33,11 +33,11 @@ var PLContent = React.createClass({
 var PDContent = React.createClass({
   handleDelete: function(e) {
     e.preventDefault();
-    this.props.libraryManager.deletePD(parseInt(this.props.routeParams['id']));
+    this.props.libraryManager.deletePD(parseInt(this.props.routeParams['id'],10));
   },
   render: function() {
     logger.reportRender('PDContent');
-    var paradigm = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id']));
+    var paradigm = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10));
     var subParadigms = paradigm['subparadigms'].map(function(subParadigmID, index) {
       //subParadigm pd-ids in items are strings !!!
       return <Link key={index}
@@ -49,7 +49,7 @@ var PDContent = React.createClass({
         {subParadigms}
         <p>{paradigm['details']}</p>
         <Button onClick={this.handleDelete}>Delete</Button>
-        <Button><Link to={"/browse/editboxpd/" + parseInt(this.props.routeParams['id'])}>Edit</Link></Button>
+        <Button><Link to={"/browse/editboxpd/" + parseInt(this.props.routeParams['id'],10)}>Edit</Link></Button>
       </div>
     );
   }

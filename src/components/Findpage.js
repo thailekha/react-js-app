@@ -90,7 +90,7 @@ var Findpage = React.createClass({
             rank: rank
           });
         }
-      }.bind(this));
+      });
 
       //sort
       if (found.length > 1) {

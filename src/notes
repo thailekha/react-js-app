@@ -44,7 +44,6 @@ if library is not available => no tabs
 when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
 To refactor:
--a button to report renders
 -use alert with empty input fields
 -notice typeof null returns object !!!
 -static component (eg. navbars,profile) => shouldcomponent update
@@ -77,22 +76,37 @@ Dot graph:
  DOT Language
 graph{
 
+Container[style="filled",color="red"];
+BrowsepageContainer[style="filled",color="red"];
+"State: Library"[style="filled",color="blue"];
+"Props: Library Manager"[style="filled",color="blue"];
+
+Homepage[style="filled",color="#AF002A"];
+Browsepage[style="filled",color="#C46210'"];
+Findpage[style="filled",color="#00C4B0"];
+Profilepage[style="filled",color="#008000"];
+CreateBoxPLorPD[style="filled",color="#6D9BC3"];
+ContentPLorPD[style="filled",color="#CD607E"];
+
 MyApp -- Router -- Container;
-Container -- NavigationBar;
-Container -- Login;
-Container -- Homepage;
-Container -- Browsepage;
-Container -- Findpage;
-Container -- Profilepage;
-Homepage -- Chart;
+Container -- "Login (if not logged in)";
+Container -- "State: Library"[color="magenta"];
+Container -- "Props: Library Manager"[color="magenta"];
+Container -- NavigationBar[color="magenta"];
+Container -- Homepage[color="magenta"];
+Container -- Browsepage[color="magenta"];
+Container -- Findpage[color="magenta"];
+Container -- Profilepage[color="magenta"];
+Homepage -- Chart[color="magenta"];
 Homepage -- Createbox;
-Browsepage -- BrowsepageContainer;
-BrowsepageContainer -- SubNavigationBar;
-BrowsepageContainer -- CreateBoxPLorPD;
-BrowsepageContainer -- ContentPLorPD;
-Findpage -- SearchForm;
+Browsepage -- BrowsepageContainer[color="magenta"];
+BrowsepageContainer -- SubNavigationBar[color="magenta"];
+BrowsepageContainer -- CreateBoxPLorPD[color="magenta"];
+BrowsepageContainer -- ContentPLorPD[color="magenta"];
+Findpage -- SearchForm[color="magenta"];
 
 }
+
 
 --------------------------------------------------------------------------
 ***JavaScripts Function.prototype.apply***

@@ -2,7 +2,7 @@ import React from 'react';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Nav, NavItem} from 'react-bootstrap';
 import logger from '../../utils/logger';
 
 var SubNavigationBar = React.createClass({
@@ -30,6 +30,8 @@ var SubNavigationBar = React.createClass({
             <NavItem eventKey={index}>{navItem['name']}</NavItem>
           </LinkContainer>;
         }
+        console.warn('SubNavigationBar/Mapping subnavigtions items has null');
+        return null;
       }) :
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['pdid']) {
@@ -38,6 +40,8 @@ var SubNavigationBar = React.createClass({
             <NavItem eventKey={index}>{navItem['name']}</NavItem>
           </LinkContainer>;
         }
+        console.warn('SubNavigationBar/Mapping subnavigtions items has null');
+        return null;
       });
     return (
       <div id="subNavigation">

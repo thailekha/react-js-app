@@ -15,6 +15,9 @@ var logger = {
       report += i + ': ' + this.counter[i] + '\n';
     }
     alert(report);
+  },
+  reset: function(){
+    this.counter = {};
   }
 };
 

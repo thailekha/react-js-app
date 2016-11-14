@@ -40,10 +40,10 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
-  // componentDidMount: function() {
-  //   console.log('Homepage/reload');
-  //   this.props.setLibraryHandler();
-  // },
+  componentDidMount: function() {
+    console.log('Homepage/reload');
+    this.props.setLibraryHandler();
+  },
   getInitialState: function() {
     return {view: 'all'};
   },
@@ -53,6 +53,7 @@ var Homepage = React.createClass({
   },
   render: function() {
     logger.reportRender('Homepage');
+    console.warn('Homepage');
     //Default view
     var header = (<h3>Welcome</h3>);
     var chart = (<div></div>);
@@ -61,7 +62,7 @@ var Homepage = React.createClass({
       ? (<CreateBox libraryManager={this.props.libraryManager}/>)
       : (<div></div>);
 
-    if (this.props.libraryManager && this.props.libraryManager.available) {
+    if (this.props.libraryManager && this.props.libraryManager.libraryIsAvailable) {
       //Full view
       header = (<h3>{this.props.libraryManager.getAttr('name')}</h3>);
       createBox = (<div></div>);

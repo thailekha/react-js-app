@@ -17,6 +17,10 @@ var MyApp = React.createClass({
     e.preventDefault();
     logger.reportCounter();
   },
+  handleResetReportRander: function(e){
+    e.preventDefault();
+    logger.reset();
+  },
   getContent: function() {
     return (
       <Router
@@ -31,6 +35,7 @@ var MyApp = React.createClass({
 
         {this.getContent()}
         <Button onClick={this.handleReportRender}>Report render</Button>
+        <Button onClick={this.handleResetReportRander}>Reset report render</Button>
       </div>
     );
   }

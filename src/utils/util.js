@@ -176,7 +176,7 @@ var U = {
           else {
             console.log('Error: util/getLibrary() gets more than 1 libraries');
           }
-        }.bind(this), null);
+        }, null);
       }
     }.bind(this));
 
