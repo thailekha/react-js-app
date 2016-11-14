@@ -1,7 +1,5 @@
-import React, {PropTypes as T} from 'react';
+import React from 'react';
 import logger from '../utils/logger';
-import AuthService from '../utils/AuthService';
-import NavigationBar from './NavigationBar';
 
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({

@@ -43,6 +43,7 @@ when logging in, check if localstorage already have library object that does not
 To refactor:
 -a button to report renders
 -use alert with empty input fields
+-notice typeof null returns object !!!
 -uninstall wordnet ?
 -first arg of some methods is number => to represent the chain of methods
 eg. getX(1, ...) => first print out _getX...

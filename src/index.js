@@ -1,5 +1,5 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import React, {PropTypes} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import MyApp from './App';
 import './index.css';
@@ -15,11 +15,11 @@ import {PLContent, PDContent} from './components/Browsepage/Content';
 import Findpage from './components/Findpage';
 
 //Auth0 and router
-import {Router, Route, IndexRedirect, hashHistory} from 'react-router';
+import {Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './Container';
 
-
+//const auth = new AuthService('eovaKsTfC8LLOjnFmyDLVJrTjs1idPwl', 'thailekha.auth0.com');
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 
 // onEnter callback to validate authentication in private routes
@@ -42,6 +42,7 @@ const doLogout = (nextState, replace) => {
 
 //Notes: /home and /login is default and required by auth0
 console.log(auth.loggedIn());
+
 const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
@@ -70,3 +71,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 //logger.reportCounter();
+
+console.log();

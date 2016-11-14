@@ -65,13 +65,13 @@ config.plugins = [
 
 // Roots
 config.resolve.root = [src, modules]
-config.resolve.alias = {
-//  'css': join(src, 'styles'),
-  'components': join(src, 'components'),
-  'utils': join(src, 'utils'),
-
-//  'styles': join(src, 'styles')
-}
+// config.resolve.alias = {
+// //  'css': join(src, 'styles'),
+//   'components': join(src, 'components'),
+//   'utils': join(src, 'utils'),
+//
+// //  'styles': join(src, 'styles')
+// }
 // end Roots
 
 // Testing

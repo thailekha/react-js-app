@@ -1,4 +1,4 @@
-import React, {PropTypes as T} from 'react';
+import React from 'react';
 import {Button} from 'react-bootstrap';
 import logger from '../utils/logger';
 
@@ -42,7 +42,7 @@ var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
   componentDidMount: function() {
     console.log('Homepage/reload');
-    this.props.libraryManager.setLibraryHandler();
+    this.props.setLibraryHandler();
   },
   getInitialState: function() {
     return {view: 'all'};
@@ -130,7 +130,7 @@ var Homepage = React.createClass({
             color: color
           });
           configDataPD.push({color: color});
-        }.bind(this));
+        });
         const pieDataPD = dataPD;
         const configPD = configDataPD;
 

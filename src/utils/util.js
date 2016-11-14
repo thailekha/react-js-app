@@ -15,26 +15,29 @@ const defineLibraryAppDataTypes = function(typify) {
     /**
      * for debug mode, do not delete
      */
-    // console.log('Checking library type');
-    // console.log('typeof lib.id === \'number\' ');
-    // console.log(typeof lib.id === 'number');
-    // console.log('lib.id >= 0');
-    // console.log(lib.id >= 0);
-    // console.log('typeof lib.email === \'string\' ');
-    // console.log(typeof lib.email === 'string');
-    // console.log('typeof lib.name === \'string\' ');
-    // console.log(typeof lib.name === 'string');
-    // console.log('typeof lib.public === \'boolean\' ');
-    // console.log(typeof lib.public === 'boolean');
-    // console.log('Array.isArray(lib.paradigms) ');
-    // console.log(Array.isArray(lib.paradigms));
-    // console.log('Array.isArray(lib.programminglanguages) ');
-    // console.log(Array.isArray(lib.programminglanguages));
-    // console.log('Array.isArray(lib.havings) ');
-    // console.log(Array.isArray(lib.havings));
 
-    if(typeof lib !== 'undefiend'|| typeof lib !== 'null')
+    console.log(lib);
+
+    if (typeof lib === 'undefined' || lib === null)
       return false;
+
+    console.log('Checking library type');
+    console.log('typeof lib.id === \'number\' ');
+    console.log(typeof lib.id === 'number');
+    console.log('lib.id >= 0');
+    console.log(lib.id >= 0);
+    console.log('typeof lib.email === \'string\' ');
+    console.log(typeof lib.email === 'string');
+    console.log('typeof lib.name === \'string\' ');
+    console.log(typeof lib.name === 'string');
+    console.log('typeof lib.public === \'boolean\' ');
+    console.log(typeof lib.public === 'boolean');
+    console.log('Array.isArray(lib.paradigms) ');
+    console.log(Array.isArray(lib.paradigms));
+    console.log('Array.isArray(lib.programminglanguages) ');
+    console.log(Array.isArray(lib.programminglanguages));
+    console.log('Array.isArray(lib.havings) ');
+    console.log(Array.isArray(lib.havings));
 
     return typeof lib.id === 'number'
       && lib.id >= 0
@@ -48,20 +51,24 @@ const defineLibraryAppDataTypes = function(typify) {
 
 //define programminglanguage type
   typify.type("programminglanguage", function(pl) {
-    return typeof pl !== 'undefiend'
-      && typeof pl !== 'null'
-      && typeof pl.plid === 'number'
-      && pl.plid >= 1
-      && typeof pl.name === 'string'
-      && typeof pl.details === 'string'
-      && typeof pl.type === 'string'
+
+    if (typeof pl === 'undefined' || pl === null)
+      return false;
+
+      return typeof pl.plid === 'number'
+        && pl.plid >= 1
+        && typeof pl.name === 'string'
+        && typeof pl.details === 'string'
+        && typeof pl.type === 'string'
   });
 
 //define paradigm type
   typify.type("paradigm", function(pd) {
-    return typeof pd !== 'undefiend'
-      && typeof pd !== 'null'
-      && typeof pd.pdid === 'number'
+
+    if(typeof pd === 'undefined' || pd === null)
+      return false;
+
+    return typeof pd.pdid === 'number'
       && pd.pdid >= 1
       && typeof pd.name === 'string'
       && typeof pd.details === 'string'
@@ -70,6 +77,10 @@ const defineLibraryAppDataTypes = function(typify) {
 
 //define having type
   typify.type("having", function(hv) {
+
+    if(typeof hv === 'undefined' || hv === null)
+      return false;
+
     return typeof hv.pdid === 'number'
       && typeof hv.plid === 'number'
       && hv.pdid >= 1

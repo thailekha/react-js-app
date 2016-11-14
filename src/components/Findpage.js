@@ -65,7 +65,7 @@ var Findpage = React.createClass({
       //(this.state.findMode === 'content')
       var textFind = this.state.find;
       //strict mode eg. "java is object-oriented" (double-quotes)
-      var strict = textFind.length > 3 && textFind.charAt(0) === '\"' && textFind.charAt(textFind.length - 1) === '\"';
+      var strict = textFind.length > 3 && textFind.charAt(0) === '"' && textFind.charAt(textFind.length - 1) === '"';
       var query = strict ? textFind.substring(1, textFind.length - 1) : textToLowerCaseAlphanumericArray(textFind);
 
       //go through item to do searching
@@ -80,7 +80,7 @@ var Findpage = React.createClass({
           textToLowerCaseAlphanumericArray(i.details).forEach(function(word) {
             if (query.includes(word))
               rank++;
-          }.bind(this));
+          });
         }
 
         //put to found array
@@ -117,7 +117,7 @@ var Findpage = React.createClass({
             return <Link key={index}
                          to={'/browse/pd/' + item['pdid']}>{item['name']}</Link>
           }
-        }.bind(this));
+        });
       }
       else {
         //Mode = content
