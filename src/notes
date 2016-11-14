@@ -1,6 +1,6 @@
 DESIGN DOCUMENT
 
-
+Testing: make a library object to test each component7
 -modes: keywords, phrases, starts with; if "..." -> no split; found highlight
 -update paradigm -> check parent paradigm
 -when deleting anything, if the routing on the item to be deleted, redirect the page !!!
@@ -47,6 +47,7 @@ To refactor:
 -a button to report renders
 -use alert with empty input fields
 -notice typeof null returns object !!!
+-static component (eg. navbars,profile) => shouldcomponent update
 -html header footer,graphviz
 -uninstall wordnet ?
 -first arg of some methods is number => to represent the chain of methods
@@ -73,10 +74,26 @@ Old logout solution:
 -cannot put nav bar in Container and shouldn't put it in each view component => create another "app" component
 
 Dot graph:
-graph {
-	Index -- MyApp -- Router -- Container -- Login;
-	Container -- Homepage;
+ DOT Language
+graph{
+
+MyApp -- Router -- Container;
+Container -- NavigationBar;
+Container -- Login;
+Container -- Homepage;
+Container -- Browsepage;
+Container -- Findpage;
+Container -- Profilepage;
+Homepage -- Chart;
+Homepage -- Createbox;
+Browsepage -- BrowsepageContainer;
+BrowsepageContainer -- SubNavigationBar;
+BrowsepageContainer -- CreateBoxPLorPD;
+BrowsepageContainer -- ContentPLorPD;
+Findpage -- SearchForm;
+
 }
+
 --------------------------------------------------------------------------
 ***JavaScripts Function.prototype.apply***
 

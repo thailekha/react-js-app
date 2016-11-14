@@ -1,7 +1,7 @@
 var logger = {
   counter: {},
   reportRender: function(component) {
-    console.log(component);
+    //console.log(component);
     if (this.counter[component] === undefined) {
       this.counter[component] = 1;
     }
@@ -10,9 +10,11 @@ var logger = {
     }
   },
   reportCounter: function() {
+    var report = '';
     for (var i in this.counter) {
-      console.log(i + ': ' + this.counter[i]);
+      report += i + ': ' + this.counter[i] + '\n';
     }
+    alert(report);
   }
 };
 
