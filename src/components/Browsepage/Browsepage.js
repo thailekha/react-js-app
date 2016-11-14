@@ -16,17 +16,16 @@ var BrowsepageContainer = React.createClass({
   render: function() {
     logger.reportRender('BrowsepageContainer');
     let children = null;
+    var programmingLanguages = [];
+    var paradigms = [];
     if (this.props.children) {
       console.log('Browsepage Cloning children');
 
       var libraryManager = this.props.libraryManager;
 
-      var programmingLanguages = [];
-      var paradigms = [];
-      if (libraryManager.available) {
+      if (libraryManager.libraryIsAvailable) {
         programmingLanguages = libraryManager.getAttr('programminglanguages');
         paradigms = libraryManager.getAttr('paradigms');
-
       }
       //console.log(programmingLanguages.concat(paradigms));
       //var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
@@ -34,7 +33,7 @@ var BrowsepageContainer = React.createClass({
         //Must clone children to pass arguments to them
         libraryManager: libraryManager,
         boxmode: this.props.children.props.route.sendToChildren
-      })
+      });
     }
     else {
       console.warn('BrowsepageContainer no children');

@@ -1,5 +1,7 @@
 DESIGN DOCUMENT
 
+-review previous commit to validate deleted "bind"
+
 Testing: make a library object to test each component7
 -modes: keywords, phrases, starts with; if "..." -> no split; found highlight
 -update paradigm -> check parent paradigm
@@ -76,36 +78,33 @@ Dot graph:
  DOT Language
 graph{
 
-Container[style="filled",color="red"];
+Container[label="Container | state: profile, library",shape="rect",style="filled",color="red"];
 BrowsepageContainer[style="filled",color="red"];
-"State: Library"[style="filled",color="blue"];
-"Props: Library Manager"[style="filled",color="blue"];
 
-Homepage[style="filled",color="#AF002A"];
-Browsepage[style="filled",color="#C46210'"];
-Findpage[style="filled",color="#00C4B0"];
-Profilepage[style="filled",color="#008000"];
-CreateBoxPLorPD[style="filled",color="#6D9BC3"];
-ContentPLorPD[style="filled",color="#CD607E"];
+Homepage[shape="rect",style="filled",color="#AF002A"];
+Browsepage[shape="rect",style="filled",color="#C46210'"];
+Findpage[shape="rect",style="filled",color="#00C4B0"];
+Profilepage[shape="rect",style="filled",color="#008000"];
+CreateBoxPLorPD[shape="rect",style="filled",color="#6D9BC3"];
+ContentPLorPD[shape="rect",style="filled",color="#CD607E"];
 
 MyApp -- Router -- Container;
 Container -- "Login (if not logged in)";
-Container -- "State: Library"[color="magenta"];
-Container -- "Props: Library Manager"[color="magenta"];
 Container -- NavigationBar[color="magenta"];
-Container -- Homepage[color="magenta"];
-Container -- Browsepage[color="magenta"];
-Container -- Findpage[color="magenta"];
+Container -- Homepage[label="props: libraryManager",color="magenta"];
+Container -- Browsepage[label="props: libraryManager",color="magenta"];
+Container -- Findpage[label="props: libraryManager",color="magenta"];
 Container -- Profilepage[color="magenta"];
-Homepage -- Chart[color="magenta"];
+Homepage -- Chart[label="props: libraryManager",color="magenta"];
 Homepage -- Createbox;
-Browsepage -- BrowsepageContainer[color="magenta"];
+Browsepage -- BrowsepageContainer[label="props: libraryManager",color="magenta"];
 BrowsepageContainer -- SubNavigationBar[color="magenta"];
-BrowsepageContainer -- CreateBoxPLorPD[color="magenta"];
-BrowsepageContainer -- ContentPLorPD[color="magenta"];
-Findpage -- SearchForm[color="magenta"];
+BrowsepageContainer -- CreateBoxPLorPD[label="props: libraryManager",color="magenta"];
+BrowsepageContainer -- ContentPLorPD[label="props: libraryManager",color="magenta"];
+Findpage -- SearchForm[label="props: libraryManager",color="magenta"];
 
 }
+
 
 
 --------------------------------------------------------------------------

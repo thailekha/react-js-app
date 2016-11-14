@@ -55,7 +55,8 @@ var BrowsepageCreateBoxPL = React.createClass({
     e.preventDefault();
     var nParadigm = this.state.paradigm;
     var pdid = this.props.libraryManager.getPDID(nParadigm);
-    if (nParadigm.length > 0 && pdid) {
+
+    if (nParadigm.length > 0 && pdid && !this.state.pdids.includes(pdid)) {
       var oldState = this.state.paradigms;
       var newState = oldState + (oldState.length === 0 ? '' : ',') + nParadigm;
       this.state.pdids.push(pdid);
@@ -64,6 +65,9 @@ var BrowsepageCreateBoxPL = React.createClass({
         paradigm: '',
         paradigms: newState
       });
+    }
+    else{
+      alert('Error: Empty paradigm field; OR paradigm not found; OR paradigm already added');
     }
   },
   handleRemoveParadigm: function(e) {
@@ -87,6 +91,9 @@ var BrowsepageCreateBoxPL = React.createClass({
       else
         console.warn('Unexpected mode');
       this.setState(this.getInitialState());
+    }
+    else {
+      alert('Name, Details, and Type must be filled');
     }
   },
   render: function() {

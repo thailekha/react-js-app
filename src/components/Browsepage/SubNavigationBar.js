@@ -33,23 +33,25 @@ var SubNavigationBar = React.createClass({
         console.warn('SubNavigationBar/Mapping subnavigtions items has null');
         return null;
       }) :
+      //index + 1 because of createbox
       this.props.subNavigationItems.map(function(navItem, index) {
         if (navItem['pdid']) {
           return <LinkContainer key={index}
                                 to={'/browse/pd/' + navItem['pdid']}>
-            <NavItem eventKey={index}>{navItem['name']}</NavItem>
+            <NavItem eventKey={index + 1}>{navItem['name']}</NavItem>
           </LinkContainer>;
         }
         console.warn('SubNavigationBar/Mapping subnavigtions items has null');
         return null;
-      });
+      }.bind(this));
     return (
       <div id="subNavigation">
         <Button bsStyle={this.state.browsingMode === 'programminglanguages' ? "primary" : "success"}
                 onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
 
-        <Link to={linkToCreateBox}>Create</Link>
         <Nav bsStyle="pills" stacked activeKey={1}>
+          <LinkContainer to={linkToCreateBox}>
+            <NavItem eventKey={1}>Create</NavItem></LinkContainer>
           {subNavigationItems}
         </Nav>
       </div>
