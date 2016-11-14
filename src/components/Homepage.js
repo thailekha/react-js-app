@@ -40,10 +40,10 @@ var CreateBox = React.createClass({
 
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
-  componentDidMount: function() {
-    console.log('Homepage/reload');
-    this.props.setLibraryHandler();
-  },
+  // componentDidMount: function() {
+  //   console.log('Homepage/reload');
+  //   this.props.setLibraryHandler();
+  // },
   getInitialState: function() {
     return {view: 'all'};
   },

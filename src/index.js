@@ -40,7 +40,7 @@ const doLogout = (nextState, replace) => {
 };
 
 //Notes: /home and /login is default and required by auth0
-console.log(auth.loggedIn());
+//console.log(auth.loggedIn());
 
 const routes = (
   <Route path="/" component={Container} auth={auth}>
@@ -68,5 +68,3 @@ ReactDOM.render(
          routes={routes}/>,
   document.getElementById('root')
 );
-
-console.log();

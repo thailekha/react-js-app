@@ -12,32 +12,30 @@ var typify = require('typify');
 //define library type
 const defineLibraryAppDataTypes = function(typify) {
   typify.type("library", function(lib) {
-    /**
-     * for debug mode, do not delete
-     */
-
-    console.log(lib);
 
     if (typeof lib === 'undefined' || lib === null)
       return false;
 
-    console.log('Checking library type');
-    console.log('typeof lib.id === \'number\' ');
-    console.log(typeof lib.id === 'number');
-    console.log('lib.id >= 0');
-    console.log(lib.id >= 0);
-    console.log('typeof lib.email === \'string\' ');
-    console.log(typeof lib.email === 'string');
-    console.log('typeof lib.name === \'string\' ');
-    console.log(typeof lib.name === 'string');
-    console.log('typeof lib.public === \'boolean\' ');
-    console.log(typeof lib.public === 'boolean');
-    console.log('Array.isArray(lib.paradigms) ');
-    console.log(Array.isArray(lib.paradigms));
-    console.log('Array.isArray(lib.programminglanguages) ');
-    console.log(Array.isArray(lib.programminglanguages));
-    console.log('Array.isArray(lib.havings) ');
-    console.log(Array.isArray(lib.havings));
+    /**
+     * for debug mode, do not delete
+     */
+    // console.log('Checking library type');
+    // console.log('typeof lib.id === \'number\' ');
+    // console.log(typeof lib.id === 'number');
+    // console.log('lib.id >= 0');
+    // console.log(lib.id >= 0);
+    // console.log('typeof lib.email === \'string\' ');
+    // console.log(typeof lib.email === 'string');
+    // console.log('typeof lib.name === \'string\' ');
+    // console.log(typeof lib.name === 'string');
+    // console.log('typeof lib.public === \'boolean\' ');
+    // console.log(typeof lib.public === 'boolean');
+    // console.log('Array.isArray(lib.paradigms) ');
+    // console.log(Array.isArray(lib.paradigms));
+    // console.log('Array.isArray(lib.programminglanguages) ');
+    // console.log(Array.isArray(lib.programminglanguages));
+    // console.log('Array.isArray(lib.havings) ');
+    // console.log(Array.isArray(lib.havings));
 
     return typeof lib.id === 'number'
       && lib.id >= 0
@@ -124,9 +122,9 @@ const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> 
       successCallback(object);
     }
     catch (err) {
-      console.warn(err);
-      console.log(object);
-      console.warn(catchMessage);
+      console.error(err);
+      console.error(object);
+      console.error(catchMessage);
     }
     finally {
       if (finallyCallback) {
