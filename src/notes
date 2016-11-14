@@ -1,6 +1,17 @@
 DESIGN DOCUMENT
 
+ASK: MAYBE A SILLY QUESTION BUT HOW MANY USER INTERACTION ASSUMED ?
+eg. say you open up 2 tabs in browser, on 1 tab you view some items, on the other you create a new item.
+Or if I fire an request to the server and it comes back late (after I have navigated to another component)
+What would you recommend I should do for independent learning?
+
+Decision: use both enzyme and nightwatchjs
+nightwatch to test navigating to the page, do login, navigate around and logout
+-enzyme: make a mock object with libraryManager methods -> pass to the unit to test
+shallow rendering -> check rendered elements | setState | simulateevent (test what is rendered, how state are changed and how inverse data flow is triggered)
+-disable button if haven't change anything
 -review previous commit to validate deleted "bind"
+-static component (eg. navbars,profile,createboxes) => shouldcomponent update
 
 Testing: make a library object to test each component7
 -modes: keywords, phrases, starts with; if "..." -> no split; found highlight
@@ -48,7 +59,6 @@ when logging in, check if localstorage already have library object that does not
 To refactor:
 -use alert with empty input fields
 -notice typeof null returns object !!!
--static component (eg. navbars,profile) => shouldcomponent update
 -html header footer,graphviz
 -uninstall wordnet ?
 -first arg of some methods is number => to represent the chain of methods

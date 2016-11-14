@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Pager} from 'react-bootstrap';
 import logger from '../utils/logger';
-
+import _ from 'lodash';
 import {PieChart, Legend} from 'react-easy-chart';
 var randomHexColor = require('random-hex-color');
 
@@ -44,6 +44,10 @@ var Homepage = React.createClass({
     console.log('Homepage/reload');
     this.props.setLibraryHandler();
   },
+  // shouldComponentUpdate: function(nextProps,nextState){
+  //   //This component only needs the libraryManager
+  //   return !_.isEqual(this.props.libraryManager, nextProps.libraryManager) || this.state.view !== nextState.view;
+  // },
   getInitialState: function() {
     return {view: 'all'};
   },

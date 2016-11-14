@@ -26,6 +26,14 @@
           "name": "Class-based",
           "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
           "subparadigms": []
+        },
+        {
+          "pdid": 4,
+          "name": "Automatic",
+          "details": "some random paradigm",
+          "subparadigms": [
+            2
+          ]
         }
       ],
       "programminglanguages": [
@@ -45,11 +53,11 @@
       "havings": [
         {
           "pdid": 1,
-          "plid": 1
+          "plid": 2
         },
         {
-          "pdid": 1,
-          "plid": 2
+          "plid": 1,
+          "pdid": 1
         }
       ]
     },

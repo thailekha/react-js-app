@@ -4,9 +4,14 @@ import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem} from 'react-bootstrap';
 import logger from '../../utils/logger';
-
+console.log();
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
+  // shouldComponentUpdate: function(nextProps,nextState){
+  //   console.log('#\n#\n#\n#\n#\n#\n');
+  //   console.log(nextState);
+  //   return true;
+  // },
   getInitialState: function() {
     return {
       browsingMode: 'programminglanguages'

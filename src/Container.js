@@ -245,7 +245,9 @@ var Container = React.createClass({
           </h2>
           {
             U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
-              (<div id={children.props.route.navID}><NavigationBar /></div>) :
+              (<div id={children.props.route.navID}>
+                <NavigationBar />
+              </div>) :
               (<div></div>)
           }
           {children}
