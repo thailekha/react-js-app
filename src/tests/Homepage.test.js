@@ -1,7 +1,7 @@
-var React = require('react');
-var expect = require('expect');
-var {shallow} = require('enzyme');
-var Hompage = require('../components/Homepage');
+import React from 'react';
+import expect from 'expect';
+import {shallow} from 'enzyme';
+import Hompage from '../components/Homepage';
 
 
 describe('Component: ', () => {

@@ -260,7 +260,7 @@ var BrowsepageCreateBoxPD = React.createClass({
               <Button onClick={this.handleRemoveSubParadigm}>Remove</Button>
             </div>
           </div>
-          <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
+          <Button disabled type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
         </form>
         <form>
           <h3>What subparadigms does this have ?</h3>

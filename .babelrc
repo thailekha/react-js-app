@@ -15,7 +15,14 @@
       "presets": []
     },
     "test": {
-      "presets": []
+      "presets": ["react-hmre"],
+      "plugins": [["react-transform", {
+        "transforms": [{
+          "transform": "react-transform-hmr",
+          "imports": ["react"],
+          "locals": ["module"]
+        }]
+      }]]
     }
   }
 }
