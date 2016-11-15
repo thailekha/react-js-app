@@ -6,7 +6,7 @@ import Hompage from '../components/Homepage';
 
 describe('Component: ', () => {
 
-  const minProps = {};
+  //const minProps = {};
 
   it('works', () => {
     expect(true).toEqual(true);

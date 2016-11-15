@@ -46,17 +46,17 @@
         {
           "plid": 2,
           "name": "Javascript",
-          "details": "a high-level, dynamic, untyped, and interpreted programming language",
+          "details": "a high-level, dynamic, untyped, and interpreted programming",
           "type": "interpreted"
         }
       ],
       "havings": [
         {
-          "pdid": 1,
-          "plid": 2
+          "plid": 1,
+          "pdid": 1
         },
         {
-          "plid": 1,
+          "plid": 2,
           "pdid": 1
         }
       ]
