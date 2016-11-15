@@ -151,7 +151,7 @@ var Homepage = React.createClass({
       }
     }
     return (
-      <div>
+      <div className="homepage">
         {header}
         {selectModeBox}
         {chart}

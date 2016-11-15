@@ -25,9 +25,7 @@ describe("A suite", function() {
     expect(true).toEqual(false);
 
     const wrapper = shallow(<Homepage/>);
-
-
-    expect(wrapper.length).toEqual(1);
+    expect(wrapper.find('.homepage').length).toEqual(1);
 
   });
 });

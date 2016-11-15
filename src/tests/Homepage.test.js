@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import Hompage from '../components/Homepage';
+import Homepage from '../components/Homepage';
 
 
 describe('Component: ', () => {
@@ -10,12 +10,9 @@ describe('Component: ', () => {
 
   it('works', () => {
     expect(true).toEqual(true);
-
-    expect(
-      shallow(
-    <Hompage/>
-    ).length
-    ).toEqual(1);
+    const wrapper = shallow(<Homepage/>);
+    expect(wrapper.find('.homepage').length).toEqual(1);
+    expect(true).toEqual(false);
   });
 
 });

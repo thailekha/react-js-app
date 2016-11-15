@@ -1,19 +1,14 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": ["es2015", "stage-0", "react","airbnb"],
   "env": {
     "development": {
-      "presets": ["react-hmre"],
-      "plugins": [["react-transform", {
-        "transforms": [{
-          "transform": "react-transform-hmr",
-          "imports": ["react"],
-          "locals": ["module"]
-        }]
-      }]]
+      "presets": ["airbnb"]
     },
     "production": {
       "presets": []
     },
-    "test": {}
+    "test": {
+      "presets": ["airbnb"]
+    }
   }
 }

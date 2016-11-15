@@ -8,6 +8,8 @@ module.exports = function(config) {
       'src/tests/Foo-test.js'
     ],
 
+    exclude: ['node_modules'],
+
     preprocessors: {
       // add webpack as preprocessor
       'src/tests/*.js': ['webpack', 'sourcemap'],
