@@ -9,7 +9,7 @@ var randomHexColor = require('random-hex-color');
 var CreateBox = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-    return {name: ''};
+    return  {name: ''};
   },
   handleCreate: function(e) {
     if (this.state.name.length > 0) {
@@ -51,7 +51,7 @@ var Homepage = React.createClass({
   //   return !_.isEqual(this.props.libraryManager, nextProps.libraryManager) || this.state.view !== nextState.view;
   // },
   getInitialState: function() {
-    return {view: 'all'};
+    return this.props.libraryManager && this.props.libraryManager.libraryIsAvailable ? {view: 'all'} : {};
   },
   handleChangeMode: function(e) {
     //e.preventDefault();
@@ -163,4 +163,4 @@ var Homepage = React.createClass({
   },
 });
 
-export default Homepage;
+export {Homepage,CreateBox};

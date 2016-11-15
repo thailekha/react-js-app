@@ -5,7 +5,7 @@ import MyApp from './App';
 import './index.css';
 
 //view components
-import Homepage from './components/Homepage';
+import {Homepage} from './components/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
