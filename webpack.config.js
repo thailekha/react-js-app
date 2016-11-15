@@ -29,7 +29,8 @@ var config = getConfig({
         meta: {
           'name': 'auth0 React Sample',
           'description': 'A minimal reactJS sample application showing auth0 integration'
-        }
+        },
+        html: '<div id="root"></div>'
       })
     }
   }

@@ -54,7 +54,7 @@ var Homepage = React.createClass({
     return {view: 'all'};
   },
   handleChangeMode: function(e) {
-    e.preventDefault();
+    //e.preventDefault();
     this.setState({view: e.target.value});
   },
   render: function() {
