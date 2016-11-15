@@ -41,8 +41,10 @@ var CreateBox = React.createClass({
 var Homepage = React.createClass({
   /* ... options and lifecycle methods ... */
   componentDidMount: function() {
-    console.log('Homepage/reload');
-    this.props.setLibraryHandler();
+    if(this.props.libraryManager) {
+      console.log('Homepage/reload');
+      this.props.libraryManager.setLibraryHandler();
+    }
   },
   // shouldComponentUpdate: function(nextProps,nextState){
   //   //This component only needs the libraryManager

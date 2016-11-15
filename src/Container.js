@@ -207,6 +207,7 @@ var Container = React.createClass({
       var library = loggedInAndHasEmail(this) && typify.check('library', this.state['library']) ? this.state['library'] : null;
       //console.warn('1');
       const libraryManager = {
+        setLibraryHandler: loggedInAndHasEmail(this) ? this.setLib : undefined,
         create: library ? undefined : this.createLib,
         delete: library ? this.deleteLib : undefined,
         getAttr: library ? this.getPropertyFromLibrary : undefined,
@@ -223,13 +224,11 @@ var Container = React.createClass({
         libraryIsAvailable: typify.check('library', library)
       };
       //console.warn('2');
-      var setLibraryHandler = loggedInAndHasEmail(this) ? this.setLib : undefined;
       //console.warn('3');
       children = React.cloneElement(this.props.children, {
         //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
         //library: library,
-        setLibraryHandler: setLibraryHandler,
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined,
         libraryManager: libraryManager
       })
