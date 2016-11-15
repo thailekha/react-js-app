@@ -1,93 +1,11 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
+import {getMockLibraryManager} from './testUtils';
 import {Homepage,CreateBox} from '../components/Homepage';
 
+
 //https://github.com/airbnb/enzyme/blob/master/docs/api/selector.md
-
-function getMockLibraryManagerWithNoLibrary() {
-  return {
-    setLibraryHandler(){
-    }, create(){
-    }, delete(){
-    }, getAttr(){
-    }, addPL(){
-    }, editPL(){
-    }, getPL(){
-    }, deletePL(){
-    }, getRelatedPDs(){
-    }, getPDID(){
-    }, addPD(){
-    }, editPD(){
-    }, getPD(){
-    }, deletePD(){
-    },
-    libraryIsAvailable: false
-  };
-}
-
-function getMockLibraryManagerWithLibrary(){
-  return {
-    calledMethods: [],
-    previouslyCalledMethod(m){
-      if (!this.calledMethods.includes(m)) {
-        this.calledMethods.push(m);
-      }
-    },
-    setLibraryHandler(){
-      this.previouslyCalledMethod('setLibraryHandler');
-    },
-    create(){
-      this.previouslyCalledMethod('create');
-    },
-    delete(){
-      this.previouslyCalledMethod('delete');
-    },
-    getAttr(attr){
-      this.previouslyCalledMethod('getAttr');
-      return {
-        "id": 0,
-        "email": "abc@yahoo.sample.com",
-        "name": "Mock 1",
-        "public": true,
-        "paradigms": [],
-        "programminglanguages": [],
-        "havings": []
-      }[attr];
-    },
-    addPL(){
-      this.previouslyCalledMethod('addPL')
-    },
-    editPL(){
-      this.previouslyCalledMethod('editPL')
-    },
-    getPL(){
-      this.previouslyCalledMethod('getPL')
-    },
-    deletePL(){
-      this.previouslyCalledMethod('deletePL')
-    },
-    getRelatedPDs(){
-      this.previouslyCalledMethod('getRelatedPDs')
-    },
-    getPDID(){
-      this.previouslyCalledMethod('getPDID')
-    },
-    addPD(){
-      this.previouslyCalledMethod('addPD')
-    },
-    editPD(){
-      this.previouslyCalledMethod('editPD')
-    },
-    getPD(){
-      this.previouslyCalledMethod('getPD')
-    },
-    deletePD(){
-      this.previouslyCalledMethod('deletePD')
-    },
-    libraryIsAvailable: true
-  };
-}
 
 describe('Component: Homepage', () => {
   //const minProps = {};
@@ -102,13 +20,16 @@ describe('Component: Homepage', () => {
   });
 
   it('has libraryManager in props', () => {
-    const homapageWithLibManager = shallow(<Homepage libraryManager={getMockLibraryManagerWithNoLibrary()}/>);
+    var props = getMockLibraryManager();
+    props.libraryIsAvailable = false;
+    const homapageWithLibManager = shallow(<Homepage libraryManager={props}/>);
     console.log(homapageWithLibManager.debug());
     expect(homapageWithLibManager.find('CreateBox').length).toEqual(1);
   })
 
   it('has libraryManager in props with libraryIsAvailable set to True, "view: "all"" in state, header, view mode, and chart', ()=> {
-    const homapageWithLibManagerAndLibrary = shallow(<Homepage libraryManager={getMockLibraryManagerWithLibrary()}/>);
+    var props = getMockLibraryManager();
+    const homapageWithLibManagerAndLibrary = shallow(<Homepage libraryManager={props}/>);
     //console.log(homapageWithLibManagerAndLibrary.debug());
     const calledMethods1 = homapageWithLibManagerAndLibrary.instance().props.libraryManager.calledMethods;
     expect(calledMethods1.length).toEqual(1);
@@ -124,7 +45,8 @@ describe('Component: Homepage', () => {
   });
 
   it('changes state when user uses the selectbox', ()=>{
-    const homapageWithLibManagerAndLibrary = shallow(<Homepage libraryManager={getMockLibraryManagerWithLibrary()}/>);
+    var props = getMockLibraryManager();
+    const homapageWithLibManagerAndLibrary = shallow(<Homepage libraryManager={props}/>);
     //change view mode of the chart
     homapageWithLibManagerAndLibrary.find('select').simulate('change', {
       target: {value: 'programminglanguages'}
@@ -141,7 +63,8 @@ describe('Component: Homepage', () => {
 describe('Component: CreateBox', () => {
   //TODO edge cases ? eg. no libraryManager
   it('has a form with input field which is kept track by a state', ()=> {
-    const createbox = shallow(<CreateBox libraryManager={getMockLibraryManagerWithLibrary()} />);
+    var props = getMockLibraryManager();
+    const createbox = shallow(<CreateBox libraryManager={props} />);
     expect(createbox.instance().state).toEqual({name:''});
     expect(createbox.find('form').length).toEqual(1);
     expect(createbox.find('input').length).toEqual(1);
@@ -149,7 +72,8 @@ describe('Component: CreateBox', () => {
   });
 
   it('changes state when user types', ()=> {
-    const createbox = shallow(<CreateBox libraryManager={getMockLibraryManagerWithLibrary()} />);
+    var props = getMockLibraryManager();
+    const createbox = shallow(<CreateBox libraryManager={props} />);
     createbox.find('input').simulate('change', {
       target: {value: 'something typed'}
     });
@@ -159,7 +83,8 @@ describe('Component: CreateBox', () => {
   });
 
   it('call libraryManager.create only when user has typed in something',()=>{
-    const createbox = shallow(<CreateBox libraryManager={getMockLibraryManagerWithLibrary()} />);
+    var props = getMockLibraryManager();
+    const createbox = shallow(<CreateBox libraryManager={props} />);
     //click submit button
     createbox.find('Button').simulate('click',{
       preventDefault(){} //NEEDED BECAUSE A SIMULATED EVENT DOES NOT HAVE THIS METHOD

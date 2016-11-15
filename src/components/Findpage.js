@@ -23,7 +23,7 @@ const textToLowerCaseAlphanumericArray = function(str) {
 var Findpage = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
-    return {find: '', findMode: 'name', sort: 'name', result: []}
+    return {find: '', findMode: 'name', sort: 'alphabetical', result: []}
   },
   handleSortChange: function(e) {
     this.setState({
@@ -156,7 +156,7 @@ var Findpage = React.createClass({
                 <h4>Sort by</h4>
                 < select id="sort" onChange={this.handleSortChange}>
                   <option value="relevance">Relevance</option>
-                  <option value="name">Alphabetical</option>
+                  <option value="alphabetical">Alphabetical</option>
                 </select>
               </div>
             ) : (<div></div>)
