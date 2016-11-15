@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem} from 'react-bootstrap';
 import logger from '../../utils/logger';
-console.log();
+
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   // shouldComponentUpdate: function(nextProps,nextState){
