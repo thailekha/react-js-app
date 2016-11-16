@@ -1,0 +1,21 @@
+#EC7D78
+#FFDA6E
+
+//Homepage, when library is not available
+
+graph{
+Homepage[shape="rect",style="filled",color="#EC7D78"];
+CreateBox[shape="rect",style="filled",color="#FFDA6E"];
+Homepage--CreateBox;
+}
+
+//Homepage, when library is available
+
+graph{
+Homepage[shape="rect",style="filled",color="#FFDA6E"];
+ChartRenderer[shape="rect",style="filled",color="#EC7D78"];
+SelectChartModeBox[shape="rect",style="filled",color="#FFDA6E"];
+Homepage--ChartRenderer;
+ChartRenderer--SelectChartModeBox;
+}
+

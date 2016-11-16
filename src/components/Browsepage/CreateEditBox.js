@@ -2,7 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
 
-var BrowsepageCreateEditBoxPL = React.createClass({
+var CreateEditBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
     var mode = this.props.boxmode;
@@ -97,7 +97,7 @@ var BrowsepageCreateEditBoxPL = React.createClass({
     }
   },
   render: function() {
-    logger.reportRender('BrowsepageCreateBoxPL');
+    logger.reportRender('CreateEditBoxPL');
     var header = this.props.boxmode === 'create'
       ? 'Add a new Programming language'
       : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'],10))['name'];
@@ -148,7 +148,7 @@ var BrowsepageCreateEditBoxPL = React.createClass({
   }
 });
 
-var BrowsepageCreateEditBoxPD = React.createClass({
+var CreateEditBoxPD = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
     var mode = this.props.boxmode;
@@ -232,7 +232,7 @@ var BrowsepageCreateEditBoxPD = React.createClass({
     }
   },
   render: function() {
-    logger.reportRender('BrowsepageCreateBoxPD');
+    logger.reportRender('CreateEditBoxPD');
     var header = this.props.boxmode === 'create'
       ? 'Add a new paradigm'
       : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10)).name;
@@ -276,4 +276,4 @@ var BrowsepageCreateEditBoxPD = React.createClass({
   }
 });
 
-export {BrowsepageCreateEditBoxPL, BrowsepageCreateEditBoxPD};
+export {CreateEditBoxPL, CreateEditBoxPD};

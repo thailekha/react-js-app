@@ -9,7 +9,7 @@ import {Homepage} from './components/Homepage/Homepage';
 import Login from './components/Login';
 import Profilepage from './components/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
-import {BrowsepageCreateEditBoxPL, BrowsepageCreateEditBoxPD} from './components/Browsepage/CreateEditBox';
+import {CreateEditBoxPL, CreateEditBoxPD} from './components/Browsepage/CreateEditBox';
 import {PLContent, PDContent} from './components/Browsepage/Content';
 import Findpage from './components/Findpage';
 
@@ -50,10 +50,10 @@ const routes = (
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
     <Route path="browse" navID="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
-      <Route path="createboxpl" sendToChildren="create" component={BrowsepageCreateEditBoxPL}/>
-      <Route path="createboxpd" sendToChildren="create" component={BrowsepageCreateEditBoxPD}/>
-      <Route path="editboxpl/:id" sendToChildren="edit" component={BrowsepageCreateEditBoxPL}/>
-      <Route path="editboxpd/:id" sendToChildren="edit" component={BrowsepageCreateEditBoxPD}/>
+      <Route path="createboxpl" sendToChildren="create" component={CreateEditBoxPL}/>
+      <Route path="createboxpd" sendToChildren="create" component={CreateEditBoxPD}/>
+      <Route path="editboxpl/:id" sendToChildren="edit" component={CreateEditBoxPL}/>
+      <Route path="editboxpd/:id" sendToChildren="edit" component={CreateEditBoxPD}/>
       <Route path="pl/:id" component={PLContent}/>
       <Route path="pd/:id" component={PDContent}/>
     </Route>

@@ -1,17 +1,15 @@
 import React from 'react';
 import {Button} from 'react-bootstrap';
-import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem} from 'react-bootstrap';
 import logger from '../../utils/logger';
+import _ from 'lodash';
 
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
-  // shouldComponentUpdate: function(nextProps,nextState){
-  //   console.log('#\n#\n#\n#\n#\n#\n');
-  //   console.log(nextState);
-  //   return true;
-  // },
+  shouldComponentUpdate: function(nextProps,nextState){
+    return !_.isEqual(nextProps.subNavigationItems,this.props.subNavigationItems);
+  },
   getInitialState: function() {
     return {
       browsingMode: 'programminglanguages'
