@@ -26,21 +26,13 @@
           "name": "Class-based",
           "details": "a style of object-oriented programming (OOP) in which inheritance is achieved by defining classes of objects",
           "subparadigms": []
-        },
-        {
-          "pdid": 4,
-          "name": "Automatic",
-          "details": "some random paradigm",
-          "subparadigms": [
-            2
-          ]
         }
       ],
       "programminglanguages": [
         {
           "plid": 1,
           "name": "Java",
-          "details": "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible",
+          "details": "Java is a general-purpose computer programming language that is concurrent, class-based, object-oriented,and specifically designed to have as few implementation dependencies as possible !",
           "type": "compiled"
         },
         {
@@ -52,11 +44,11 @@
       ],
       "havings": [
         {
-          "plid": 1,
+          "plid": 2,
           "pdid": 1
         },
         {
-          "plid": 2,
+          "plid": 1,
           "pdid": 1
         }
       ]

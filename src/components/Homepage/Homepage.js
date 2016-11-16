@@ -16,9 +16,6 @@ var Homepage = React.createClass({
       this.props.libraryManager.setLibraryHandler();
     }
   },
-  handleCreateLibrary: function(name) {
-    this.props.libraryManager.create(name);
-  },
   render: function() {
     logger.reportRender('Homepage');
     console.warn('Homepage');
@@ -36,7 +33,7 @@ var Homepage = React.createClass({
             //If library is not available
             (<div>
               <h3>Welcome</h3>
-              <CreateBox createHandler={this.handleCreateLibrary}/>
+              <CreateBox createHandler={this.props.libraryManager.create}/>
             </div>)
         }
       </div>

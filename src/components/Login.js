@@ -19,7 +19,7 @@ var Login = React.createClass({
       <div>
         <h2>Login</h2>
         <ButtonToolbar>
-          <Button bsStyle="primary" onClick={auth.login}>Login</Button>
+          <Button bsStyle="primary" onClick={auth.login}>Login or Signup</Button>
         </ButtonToolbar>
       </div>
     )

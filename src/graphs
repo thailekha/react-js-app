@@ -1,21 +1,72 @@
+
+red
 #EC7D78
+yellow
 #FFDA6E
+
+
+//General tree
+graph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+
+MyApp--Router--Container;
+}
 
 //Homepage, when library is not available
 
 graph{
-Homepage[shape="rect",style="filled",color="#EC7D78"];
-CreateBox[shape="rect",style="filled",color="#FFDA6E"];
+node [shape="box",style="filled",color="#FFDA6E"];
 Homepage--CreateBox;
 }
 
 //Homepage, when library is available
 
 graph{
-Homepage[shape="rect",style="filled",color="#FFDA6E"];
-ChartRenderer[shape="rect",style="filled",color="#EC7D78"];
-SelectChartModeBox[shape="rect",style="filled",color="#FFDA6E"];
-Homepage--ChartRenderer;
-ChartRenderer--SelectChartModeBox;
+node [shape="box",style="filled",color="#FFDA6E"];
+ChartRenderer[color="#EC7D78"];
+
+Homepage--ChartRenderer--SelectBox;
 }
+
+//--------------------------------------------------------
+
+//Browsepage at Create tab of programminglanguages mode
+
+//--------------------------------------------------------
+
+//Findpage (find-mode set to 'name')
+
+graph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Findpage[color="#EC7D78"];
+SelectBox[label="SelectBox (for find-mode)"];
+LC[label="LinkContainer *"];
+
+Findpage--QueryForm;
+Findpage--SelectBox;
+Findpage--QueryResult;
+QueryResult--LC;
+}
+
+//Findpage (find-mode set to 'content')
+
+graph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Findpage[shape="rect",style="filled",color="#EC7D78"];
+SelectBox1[label="SelectBox (for find-mode)"];
+SelectBox2[label="SelectBox (for sort-mode)"];
+LC[label="LinkContainer *"];
+
+Findpage--QueryForm;
+Findpage--SelectBox1;
+Findpage--SelectBox2;
+Findpage--QueryResult;
+QueryResult--LC;
+}
+
+
+
+
+
 
