@@ -2,7 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
 
-var BrowsepageCreateBoxPL = React.createClass({
+var BrowsepageCreateEditBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
     var mode = this.props.boxmode;
@@ -148,7 +148,7 @@ var BrowsepageCreateBoxPL = React.createClass({
   }
 });
 
-var BrowsepageCreateBoxPD = React.createClass({
+var BrowsepageCreateEditBoxPD = React.createClass({
   /* ... options and lifecycle methods ... */
   getInitialState: function() {
     var mode = this.props.boxmode;
@@ -276,4 +276,4 @@ var BrowsepageCreateBoxPD = React.createClass({
   }
 });
 
-export {BrowsepageCreateBoxPL, BrowsepageCreateBoxPD};
+export {BrowsepageCreateEditBoxPL, BrowsepageCreateEditBoxPD};
