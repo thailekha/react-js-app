@@ -3,6 +3,7 @@ import logger from '../utils/logger'
 import {Button, Pager} from 'react-bootstrap';
 import {Link} from 'react-router';
 import _ from 'lodash';
+import SelectBox from './reusable/SelectBox';
 
 const LETTERS_AND_NUMBERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -25,14 +26,14 @@ var Findpage = React.createClass({
   getInitialState: function() {
     return {find: '', findMode: 'name', sort: 'alphabetical', result: []}
   },
-  handleSortChange: function(e) {
+  handleSortChange: function(mode) {
     this.setState({
-      sort: e.target.value
+      sort: mode
     });
   },
-  handleFindModeChange: function(e) {
+  handleFindModeChange: function(mode) {
     this.setState({
-      findMode: e.target.value
+      findMode: mode
     });
   },
   handleFindChange: function(e) {
@@ -146,18 +147,28 @@ var Findpage = React.createClass({
             <Button onClick={this.handleFind}>Find</Button>
           </div>
           <h4>Find mode</h4>
-          <select id="findmode" onChange={this.handleFindModeChange}>
-            <option value="name">Name</option>
-            <option value="content">Content</option>
-          </select>
+
+          <SelectBox changeHandler={this.handleFindModeChange} changeHandlerIsFrom="Findpage (find mode)" options={
+            ["name","content"].map(function(item){
+              return {
+                value: item,
+                display: item
+              }
+            })
+          }/>
+
           {
             this.state.findMode === 'content' ? (
               <div>
                 <h4>Sort by</h4>
-                < select id="sort" onChange={this.handleSortChange}>
-                  <option value="relevance">Relevance</option>
-                  <option value="alphabetical">Alphabetical</option>
-                </select>
+                <SelectBox changeHandler={this.handleSortChange} changeHandlerIsFrom="Findpage (sort mode)" options={
+                  ["relevance","alphabetical"].map(function(item){
+                    return {
+                      value: item,
+                      display: item
+                    }
+                  })
+                }/>
               </div>
             ) : (<div></div>)
           }
