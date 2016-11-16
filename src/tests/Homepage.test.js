@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
 import {getMockLibraryManager} from './testUtils';
-import {Homepage,CreateBox} from '../components/Homepage';
+import {Homepage,CreateBox} from '../components/Homepage/Homepage';
 
 
 //https://github.com/airbnb/enzyme/blob/master/docs/api/selector.md

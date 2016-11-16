@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import {shallow, mount, render} from 'enzyme';
 //import Foo from './Foo';
-import Homepage from '../components/Homepage';
+import Homepage from '../components/Homepage/Homepage';
 
 describe("A suite", function() {
   // it("contains spec with an expectation", function() {

@@ -1,5 +1,7 @@
 DESIGN DOCUMENT
 
+-assigning (</>) to a variable makes it renderred anyway => explain homepage
+
 SINON for next assignment
 
 ASK: MAYBE A SILLY QUESTION BUT HOW MANY USER INTERACTION ASSUMED ?
@@ -90,6 +92,10 @@ Old logout solution:
 
 Dot graph:
  DOT Language
+
+#EC7D78
+#FFDA6E
+
 graph{
 
 Container[label="Container | state: profile, library",shape="rect",style="filled",color="red"];
