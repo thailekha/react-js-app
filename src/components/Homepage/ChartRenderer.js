@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pager} from 'react-bootstrap';
 import logger from '../../utils/logger';
-import SelectChartModeBox from './SelectChartModeBox';
+import SelectBox from '../reusable/SelectBox';
 import {PieChart, Legend} from 'react-easy-chart';
 var randomHexColor = require('random-hex-color');
 
@@ -74,7 +74,14 @@ var ChartRenderer = React.createClass({
     return (
       <div>
         <h4>Overview mode</h4>
-        <SelectChartModeBox changeHandler={this.handleChange}/>
+        <SelectBox changeHandler={this.handleChange} changeHandlerIsFrom="ChartRenderer" options={
+          ["all","programminglanguages","paradigms"].map(function(item){
+            return {
+              value: item,
+              display: item
+            }
+          })
+        }/>
         <Pager>
           <Pager.Item>
             <PieChart data={data} size={300}/>

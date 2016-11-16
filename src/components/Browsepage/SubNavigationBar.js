@@ -1,26 +1,23 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem} from 'react-bootstrap';
 import logger from '../../utils/logger';
-import _ from 'lodash';
+import SelectBox from '../reusable/SelectBox';
 
 var SubNavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
-  shouldComponentUpdate: function(nextProps,nextState){
-    return !_.isEqual(nextProps.subNavigationItems,this.props.subNavigationItems);
-  },
   getInitialState: function() {
     return {
       browsingMode: 'programminglanguages'
     };
   },
-  switchBrowsingMode: function() {
+  switchBrowsingMode: function(mode) {
     //for when clicking switching button. notice that the children is supplied from the router, it cannot be modified (read-only)
-    var nState = this.state['browsingMode'] === 'programminglanguages' ? 'paradigms' : 'programminglanguages';
-    this.setState({
-      browsingMode: nState
-    });
+    if (this.state['browsingMode'] !== mode) {
+      this.setState({
+        browsingMode: mode
+      });
+    }
   },
   render: function() {
     logger.reportRender('SubNavigationBar');
@@ -49,8 +46,14 @@ var SubNavigationBar = React.createClass({
       }.bind(this));
     return (
       <div id="subNavigation">
-        <Button bsStyle={this.state.browsingMode === 'programminglanguages' ? "primary" : "success"}
-                onClick={this.switchBrowsingMode}>Switch (currently {this.state.browsingMode})</Button>
+        <SelectBox changeHandler={this.switchBrowsingMode} changeHandlerIsFrom="SubNavigationBar" options={
+          ["programminglanguages","paradigms"].map(function(item){
+            return {
+              value: item,
+              display: item
+            }
+          })
+        }/>
 
         <Nav bsStyle="pills" stacked activeKey={1}>
           <LinkContainer to={linkToCreateBox}>
