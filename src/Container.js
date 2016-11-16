@@ -5,7 +5,6 @@ import {U, _API, defineLibraryAppDataTypes} from './utils/util';
 import AuthService from './utils/AuthService';
 import NavigationBar from './components/NavigationBar';
 import typify from 'typify';
-//import {Row, Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 
 //defineLibraryAppDataTypes(typify);
@@ -22,15 +21,6 @@ typify.type('NOT_LOGGED_IN', function(i) {
 // });
 
 var loggedInAndHasEmail = function(component) {
-  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  // console.log(component.props.route.auth);
-  // console.log(component.props.route.auth.loggedIn());
-  // console.log(component.props.route.auth.getProfile());
-  // console.log(component.props.route.auth.getProfile().email);
-  // console.log(U.isDefined(component.props.route.auth));
-  // console.log(U.isDefined(component.props.route.auth.getProfile().email));
-  // U.isDefined(component.props.route.auth) && component.props.route.auth.loggedIn() && U.isDefined(component.props.route.auth.getProfile().email);
-  // console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   return U.isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
     U.isDefined(component.props.route.auth.getProfile().email);
@@ -189,7 +179,14 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
-  handleManuallySetState: function(e){
+  search: typify('search :: string -> string -> string -> (array programminglanguage) | (array paradigm) | (array queryresult)', function(query, findBy, sortBy) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/search(' + query + ' ,' + findBy + ',' + sortBy + ')');
+      return _API.search(this.state.library, query, findBy, sortBy);
+    }
+    return NOT_LOGGED_IN;
+  }),
+  handleManuallySetState: function(e) {
     e.preventDefault();
     this.setState({});
   },
@@ -221,6 +218,7 @@ var Container = React.createClass({
         editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
+        search: library ? this.search : undefined,
         libraryIsAvailable: typify.check('library', library)
       };
       //console.warn('2');
@@ -237,21 +235,21 @@ var Container = React.createClass({
 
     //console.warn('End of container/render');
     return (
-        <Jumbotron id="containerRoot">
-          <h2>
-            Container
-            <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
-          </h2>
-          {
-            U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
-              (<div id={children.props.route.navID}>
-                <NavigationBar />
-              </div>) :
-              (<div></div>)
-          }
-          {children}
-          <Button onClick={this.handleManuallySetState}>Manually Set State of Container</Button>
-        </Jumbotron>
+      <Jumbotron id="containerRoot">
+        <h2>
+          Container
+          <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
+        </h2>
+        {
+          U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
+            (<div id={children.props.route.navID}>
+              <NavigationBar />
+            </div>) :
+            (<div></div>)
+        }
+        {children}
+        <Button onClick={this.handleManuallySetState}>Manually Set State of Container</Button>
+      </Jumbotron>
     )
   }
 });

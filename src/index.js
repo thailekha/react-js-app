@@ -11,7 +11,7 @@ import Profilepage from './components/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
 import {CreateEditBoxPL, CreateEditBoxPD} from './components/Browsepage/CreateEditBox';
 import {PLContent, PDContent} from './components/Browsepage/Content';
-import Findpage from './components/Findpage';
+import Findpage from './components/Findpage/Findpage';
 
 //Auth0 and router
 import {Route, IndexRedirect, hashHistory} from 'react-router';

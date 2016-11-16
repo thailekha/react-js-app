@@ -53,17 +53,17 @@ const defineLibraryAppDataTypes = function(typify) {
     if (typeof pl === 'undefined' || pl === null)
       return false;
 
-      return typeof pl.plid === 'number'
-        && pl.plid >= 1
-        && typeof pl.name === 'string'
-        && typeof pl.details === 'string'
-        && typeof pl.type === 'string'
+    return typeof pl.plid === 'number'
+      && pl.plid >= 1
+      && typeof pl.name === 'string'
+      && typeof pl.details === 'string'
+      && typeof pl.type === 'string'
   });
 
 //define paradigm type
   typify.type("paradigm", function(pd) {
 
-    if(typeof pd === 'undefined' || pd === null)
+    if (typeof pd === 'undefined' || pd === null)
       return false;
 
     return typeof pd.pdid === 'number'
@@ -76,13 +76,23 @@ const defineLibraryAppDataTypes = function(typify) {
 //define having type
   typify.type("having", function(hv) {
 
-    if(typeof hv === 'undefined' || hv === null)
+    if (typeof hv === 'undefined' || hv === null)
       return false;
 
     return typeof hv.pdid === 'number'
       && typeof hv.plid === 'number'
       && hv.pdid >= 1
       && hv.plid >= 1
+  });
+
+  //this must be defined after programminglanguage and paradigm has been defined
+  typify.type("queryresult", function(q) {
+    // _API.search methods either returns an array of this type or an array of programminglanguage/paradigm
+    if (typeof q === 'undefined' || q === null)
+      return false;
+
+    return (typify.check('programminglanguage',q.foundItem) || typify.check('paradigm',q.foundItem))
+      && typeof q.rank === 'number';
   });
 }
 
@@ -145,6 +155,22 @@ const getNewLibraryObjectInString = typify('getNewLibraryObjectInString :: numbe
     havings: []
   });
 });
+
+const LETTERS_AND_NUMBERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+const textToLowerCaseAlphanumericArray = function(str) {
+  //str will be turned to lower case
+  //filter symbols that are not either letters, numbers or space
+  var result = _.filter(str.toLowerCase().split(''), function(w) {
+    return LETTERS_AND_NUMBERS.includes(w) || w === ' ';
+  });
+  //join and split again, this time by space, notice that '  '.split(' ') gives ['','','']
+  result = _.filter(result.join('').split(' '), function(w) {
+    return w !== "";
+  });
+  console.log(result);
+  return result;
+}
 
 var U = {
   isDefined: typify('isDefined :: * -> boolean', function(object) {
@@ -516,6 +542,64 @@ const _API = {
       component.setState({library: validResponse});
     });
   }),
+  search: typify('search :: library -> string -> string -> string -> (array programminglanguage) | (array paradigm) | (array queryresult)', function(library, query, findBy, sortBy) {
+    console.log('_API/search(' + library + ' ,' + query + ' ,' + findBy);
+
+    //get all programming languages and paradigms
+    var items = library['programminglanguages'].concat(library['paradigms']);
+    var found = [];
+    if (findBy === 'name') {
+      //go through the array to find ones that match the query
+      items.forEach(function(i) {
+        if (i.name.toLowerCase().includes(query.toLowerCase())) {
+          found.push(i);
+        }
+      }.bind(this));
+      //sort if needed
+      if (found.length > 1) {
+        found = _.sortBy(found, function(item) {
+          return item.name;
+        })
+      }
+    }
+    else if (findBy === 'content') {
+      //strict mode eg. "java is object-oriented" (double-quotes)
+      var strict = query.length > 3 && query.charAt(0) === '"' && query.charAt(query.length - 1) === '"';
+      var refinedQuery = strict ? query.substring(1, query.length - 1) : textToLowerCaseAlphanumericArray(query);
+
+      //go through item to do searching
+      items.forEach(function(i) {
+        var rank = 0;
+        if (strict) {
+          if (i.details.includes(refinedQuery))
+            rank++;
+        }
+        else {
+          //turn item details to array of alphanumeric items
+          textToLowerCaseAlphanumericArray(i.details).forEach(function(word) {
+            if (refinedQuery.includes(word))
+              rank++;
+          });
+        }
+
+        //put to found array
+        if (rank > 0) {
+          found.push({
+            foundItem: i,
+            rank: rank
+          });
+        }
+      });
+
+      //sort
+      if (found.length > 1) {
+        found = _.sortBy(found, function(item) {
+          return sortBy === 'relevance' ? item.rank : item.foundItem.name;
+        });
+      }
+    }
+    return found;
+  })
 }
 
 export {U, _API, defineLibraryAppDataTypes};

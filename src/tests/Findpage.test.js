@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
 import {getMockLibraryManager} from './testUtils';
-import Findpage from '../components/Findpage';
+import Findpage from '../components/Findpage/Findpage';
 
 
 describe('Component: Findpage', () => {
