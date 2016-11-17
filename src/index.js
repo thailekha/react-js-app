@@ -38,6 +38,13 @@ const doLogout = (nextState, replace) => {
   replace({pathname: '/login'});
 };
 
+const checkIfAlreadyLoggedIn = (nextState, replace) => {
+  if (auth.loggedIn()) {
+    alert('You are already logged in');
+    replace({pathname: '/home'});
+  }
+};
+
 //Notes: /home and /login is default and required by auth0
 //console.log(auth.loggedIn());
 
@@ -45,7 +52,7 @@ const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
     <Route path="home" component={Homepage} onEnter={requireAuth}/>
-    <Route path="login" component={Landpage}/>
+    <Route path="login" component={Landpage} onEnter={checkIfAlreadyLoggedIn}/>
     <Route path="profile" component={Profilepage} onEnter={requireAuth}/>
     <Route path="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
