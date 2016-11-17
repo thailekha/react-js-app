@@ -91,7 +91,7 @@ const defineLibraryAppDataTypes = function(typify) {
     if (typeof q === 'undefined' || q === null)
       return false;
 
-    return (typify.check('programminglanguage',q.foundItem) || typify.check('paradigm',q.foundItem))
+    return (typify.check('programminglanguage', q.foundItem) || typify.check('paradigm', q.foundItem))
       && typeof q.rank === 'number';
   });
 }
@@ -401,6 +401,7 @@ const _API = {
       library['programminglanguages'][plIndex] = nProgrammingLanguage;
       library['havings'] = havings;
       U.updateLibrary(library, component, function(component, validResponse) {
+        component.context.router.replace({pathname: '/browse/pl/' + plid});
         component.setState({library: validResponse});
       })
     }),
@@ -511,6 +512,7 @@ const _API = {
       });
       library['paradigms'][pdIndex] = nParadigm;
       U.updateLibrary(library, component, function(component, validResponse) {
+        component.context.router.replace({pathname: '/browse/pd/' + pdid});
         component.setState({library: validResponse});
       })
     }),

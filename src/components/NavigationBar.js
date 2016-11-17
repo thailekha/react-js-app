@@ -3,7 +3,6 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import logger from '../utils/logger';
 
-//https://github.com/ReactTraining/react-router/blob/master/docs/API.md#link
 var NavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
