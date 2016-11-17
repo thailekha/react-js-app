@@ -2,6 +2,7 @@ DESIGN DOCUMENT
 
 -assigning (</>) to a variable makes it renderred anyway => explain homepage
 -do not use this.props to setState or getInnitialState
+-no library -> hide some tabs
 
 SINON for next assignment
 
@@ -202,7 +203,7 @@ json-server libraries.json --port 3001
 
 
 libraries[0]
-  id n = 1
+  id n = 0
   email = abc@yahoo.sample.com
   name = Sample repo 1
   public b = true
@@ -238,10 +239,13 @@ libraries[0]
     pdid n = 1
     plid n = 2
 libraries[1]
-  id n = 2
+  id n = 1
   email = batman@yahoo.sample.com
   name = Sample repo 2
   public b = false
+  paradigms[]
+  programminglanguages[]
+  havings[]
 -------------------------------------------
 
 ref:

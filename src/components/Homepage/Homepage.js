@@ -1,7 +1,7 @@
 import React from 'react';
 import logger from '../../utils/logger';
 import ChartRenderer from './ChartRenderer';
-import CreateBox from './CreateBox';
+import InputTextBox from '../reusable/InputTextBox';
 
 
 var Homepage = React.createClass({
@@ -33,7 +33,7 @@ var Homepage = React.createClass({
             //If library is not available
             (<div>
               <h3>Welcome</h3>
-              <CreateBox createHandler={this.props.libraryManager.create}/>
+              <InputTextBox header={"Create a new library"} placeholder={"Name"} submitHandler={this.props.libraryManager.create}/>
             </div>)
         }
       </div>
@@ -41,4 +41,4 @@ var Homepage = React.createClass({
   },
 });
 
-export {Homepage, CreateBox};
+export {Homepage};

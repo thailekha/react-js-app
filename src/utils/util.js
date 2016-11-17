@@ -135,8 +135,6 @@ const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> 
       console.error(err);
       console.error(object);
       console.error(catchMessage);
-    }
-    finally {
       if (finallyCallback) {
         finallyCallback(object);
       }
@@ -213,7 +211,7 @@ var U = {
       if (res) {
         //response will be an array of libraries, whose length will be used as the ID for the new library
         var libraries = JSON.parse(res.text);
-        typify.assert('array library', libraries)
+        typify.assert('(array library)', libraries);
         var newID = libraries.length;
         this.reqCreateLibrary(newID, email, libName, component);
       } else {
@@ -247,11 +245,12 @@ var U = {
           }.bind(this),
           function(invalidRespone) {
             //component is set to null since setState isn't needed
+            console.error('asd');
             this.deleteLibrary(invalidRespone.id, null, function(component, response) {
               //component is null here
               console.log('Invalid library deleted');
             });
-          });
+          }.bind(this));
         //
       }
     }.bind(this));

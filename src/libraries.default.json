@@ -57,7 +57,10 @@
       "id": 1,
       "email": "batman@yahoo.sample.com",
       "name": "Sample repo 2",
-      "public": false
+      "public": false,
+      "paradigms": [],
+      "programminglanguages": [],
+      "havings": []
     }
   ]
 }
