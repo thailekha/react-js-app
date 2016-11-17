@@ -1,6 +1,9 @@
 import React from 'react';
 import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
+import InputTextBox from '../reusable/InputTextBox';
+import ParadigmBox from './ParadigmBox';
+
 
 var CreateEditBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
@@ -19,7 +22,6 @@ var CreateEditBoxPL = React.createClass({
         name: pl.name,
         details: pl.details,
         type: pl.type,
-        paradigm: '',
         paradigms: relatedPDsNames,
         pdids: relatedPDsIDs,
       }
@@ -29,7 +31,6 @@ var CreateEditBoxPL = React.createClass({
         name: '',
         details: '',
         type: '',
-        paradigm: '',
         paradigms: '',
         pdids: [],
         error: ''
@@ -48,12 +49,8 @@ var CreateEditBoxPL = React.createClass({
   handleTypeChange: function(e) {
     this.setState({type: e.target.value});
   },
-  handleParadigmChange: function(e) {
-    this.setState({paradigm: e.target.value});
-  },
-  handleAddParadigm: function(e) {
-    e.preventDefault();
-    var nParadigm = this.state.paradigm;
+  handleAddParadigm: function(p) {
+    var nParadigm = p;
     var pdid = this.props.libraryManager.getPDID(nParadigm);
 
     if (nParadigm.length > 0 && pdid && !this.state.pdids.includes(pdid)) {
@@ -62,7 +59,6 @@ var CreateEditBoxPL = React.createClass({
       this.state.pdids.push(pdid);
       console.log(newState);
       this.setState({
-        paradigm: '',
         paradigms: newState
       });
     }
@@ -70,8 +66,7 @@ var CreateEditBoxPL = React.createClass({
       alert('Error: Empty paradigm field; OR paradigm not found; OR paradigm already added');
     }
   },
-  handleRemoveParadigm: function(e) {
-    e.preventDefault();
+  handleRemoveParadigm: function() {
     if (this.state.paradigms.length > 0 && this.state.pdids.length > 0) {
       var paradigms = this.state.paradigms.split(',');//string
       paradigms.pop();
@@ -124,25 +119,17 @@ var CreateEditBoxPL = React.createClass({
                      value={this.state.type}
                      onChange={this.handleTypeChange}></input>
             </div>
-            <div>
-              <input type="text" disabled
-                     className="form-control"
-                     value={this.state.paradigms}></input>
-              <Button onClick={this.handleRemoveParadigm}>Remove PD</Button>
-            </div>
+            <ParadigmBox ids={this.state.pdids} items={this.state.paradigms} removeHandler={this.handleRemoveParadigm}/>
           </div>
           <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
 
+          <InputTextBox
+            header={"What paradigms does this have ?"}
+            placeholder={"Paradigm"}
+            submitHandler={this.handleAddParadigm}
+          />
         </form>
-        <form>
-          <h3>What paradigms does this language have ?</h3>
-          <div className="form-group">
-            <input type="text"
-                   className="form-control" placeholder="Paragidms"
-                   value={this.state.paradigm} onChange={this.handleParadigmChange}></input>
-            <Button onClick={this.handleAddParadigm}>Add PD</Button>
-          </div>
-        </form>
+
       </div>
     );
   }
@@ -162,7 +149,6 @@ var CreateEditBoxPD = React.createClass({
       return {
         name: pd.name,
         details: pd.details,
-        subParadigm: '',
         subParadigms: subPDs,
         spdids: subPDIDs
       };
@@ -171,7 +157,6 @@ var CreateEditBoxPD = React.createClass({
       return {
         name: '',
         details: '',
-        subParadigm: '',
         subParadigms: '',
         spdids: []
       };
@@ -187,12 +172,8 @@ var CreateEditBoxPD = React.createClass({
   handleDetailsChange: function(e) {
     this.setState({details: e.target.value});
   },
-  handleSubParadigmChange: function(e) {
-    this.setState({subParadigm: e.target.value});
-  },
-  handleAddSubParadigm: function(e) {
-    e.preventDefault();
-    var nSubParadigm = this.state.subParadigm;
+  handleAddSubParadigm: function(sp) {
+    var nSubParadigm = sp;
     var spdid = this.props.libraryManager.getPDID(nSubParadigm);
     if (nSubParadigm.length > 0 && spdid) {
       var oldState = this.state.subParadigms;
@@ -200,19 +181,17 @@ var CreateEditBoxPD = React.createClass({
       this.state.spdids.push(spdid);
       console.log(newState);
       this.setState({
-        subParadigm: '',
         subParadigms: newState
       });
     }
   },
-  handleRemoveSubParadigm: function(e) {
-    e.preventDefault();
+  handleRemoveSubParadigm: function() {
     if (this.state.subParadigms.length > 0 && this.state.spdids.length > 0) {
-      var subPDs = this.state.subParadigms.split(',');
-      subPDs.pop();
+      var subParadigms = this.state.subParadigms.split(',');
+      subParadigms.pop();
       this.state.spdids.pop();
       this.setState({
-        subParadigms: subPDs
+        subParadigms: subParadigms.join(',')
       });
     }
   },
@@ -253,24 +232,16 @@ var CreateEditBoxPD = React.createClass({
                       value={this.state.details}
                       onChange={this.handleDetailsChange}></textarea>
             </div>
-            <div>
-              <input type="text" disabled
-                     className="form-control"
-                     value={this.state.subParadigms}></input>
-              <Button onClick={this.handleRemoveSubParadigm}>Remove</Button>
-            </div>
+            <ParadigmBox ids={this.state.spdids} items={this.state.subParadigms} removeHandler={this.handleRemoveSubParadigm}/>
           </div>
-          <Button disabled type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
+          <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
         </form>
-        <form>
-          <h3>What subparadigms does this have ?</h3>
-          <div className="form-group">
-            <input type="text"
-                   className="form-control" placeholder="Paragidms"
-                   value={this.state.subParadigm} onChange={this.handleSubParadigmChange}></input>
-            <Button onClick={this.handleAddSubParadigm}>Add PD</Button>
-          </div>
-        </form>
+
+        <InputTextBox
+          header={"What subparadigms does this have ?"}
+          placeholder={"Subparadigm"}
+          submitHandler={this.handleAddSubParadigm}
+        />
       </div>
     );
   }
