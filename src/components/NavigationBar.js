@@ -9,17 +9,19 @@ var NavigationBar = React.createClass({
     logger.reportRender('NavigationBar');
     var navigationItems = this.props.navItems.map(function(navItem, index) {
       //if key={index} was left within <Link> tab error is thrown
-      return (
-        <LinkContainer key={index} to={navItem}>
-          <NavItem key={index} eventKey={index} id={'tab' + index}>{navItem}</NavItem>
-        </LinkContainer>
-      );
+      if (navItem && navItem.length > 1) {
+        return (
+          <LinkContainer key={index} to={navItem}>
+            <NavItem key={index} eventKey={index} id={'tab' + index}>{navItem[0].toUpperCase() + navItem.slice(1)}</NavItem>
+          </LinkContainer>
+        );
+      }
     }.bind(this));
     return (
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">React-Bootstrap</a>
+            <a href="#">MYLibrary app</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

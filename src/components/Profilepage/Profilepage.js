@@ -6,8 +6,10 @@ import {Row,Col} from 'react-bootstrap';
 
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
+
   render: function() {
     logger.reportRender('Profilepage');
+    var statuses = this.props.libraryManager.getAttr('public') ? ["public", "private"] : ["private","public"];
     return (
       <Row className="show-grid">
         <Col md={5}>
@@ -16,9 +18,9 @@ var Profilepage = React.createClass({
                         submitHandler={this.props.libraryManager.changeLibName}/>
         </Col>
         <Col md={3}>
-          <h5>Change library mode</h5>
+          <h3>Change library mode</h3>
           <SelectBox changeHandler={this.props.libraryManager.changeLibMode} changeHandlerIsFrom={"Profilepage"}
-                     options={["public", "private"].map(function(option) {
+                     options={statuses.map(function(option) {
                        return {
                          value: option,
                          display: option
