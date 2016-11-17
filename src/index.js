@@ -14,7 +14,7 @@ import {PLContent, PDContent} from './components/Browsepage/Content';
 import Findpage from './components/Findpage/Findpage';
 
 //Auth0 and router
-import {Route, IndexRedirect, hashHistory} from 'react-router';
+import {Route, IndexRedirect, browserHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './components/Container';
 
@@ -44,10 +44,10 @@ const doLogout = (nextState, replace) => {
 const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
-    <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
+    <Route path="home" component={Homepage} onEnter={requireAuth}/>
     <Route path="login" component={Landpage}/>
-    <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
-    <Route path="browse" navID="browse" component={BrowsepageContainer} onEnter={requireAuth}>
+    <Route path="profile" component={Profilepage} onEnter={requireAuth}/>
+    <Route path="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
       <Route path="createboxpl" sendToChildren="create" component={CreateEditBoxPL}/>
       <Route path="createboxpd" sendToChildren="create" component={CreateEditBoxPD}/>
@@ -56,14 +56,14 @@ const routes = (
       <Route path="pl/:id" component={PLContent}/>
       <Route path="pd/:id" component={PDContent}/>
     </Route>
-    <Route path="find" navID="find" component={Findpage} onEnter={requireAuth}/>
+    <Route path="find" component={Findpage} onEnter={requireAuth}/>
     <Route path="logout" onEnter={doLogout}/>
     <Route path="access_token=:token" component={Landpage}/> //to prevent router errors
   </Route>
 );
 
 ReactDOM.render(
-  <MyApp history={hashHistory}
+  <MyApp history={browserHistory}
          routes={routes}/>,
   document.getElementById('root')
 );

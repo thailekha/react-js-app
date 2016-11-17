@@ -253,7 +253,6 @@ var Container = React.createClass({
         search: library ? this.search : undefined,
         libraryIsAvailable: typify.check('library', library)
       };
-      var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout'];
 
       children = React.cloneElement(this.props.children, {
         auth: extractAuth(this), //sends auth instance to children
@@ -262,15 +261,13 @@ var Container = React.createClass({
       })
     }
 
+    var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout'];
     //console.warn('End of container/render');
     return (
       <Jumbotron id="containerRoot">
         {
           U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
-            (<div id={children.props.route.navID}>
-              <NavigationBar navItems={navItems}/>
-            </div>) :
-            (<div></div>)
+            (<NavigationBar navItems={navItems}/>) : (null)
         }
         {children}
         <Button onClick={this.handleManuallySetState}>Manually Set State of Container</Button>
