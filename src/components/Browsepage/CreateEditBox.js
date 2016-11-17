@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 var CreateEditBoxPL = React.createClass({
   /* ... options and lifecycle methods ... */
+  initState: null, //so that you can tell if the item has changed when updating
   getInitialState: function() {
     var mode = this.props.boxmode;
     if (mode === 'edit') {
@@ -19,6 +20,15 @@ var CreateEditBoxPL = React.createClass({
         relatedPDsNames += relatedPDs[i].name + (i + 1 === relatedPDs.length ? '' : ',');
         relatedPDsIDs.push(relatedPDs[i].pdid);
       }
+      
+      this.initState = {
+        name: pl.name,
+        details: pl.details,
+        type: pl.type,
+        paradigms: relatedPDsNames,
+        pdids: _.clone(relatedPDsIDs),
+      };
+      
       return {
         name: pl.name,
         details: pl.details,
@@ -90,11 +100,20 @@ var CreateEditBoxPL = React.createClass({
           paradigms: this.state.paradigms,
           pdids: this.state.pdids,
         }
-        if (!_.isEqual(currentState, this.getInitialState())) {
-          this.props.libraryManager.editPL(parseInt(this.props.routeParams['id'], 10), this.state.name, this.state.details, this.state.type, this.state.pdids);
+        var initState = this.initState;
+
+        //paradigm with empty name or detail cannot be created so no need to worry about those fields 
+        var nothingHasChange = currentState.name === initState.name 
+          && currentState.details === initState.details
+          && currentState.type === initState.type
+          && ((currentState.paradigms.length === 0 && initState.paradigms.length === 0) || (_.isEqual(currentState.paradigms, initState.paradigms)))
+          && ((currentState.pdids.length === 0 && initState.pdids.length === 0) || (_.isEqual(currentState.pdids, initState.pdids)))
+
+        if (nothingHasChange) {
+          alert('No change has been made');
         }
         else {
-          alert('No change has been made');
+          this.props.libraryManager.editPL(parseInt(this.props.routeParams['id'], 10), this.state.name, this.state.details, this.state.type, this.state.pdids);
         }
       }
       else
@@ -234,24 +253,12 @@ var CreateEditBoxPD = React.createClass({
           subParadigms: this.state.subParadigms,
           spdids: this.state.spdids
         }
-
         var initState = this.initState;
-        console.warn(initState);
 
         //paradigm with empty name or detail cannot be created so no need to worry about those fields 
-        var nothingHasChange = currentState.name === initState.name && currentState.details === initState.details 
-          && ((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0) || (_.isEqual(currentState.subParadigms,initState.subParadigms)))
-          && ((currentState.spdids.length === 0 && initState.spdids.length === 0) || (_.isEqual(currentState.spdids,initState.spdids)))
-
-        console.log(initState.subParadigms);
-        console.warn(currentState.name === initState.name);
-        console.warn(currentState.details === initState.details);
-        console.warn(((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0) || (_.isEqual(currentState.subParadigms,initState.subParadigms))));
-        console.warn(((currentState.spdids.length === 0 && initState.spdids.length === 0) || (_.isEqual(currentState.spdids,initState.spdids))));
-        console.log((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0));
-        console.log((_.isEqual(currentState.subParadigms,initState.subParadigms)));
-        console.log((currentState.spdids.length === 0 && initState.spdids.length === 0));
-        console.log((_.isEqual(currentState.spdids,initState.spdids)));
+        var nothingHasChange = currentState.name === initState.name && currentState.details === initState.details
+          && ((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0) || (_.isEqual(currentState.subParadigms, initState.subParadigms)))
+          && ((currentState.spdids.length === 0 && initState.spdids.length === 0) || (_.isEqual(currentState.spdids, initState.spdids)))
 
         if (nothingHasChange) {
           alert('No change has been made');
