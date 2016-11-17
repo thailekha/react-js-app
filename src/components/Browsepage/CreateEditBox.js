@@ -88,7 +88,7 @@ var CreateEditBoxPL = React.createClass({
       this.setState(this.getInitialState());
     }
     else {
-      alert('Name, Details, and Type must be filled');
+      alert('Name, Details, and Type must be provided');
     }
   },
   render: function() {
@@ -208,6 +208,9 @@ var CreateEditBoxPD = React.createClass({
         console.warn('Unexpected mode');
       }
       this.setState(this.getInitialState());
+    }
+    else {
+      alert('Name and details must be provided');
     }
   },
   render: function() {

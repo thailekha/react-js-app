@@ -65,21 +65,11 @@ if library is not available => no tabs
 when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
 To refactor:
--redirect to item after editting
 -inline jsx css
 -use alert with empty input fields
 -notice typeof null returns object !!!
--html header footer,graphviz
 -uninstall wordnet ?
--first arg of some methods is number => to represent the chain of methods
-eg. getX(1, ...) => first print out _getX...
- getY(3, ...) => print ___getY...
 -use proptypes to ensure auth object is trustable, refer to Home.old.js
--is time required to be sync w auth0 server ? (laptop is UTC + 7)
--clear "libraryundefined" in localStorage
--webpack back to react-scripts
--id fields of library is string after retrieving from localstograge ?
--e.preventDefault
 -this.setState(this.getInitialState()) (be careful)
 -general validator: has attr (array of attrs), attr of expected type, range, size of array
 -make a type for react component

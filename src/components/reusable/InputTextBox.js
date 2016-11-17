@@ -17,6 +17,9 @@ var InputTextBox = React.createClass({
     if(this.state.text.trim().length > 0) {
       this.props.submitHandler(this.state.text);
     }
+    else {
+      alert('Error: Empty field');
+    }
   },
   render: function() {
     logger.reportRender('InputTextBox');
