@@ -6,8 +6,8 @@ import './index.css';
 
 //view components
 import {Homepage} from './components/Homepage/Homepage';
-import Landpage from './components/Landpage';
-import Profilepage from './components/Profilepage';
+import Landpage from './components/Landpage/Landpage';
+import Profilepage from './components/Profilepage/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
 import {CreateEditBoxPL, CreateEditBoxPD} from './components/Browsepage/CreateEditBox';
 import {PLContent, PDContent} from './components/Browsepage/Content';

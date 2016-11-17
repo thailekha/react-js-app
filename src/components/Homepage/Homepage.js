@@ -1,6 +1,6 @@
 import React from 'react';
 import logger from '../../utils/logger';
-import ChartRenderer from './ChartRenderer';
+import ChartRenderer from '../reusable/ChartRenderer';
 import InputTextBox from '../reusable/InputTextBox';
 
 

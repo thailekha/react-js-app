@@ -10,3 +10,8 @@ body {
   border: .2em solid;
   background-color: #7AAAE0;
 }
+
+#footer{
+  background-color: black;
+  width: 95%;
+}

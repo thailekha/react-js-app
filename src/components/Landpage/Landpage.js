@@ -1,10 +1,10 @@
 import React, {PropTypes as T} from 'react'
 import {ButtonToolbar, Button, Panel} from 'react-bootstrap'
-import AuthService from '../utils/AuthService'
-import logger from '../utils/logger'
-import {U, _API} from '../utils/util';
+import AuthService from '../../utils/AuthService'
+import logger from '../../utils/logger'
+import {U, _API} from '../../utils/util';
 import typify from 'typify';
-import ChartRenderer from './Homepage/ChartRenderer';
+import ChartRenderer from '../reusable/ChartRenderer';
 
 var Landpage = React.createClass({
   contextTypes: {
@@ -14,7 +14,7 @@ var Landpage = React.createClass({
     location: T.object,
     auth: T.instanceOf(AuthService)
   },
-  getInitialState: function(){
+  getInitialState: function() {
     return {libraries: null}
   },
   componentDidMount: function() {
@@ -29,7 +29,7 @@ var Landpage = React.createClass({
       var charts = this.state.libraries.map(function(library, index) {
 
         //if user does not wnat to expose the library to public
-        if(!library.public) {
+        if (!library.public) {
           return null;
         }
 
@@ -49,7 +49,8 @@ var Landpage = React.createClass({
         }
 
         return (
-          <Panel header={library.name + ' ' + '(' + library.email + ')'} bsStyle="success" key={index} style={{color: '#91aa98'}}>
+          <Panel header={library.name + ' ' + '(' + library.email + ')'} bsStyle="success" key={index}
+                 style={{color: '#91aa98', backgroundColor: '#ccccff'}}>
             <ChartRenderer libraryManager={libraryManager}/>
           </Panel>
         );

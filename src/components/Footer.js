@@ -8,7 +8,7 @@ var Footer = React.createClass({
   },
   render: function() {
     logger.reportRender('Footer');
-    return (<Panel footer="Create by React.JS"></Panel>);
+    return (<Panel id="footer" footer="Create by React.JS"></Panel>);
   }
 });
 

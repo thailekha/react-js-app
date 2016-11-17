@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pager} from 'react-bootstrap';
 import logger from '../../utils/logger';
-import SelectBox from '../reusable/SelectBox';
+import SelectBox from './SelectBox';
 import {PieChart, Legend} from 'react-easy-chart';
 var randomHexColor = require('random-hex-color');
 
