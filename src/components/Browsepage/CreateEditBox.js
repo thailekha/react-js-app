@@ -3,6 +3,7 @@ import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
 import InputTextBox from '../reusable/InputTextBox';
 import ParadigmBox from './ParadigmBox';
+import _ from 'lodash';
 
 
 var CreateEditBoxPL = React.createClass({
@@ -10,8 +11,8 @@ var CreateEditBoxPL = React.createClass({
   getInitialState: function() {
     var mode = this.props.boxmode;
     if (mode === 'edit') {
-      var pl = this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'],10));
-      var relatedPDs = this.props.libraryManager.getRelatedPDs(parseInt(this.props.routeParams['id'],10));
+      var pl = this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'], 10));
+      var relatedPDs = this.props.libraryManager.getRelatedPDs(parseInt(this.props.routeParams['id'], 10));
       var relatedPDsNames = '';
       var relatedPDsIDs = [];
       for (var i = 0; i < relatedPDs.length; i++) {
@@ -33,7 +34,6 @@ var CreateEditBoxPL = React.createClass({
         type: '',
         paradigms: '',
         pdids: [],
-        error: ''
       };
     }
     else {
@@ -62,7 +62,7 @@ var CreateEditBoxPL = React.createClass({
         paradigms: newState
       });
     }
-    else{
+    else {
       alert('Error: Empty paradigm field; OR paradigm not found; OR paradigm already added');
     }
   },
@@ -77,12 +77,26 @@ var CreateEditBoxPL = React.createClass({
     }
   },
   handleSubmit: function(e) {
+    e.preventDefault();
     if (this.state.name.length > 0 && this.state.details.length > 0 && this.state.type.length > 0) {
-      e.preventDefault();
       if (this.props.boxmode === 'create')
         this.props.libraryManager.addPL(this.state.name, this.state.details, this.state.type, this.state.pdids);
-      else if (this.props.boxmode === 'edit')
-        this.props.libraryManager.editPL(parseInt(this.props.routeParams['id'],10), this.state.name, this.state.details, this.state.type, this.state.pdids);
+      else if (this.props.boxmode === 'edit') {
+        //check if anything has been changed, update if yes
+        var currentState = {
+          name: this.state.name,
+          details: this.state.details,
+          type: this.state.type,
+          paradigms: this.state.paradigms,
+          pdids: this.state.pdids,
+        }
+        if (!_.isEqual(currentState, this.getInitialState())) {
+          this.props.libraryManager.editPL(parseInt(this.props.routeParams['id'], 10), this.state.name, this.state.details, this.state.type, this.state.pdids);
+        }
+        else {
+          alert('No change has been made');
+        }
+      }
       else
         console.warn('Unexpected mode');
       this.setState(this.getInitialState());
@@ -95,7 +109,7 @@ var CreateEditBoxPL = React.createClass({
     logger.reportRender('CreateEditBoxPL');
     var header = this.props.boxmode === 'create'
       ? 'Add a new Programming language'
-      : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'],10))['name'];
+      : 'Edit ' + this.props.libraryManager.getPL(parseInt(this.props.routeParams['id'], 10))['name'];
     return (
       <div>
         <form style={{marginTop: '30px'}}>
@@ -137,15 +151,24 @@ var CreateEditBoxPL = React.createClass({
 
 var CreateEditBoxPD = React.createClass({
   /* ... options and lifecycle methods ... */
+  initState: null,
   getInitialState: function() {
     var mode = this.props.boxmode;
     if (mode === 'edit') {
-      var pd = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10));
+      var pd = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'], 10));
       var subPDIDs = pd.subparadigms;
       var subPDs = '';
       subPDIDs.forEach(function(spdid, index) {
         subPDs += this.props.libraryManager.getPD(spdid).name + (index + 1 === subPDIDs.length ? '' : ',');
       }.bind(this));
+
+      this.initState = {
+        name: pd.name,
+        details: pd.details,
+        subParadigms: subPDs,
+        spdids: _.clone(subPDIDs)
+      };
+
       return {
         name: pd.name,
         details: pd.details,
@@ -190,6 +213,9 @@ var CreateEditBoxPD = React.createClass({
       var subParadigms = this.state.subParadigms.split(',');
       subParadigms.pop();
       this.state.spdids.pop();
+      console.log('@\n@\n@\n@\n@\n@\n');
+      console.warn(subParadigms.join(','))
+      console.warn(this.state.spdids);
       this.setState({
         subParadigms: subParadigms.join(',')
       });
@@ -202,7 +228,37 @@ var CreateEditBoxPD = React.createClass({
         this.props.libraryManager.addPD(this.state.name, this.state.details, this.state.spdids);
       }
       else if (this.props.boxmode === 'edit') {
-        this.props.libraryManager.editPD(parseInt(this.props.routeParams['id'],10), this.state.name, this.state.details, this.state.spdids);
+        var currentState = {
+          name: this.state.name,
+          details: this.state.details,
+          subParadigms: this.state.subParadigms,
+          spdids: this.state.spdids
+        }
+
+        var initState = this.initState;
+        console.warn(initState);
+
+        //paradigm with empty name or detail cannot be created so no need to worry about those fields 
+        var nothingHasChange = currentState.name === initState.name && currentState.details === initState.details 
+          && ((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0) || (_.isEqual(currentState.subParadigms,initState.subParadigms)))
+          && ((currentState.spdids.length === 0 && initState.spdids.length === 0) || (_.isEqual(currentState.spdids,initState.spdids)))
+
+        console.log(initState.subParadigms);
+        console.warn(currentState.name === initState.name);
+        console.warn(currentState.details === initState.details);
+        console.warn(((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0) || (_.isEqual(currentState.subParadigms,initState.subParadigms))));
+        console.warn(((currentState.spdids.length === 0 && initState.spdids.length === 0) || (_.isEqual(currentState.spdids,initState.spdids))));
+        console.log((currentState.subParadigms.length === 0 && initState.subParadigms.length === 0));
+        console.log((_.isEqual(currentState.subParadigms,initState.subParadigms)));
+        console.log((currentState.spdids.length === 0 && initState.spdids.length === 0));
+        console.log((_.isEqual(currentState.spdids,initState.spdids)));
+
+        if (nothingHasChange) {
+          alert('No change has been made');
+        }
+        else {
+          this.props.libraryManager.editPD(parseInt(this.props.routeParams['id'], 10), this.state.name, this.state.details, this.state.spdids);
+        }
       }
       else {
         console.warn('Unexpected mode');
@@ -217,7 +273,7 @@ var CreateEditBoxPD = React.createClass({
     logger.reportRender('CreateEditBoxPD');
     var header = this.props.boxmode === 'create'
       ? 'Add a new paradigm'
-      : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'],10)).name;
+      : 'Edit ' + this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'], 10)).name;
     return (
       <div>
         <form style={{marginTop: '30px'}}>
@@ -235,7 +291,8 @@ var CreateEditBoxPD = React.createClass({
                       value={this.state.details}
                       onChange={this.handleDetailsChange}></textarea>
             </div>
-            <ParadigmBox ids={this.state.spdids} items={this.state.subParadigms} removeHandler={this.handleRemoveSubParadigm}/>
+            <ParadigmBox ids={this.state.spdids} items={this.state.subParadigms}
+                         removeHandler={this.handleRemoveSubParadigm}/>
           </div>
           <Button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit</Button>
         </form>
