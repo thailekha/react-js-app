@@ -69,7 +69,6 @@ if library is not available => no tabs
 when logging in, check if localstorage already have library object that does not matches user's email, delete if available. Or just call it library + email
 
 To refactor:
--inline jsx css
 -use alert with empty input fields
 -notice typeof null returns object !!!
 -uninstall wordnet ?

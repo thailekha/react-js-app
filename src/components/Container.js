@@ -78,6 +78,38 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
+  changeLibName: typify('changeLibName :: string -> VOID | NOT_LOGGED_IN', function(name) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/changeLibName()');
+      this.state.library.name = name;
+      U.updateLibrary(this.state.library, this, function(Container, updatedLibrary) {
+        Container.context.router.replace({pathname: '/home'});
+        Container.setState({
+          library: updatedLibrary
+        });
+      })
+      return VOID;
+    }
+    return NOT_LOGGED_IN;
+  }),
+  changeLibMode: typify('changeLibName :: string -> VOID | NOT_LOGGED_IN', function(mode) {
+    if (loggedInAndHasEmail(this)) {
+      console.log('Container/changeLibMode()');
+      var status = true;
+      if (mode === "private") {
+        status = false;
+      }
+      this.state.library.public = status;
+      U.updateLibrary(this.state.library, this, function(Container, updatedLibrary) {
+        Container.context.router.replace({pathname: '/home'});
+        Container.setState({
+          library: updatedLibrary
+        });
+      })
+      return VOID
+    }
+    return NOT_LOGGED_IN;
+  }),
   getPropertyFromLibrary: typify('getPropertyFromLibrary :: string -> ' +
     'number | string | boolean | (array programminglanguage) | (array paradigm) | (array having) | null | NOT_LOGGED_IN',
     function(property) {
@@ -208,6 +240,8 @@ var Container = React.createClass({
         getAttr: library ? this.getPropertyFromLibrary : undefined,
         addPL: library ? this.addPL : undefined,
         editPL: library ? this.editPL : undefined,
+        changeLibName: library ? this.changeLibName : undefined,
+        changeLibMode: library ? this.changeLibMode : undefined,
         getPL: library ? this.getPL : undefined,
         deletePL: library ? this.deletePL : undefined,
         getRelatedPDs: library ? this.getRelatedPDs : undefined,
@@ -234,7 +268,7 @@ var Container = React.createClass({
         {
           U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
             (<div id={children.props.route.navID}>
-              <NavigationBar navItems={navItems} />
+              <NavigationBar navItems={navItems}/>
             </div>) :
             (<div></div>)
         }

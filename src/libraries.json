@@ -3,8 +3,8 @@
     {
       "id": 0,
       "email": "abc@yahoo.sample.com",
-      "name": "Sample repo 1",
-      "public": true,
+      "name": "sample repo  3",
+      "public": false,
       "paradigms": [
         {
           "pdid": 1,
