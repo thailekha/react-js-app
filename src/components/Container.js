@@ -198,11 +198,9 @@ var Container = React.createClass({
     logger.reportRender('Container');
     let children = null;
     if (this.props.children) {
-      //console.log('Cloning children');
-
       //note that json-server return filtered query as an array
       var library = loggedInAndHasEmail(this) && typify.check('library', this.state['library']) ? this.state['library'] : null;
-      //console.warn('1');
+
       const libraryManager = {
         setLibraryHandler: loggedInAndHasEmail(this) ? this.setLib : undefined,
         create: library ? undefined : this.createLib,
@@ -221,18 +219,13 @@ var Container = React.createClass({
         search: library ? this.search : undefined,
         libraryIsAvailable: typify.check('library', library)
       };
-      //console.warn('2');
-      //console.warn('3');
+      var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout'];
+
       children = React.cloneElement(this.props.children, {
-        //this.props.route is from the router
         auth: extractAuth(this), //sends auth instance to children
-        //library: library,
         userProfile: hasUserProfile(this) ? extractAuth(this).getProfile() : undefined,
         libraryManager: libraryManager
       })
-      //console.warn('4');
-
-      var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout']
     }
 
     //console.warn('End of container/render');

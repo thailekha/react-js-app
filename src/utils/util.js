@@ -174,6 +174,29 @@ var U = {
   isDefined: typify('isDefined :: * -> boolean', function(object) {
     return typeof object !== 'undefined';
   }),
+  getAllLibraries: typify('getLibrary :: * -> *', function(component) {
+    console.log('getAllLibraries()');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3001/libraries",
+      "method": "GET",
+      "headers": {
+        "cache-control": "no-cache",
+      }
+    }
+
+    $.ajax(settings).done(function(response) {
+      console.log(response);
+      //type, object, catchMessage, successCallback, finallyCallback
+      doTypeCheck('(array library)', response, 'NOT an array of library objects',
+        function(validResponse) {
+          component.setState({
+            libraries: validResponse
+          });
+        }, null);
+    });
+  }),
   getLibrary: typify('getLibrary :: string -> * -> *', function(email, component) {
     console.log('getLibrary()');
     var settings = {

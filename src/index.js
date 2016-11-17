@@ -6,7 +6,7 @@ import './index.css';
 
 //view components
 import {Homepage} from './components/Homepage/Homepage';
-import Login from './components/Login';
+import Landpage from './components/Landpage';
 import Profilepage from './components/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
 import {CreateEditBoxPL, CreateEditBoxPD} from './components/Browsepage/CreateEditBox';
@@ -45,7 +45,7 @@ const routes = (
   <Route path="/" component={Container} auth={auth}>
     <IndexRedirect to="/home"/>
     <Route path="home" navID="home" component={Homepage} onEnter={requireAuth}/>
-    <Route path="login" component={Login}/>
+    <Route path="login" component={Landpage}/>
     <Route path="profile" navID="profile" component={Profilepage} onEnter={requireAuth}/>
     <Route path="browse" navID="browse" component={BrowsepageContainer} onEnter={requireAuth}>
       <IndexRedirect to="/browse/createboxpl"/>
@@ -58,7 +58,7 @@ const routes = (
     </Route>
     <Route path="find" navID="find" component={Findpage} onEnter={requireAuth}/>
     <Route path="logout" onEnter={doLogout}/>
-    <Route path="access_token=:token" component={Login}/> //to prevent router errors
+    <Route path="access_token=:token" component={Landpage}/> //to prevent router errors
   </Route>
 );
 

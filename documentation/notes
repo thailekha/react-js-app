@@ -2,6 +2,7 @@ DESIGN DOCUMENT
 
 -assigning (</>) to a variable makes it renderred anyway => explain homepage
 -do not use this.props to setState or getInnitialState
+-interactions with the library object or requiring HTTP are enforced with type-safety (parseInt, response)
 
 //fucking hell !!!
         //!_.isEqual([],[]); //false
