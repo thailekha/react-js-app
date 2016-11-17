@@ -13,14 +13,10 @@ var ParadigmBox = React.createClass({
     logger.reportRender('ParadigmBox');
     return (
       <div>
-        <form>
-          <div>
-            <input type="text" disabled
-                   className="form-control"
-                   value={this.props.items}></input>
-            <Button onClick={this.handleRemove}>Remove</Button>
-          </div>
-        </form>
+        <input type="text" disabled
+               className="form-control"
+               value={this.props.items}></input>
+        <Button onClick={this.handleRemove}>Remove</Button>
       </div>
     );
   }

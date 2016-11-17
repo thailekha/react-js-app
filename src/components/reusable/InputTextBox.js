@@ -16,7 +16,6 @@ var InputTextBox = React.createClass({
     e.preventDefault();
     if(this.state.text.trim().length > 0) {
       this.props.submitHandler(this.state.text);
-      this.setState({text: ''});
     }
   },
   render: function() {

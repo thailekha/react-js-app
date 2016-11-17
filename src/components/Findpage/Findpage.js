@@ -2,7 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger'
 import {Pager} from 'react-bootstrap';
 import SelectBox from '../reusable/SelectBox';
-import QueryForm from './QueryForm';
+import InputTextBox from '../reusable/InputTextBox';
 import QueryResult from './QueryResult';
 
 var Findpage = React.createClass({
@@ -31,7 +31,7 @@ var Findpage = React.createClass({
     return (
       <Pager><Pager.Item>
         <div>
-          <QueryForm findHandler={this.handleFind}/>
+          <InputTextBox header={"Query"} placeholder={"Find something"} submitHandler={this.handleFind}/>
 
           <h4>Find mode</h4>
           <SelectBox changeHandler={this.handleFindModeChange} changeHandlerIsFrom="Findpage (find mode)" options={
