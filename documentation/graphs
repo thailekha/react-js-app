@@ -1,69 +1,149 @@
-
 red
 #EC7D78
 yellow
 #FFDA6E
 
-
 //General tree
-graph{
+digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
 Container[color="#EC7D78"];
 Placeholder[label="...",color="white"]
 
-MyApp--Router--Container--Placeholder;
+MyApp->Header;
+MyApp->Footer;
+MyApp->Router->Container->Placeholder;
+}
+
+//Landpage
+
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+ChartRenderer[color="#EC7D78"];
+
+Container->NavigationBar;
+Container->Landpage->ChartRenderer->SelectBox;
 }
 
 //Homepage, when library is not available
 
-graph{
+digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
-Homepage--CreateBox;
+Container[color="#EC7D78"];
+InputTextBox[color="#EC7D78"];
+Container->NavigationBar;
+Container->Homepage->InputTextBox;
 }
 
 //Homepage, when library is available
 
-graph{
+digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
 ChartRenderer[color="#EC7D78"];
-
-Homepage--ChartRenderer--SelectBox;
+Container->NavigationBar;
+Container->Homepage->ChartRenderer->SelectBox;
 }
 
-//--------------------------------------------------------
 
-//Browsepage at Create tab of programminglanguages mode
+//Browsepage at Create tab OR edit mode of programminglanguages mode
 
-//--------------------------------------------------------
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+SubNavigationBar[color="#EC7D78"];
+CreateEditBoxPL[color="#EC7D78"];
+
+Container->NavigationBar;
+Container->BrowsepageContainer;
+BrowsepageContainer->SubNavigationBar;
+BrowsepageContainer->CreateEditBoxPL->ParadigmBox;
+CreateEditBoxPL->InputTextBox;
+}
+
+//Browsepage at programminglanguage item tab of programminglanguages mode
+
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+SubNavigationBar[color="#EC7D78"];
+
+Container->NavigationBar;
+Container->BrowsepageContainer;
+BrowsepageContainer->SubNavigationBar;
+BrowsepageContainer->PLContent->PLItemDisplay;
+}
+
+//Browsepage at Create tab or Edit view of paradigms mode
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+SubNavigationBar[color="#EC7D78"];
+CreateEditBoxPD[color="#EC7D78"];
+
+Container->NavigationBar;
+Container->BrowsepageContainer;
+BrowsepageContainer->SubNavigationBar;
+BrowsepageContainer->CreateEditBoxPD->ParadigmBox;
+CreateEditBoxPD->InputTextBox
+}
+
+//Browsepage at paradigm item tab of programminglanguages mode
+
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+SubNavigationBar[color="#EC7D78"];
+
+Container->NavigationBar;
+Container->BrowsepageContainer;
+BrowsepageContainer->SubNavigationBar;
+BrowsepageContainer->PDContent->PDItemDisplay;
+}
 
 //Findpage (find-mode set to 'name')
 
-graph{
+digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
-Findpage[color="#EC7D78"];
-SelectBox[label="SelectBox (for find-mode)"];
-LC[label="LinkContainer *"];
+Container[color="#EC7D78"];
+Container->NavigationBar;
 
-Findpage--QueryForm;
-Findpage--SelectBox;
-Findpage--QueryResult;
-QueryResult--LC;
+Findpage[color="#EC7D78"];
+InputTextBox[color="#EC7D78"];
+
+Container->Findpage->InputTextBox;
+Findpage->SelectBox;
+Findpage->QueryResult;
 }
 
 //Findpage (find-mode set to 'content')
 
-graph{
+digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
-Findpage[shape="rect",style="filled",color="#EC7D78"];
-SelectBox1[label="SelectBox (for find-mode)"];
-SelectBox2[label="SelectBox (for sort-mode)"];
-LC[label="LinkContainer *"];
+Container[color="#EC7D78"];
+Container->NavigationBar;
 
-Findpage--QueryForm;
-Findpage--SelectBox1;
-Findpage--SelectBox2;
-Findpage--QueryResult;
-QueryResult--LC;
+Findpage[color="#EC7D78"];
+InputTextBox[color="#EC7D78"];
+SB1[label="SelectionBox"];
+SB2[label="SelectionBox"];
+
+Container->Findpage->InputTextBox;
+Findpage->SB1;
+Findpage->SB2;
+Findpage->QueryResult;
+}
+
+//Profilepage
+
+digraph{
+node [shape="box",style="filled",color="#FFDA6E"];
+Container[color="#EC7D78"];
+Container->NavigationBar;
+InputTextBox[color="#EC7D78"];
+
+Container->Profilepage->InputTextBox;
+Profilepage->SelectBox;
 }
 
 

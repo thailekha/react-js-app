@@ -6,7 +6,6 @@ import {Row,Col} from 'react-bootstrap';
 
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
-
   render: function() {
     logger.reportRender('Profilepage');
     var statuses = this.props.libraryManager.getAttr('public') ? ["public", "private"] : ["private","public"];
