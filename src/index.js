@@ -14,7 +14,7 @@ import {PLContent, PDContent} from './components/Browsepage/Content';
 import Findpage from './components/Findpage/Findpage';
 
 //Auth0 and router
-import {Route, IndexRedirect, browserHistory} from 'react-router';
+import {Route, IndexRedirect, hashHistory ,browserHistory} from 'react-router';
 import AuthService from './utils/AuthService';
 import Container from './components/Container';
 
@@ -63,7 +63,7 @@ const routes = (
 );
 
 ReactDOM.render(
-  <MyApp history={browserHistory}
+  <MyApp history={hashHistory}
          routes={routes}/>,
   document.getElementById('root')
 );
