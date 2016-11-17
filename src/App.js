@@ -3,6 +3,8 @@ import './App.css';
 import logger from './utils/logger'
 import {Router} from 'react-router';
 import {Button} from 'react-bootstrap';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 
 var MyApp = React.createClass({
@@ -32,10 +34,11 @@ var MyApp = React.createClass({
     logger.reportRender('MyApp');
     return (
       <div style={{ height: '100%' }}>
-
+        <Header />
         {this.getContent()}
-        <Button onClick={this.handleReportRender}>Report render</Button>
-        <Button onClick={this.handleResetReportRander}>Reset report render</Button>
+        <Button bsStyle="info" onClick={this.handleReportRender}>Report render</Button>
+        <Button bsStyle="info" onClick={this.handleResetReportRander}>Reset report render</Button>
+        <Footer />
       </div>
     );
   }

@@ -2,14 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #E4dbbf;
+  background-color: #70ab8f;
 }
 
-#browsepagemainarea {
-  float: right
+.jumbotron {
+  width: 90%;
+  border: .2em solid;
+  background-color: #7AAAE0;
 }
-
-#subNavigation {
-  float: left
-}
-

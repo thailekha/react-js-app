@@ -236,10 +236,6 @@ var Container = React.createClass({
     //console.warn('End of container/render');
     return (
       <Jumbotron id="containerRoot">
-        <h2>
-          Container
-          <img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"/>
-        </h2>
         {
           U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
             (<div id={children.props.route.navID}>

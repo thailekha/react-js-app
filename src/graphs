@@ -9,8 +9,9 @@ yellow
 graph{
 node [shape="box",style="filled",color="#FFDA6E"];
 Container[color="#EC7D78"];
+Placeholder[label="...",color="white"]
 
-MyApp--Router--Container;
+MyApp--Router--Container--Placeholder;
 }
 
 //Homepage, when library is not available
