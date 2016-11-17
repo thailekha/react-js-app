@@ -8,7 +8,7 @@ var NavigationBar = React.createClass({
   /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('NavigationBar');
-    var navigationItems = ['home', 'browse', 'find', 'profile', 'logout'].map(function(navItem, index) {
+    var navigationItems = this.props.navItems.map(function(navItem, index) {
       //if key={index} was left within <Link> tab error is thrown
       return (
         <LinkContainer key={index} to={navItem}>

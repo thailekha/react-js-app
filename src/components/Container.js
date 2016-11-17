@@ -1,9 +1,9 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
-import logger from './utils/logger';
-import {U, _API, defineLibraryAppDataTypes} from './utils/util';
-import AuthService from './utils/AuthService';
-import NavigationBar from './components/NavigationBar';
+import logger from '../utils/logger';
+import {U, _API, defineLibraryAppDataTypes} from '../utils/util';
+import AuthService from '../utils/AuthService';
+import NavigationBar from './NavigationBar';
 import typify from 'typify';
 import {Button} from 'react-bootstrap';
 
@@ -231,6 +231,8 @@ var Container = React.createClass({
         libraryManager: libraryManager
       })
       //console.warn('4');
+
+      var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout']
     }
 
     //console.warn('End of container/render');
@@ -239,7 +241,7 @@ var Container = React.createClass({
         {
           U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
             (<div id={children.props.route.navID}>
-              <NavigationBar />
+              <NavigationBar navItems={navItems} />
             </div>) :
             (<div></div>)
         }

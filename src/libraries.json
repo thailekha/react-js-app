@@ -70,6 +70,15 @@
       "paradigms": [],
       "programminglanguages": [],
       "havings": []
+    },
+    {
+      "id": 3,
+      "email": "marilynmanson@email.com",
+      "name": "Beautiful people",
+      "public": true,
+      "paradigms": [],
+      "programminglanguages": [],
+      "havings": []
     }
   ]
 }

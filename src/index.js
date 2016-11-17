@@ -16,7 +16,7 @@ import Findpage from './components/Findpage/Findpage';
 //Auth0 and router
 import {Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
-import Container from './Container';
+import Container from './components/Container';
 
 const auth = new AuthService('eovaKsTfC8LLOjnFmyDLVJrTjs1idPwl', 'thailekha.auth0.com');
 //const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
