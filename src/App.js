@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import './App.css';
 import logger from './utils/logger'
 import {Router} from 'react-router';
 import {Button} from 'react-bootstrap';
