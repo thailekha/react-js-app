@@ -3,7 +3,7 @@ import expect from 'expect';
 import {shallow} from 'enzyme';
 import InputTextBox from '../../components/reusable/InputTextBox';
 
-import '../.setup';
+import '../.setupjsdom';
 
 const getMockProps = function(spy) {
   return {

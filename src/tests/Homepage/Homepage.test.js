@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import {getMockLibraryManager} from '../testUtils';
+import {getMockLibraryManager} from '../mockLibraryManager';
 import {Homepage} from '../../components/Homepage/Homepage';
 
 describe('Component: Homepage', () => {

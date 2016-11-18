@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import {getMockLibraryManager} from '../testUtils';
+import {getMockLibraryManager} from '../mockLibraryManager';
 import Findpage from '../../components/Findpage/Findpage';
 
 

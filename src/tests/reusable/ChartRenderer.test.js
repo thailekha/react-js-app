@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
 import ChartRenderer from '../../components/reusable/ChartRenderer';
-import {getMockLibraryManager} from '../testUtils';
+import {getMockLibraryManager} from '../mockLibraryManager';
 
 
 describe('Component: ChartRenderer', () => {

@@ -370,6 +370,14 @@ const _API = {
     function(library, name, details, type, paradigmIDs, component) {
       console.log('_API/addProgrammingLanguage(' + library + ' ,' +
         name + ' ,' + details + ' ,' + type + ' ,' + paradigmIDs + ' ,' + component + ')');
+
+      //an array of items (either programminglanguage or paradigm) having the same name
+      var duplicateItems = this.search(library,name,'name','name');
+      if(duplicateItems.length > 0) {
+        alert('Error: There is already an item called ' + name);
+        return;
+      }
+
       var nProgrammingLanguage = {
         name: name,
         details: details,
@@ -504,6 +512,14 @@ const _API = {
   addParadigm: typify('addParadigm :: library -> string -> string -> (array number) -> * -> *',
     function(library, name, details, subparadigms, component) {
       console.log('_API/addParadigm(' + library + ',' + name + ',' + details + ',' + subparadigms + ',' + component + ')');
+
+      //an array of items (either programminglanguage or paradigm) having the same name
+      var duplicateItems = this.search(library,name,'name','name');
+      if(duplicateItems.length > 0) {
+        alert('Error: There is already an item called ' + name);
+        return;
+      }
+
       var nParadigm = {
         pdid: this.getNextParadigmID(library),
         name: name,
@@ -567,7 +583,7 @@ const _API = {
     });
   }),
   search: typify('search :: library -> string -> string -> string -> (array programminglanguage) | (array paradigm) | (array queryresult)', function(library, query, findBy, sortBy) {
-    console.log('_API/search(' + library + ' ,' + query + ' ,' + findBy);
+    console.log('_API/search(' + library + ' ,' + query + ' ,' + findBy + ',' + sortBy + ')');
 
     //get all programming languages and paradigms
     var items = library['programminglanguages'].concat(library['paradigms']);
