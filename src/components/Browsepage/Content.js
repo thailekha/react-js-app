@@ -14,7 +14,7 @@ var PLItemDisplay = React.createClass({
     && _.isEqual(nextProps.relatedParadigms, this.props.relatedParadigms));
   },
   render: function() {
-    logger.reportRender('PDItemDisplay');
+    logger.reportRender('PLItemDisplay');
     return (
       <div>
         <h3>{this.props.name}</h3>
@@ -22,7 +22,6 @@ var PLItemDisplay = React.createClass({
         <p>{this.props.details}</p>
         <b>Related paradigms</b>
         {this.props.relatedParadigms}
-        <Button onClick={this.handleDelete}>Delete</Button>
         <Button><Link to={"/browse/editboxpl/" + this.props.id}>Edit</Link></Button>
       </div>
     );
@@ -51,7 +50,7 @@ var PLContent = React.createClass({
           relatedParadigms={relatedParadigms}
           id={parseInt(this.props.routeParams['id'], 10)}
         />
-        <Button onClick={this.handleDelete}>Delete</Button>
+        <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
       </div>
     );
   }
@@ -105,7 +104,7 @@ var PDContent = React.createClass({
           details={paradigm['details']}
           id={parseInt(this.props.routeParams['id'], 10)}
         />
-        <Button onClick={this.handleDelete}>Delete</Button>
+        <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
       </div>
     );
   }

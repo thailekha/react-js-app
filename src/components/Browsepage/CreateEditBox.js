@@ -7,7 +7,6 @@ import _ from 'lodash';
 
 
 var CreateEditBoxPL = React.createClass({
-  /* ... options and lifecycle methods ... */
   initState: null, //so that you can tell if the item has changed when updating
   getInitialState: function() {
     var mode = this.props.boxmode;

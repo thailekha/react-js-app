@@ -5,13 +5,9 @@ import SelectBox from '../reusable/SelectBox';
 import Deleter from './Deleter';
 import {Row,Col} from 'react-bootstrap';
 
-//https://auth0.com/docs/quickstart/spa/react/04-user-profile
 var Profilepage = React.createClass({
   render: function() {
     logger.reportRender('Profilepage');
-
-    console.warn(this.props.libraryManager);
-    console.warn(this.props.libraryManager.getAttr);
 
     if(!(this.props.libraryManager && this.props.libraryManager.libraryIsAvailable))
       return (<h3>Library not found</h3>);

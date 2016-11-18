@@ -21,7 +21,7 @@ var Landpage = React.createClass({
     U.getAllLibraries(this);
   },
   render: function() {
-    logger.reportRender('Loginpage');
+    logger.reportRender('Landpage');
     console.warn('Loginpage');
     const {auth} = this.props; // ???
 

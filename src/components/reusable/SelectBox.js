@@ -26,10 +26,10 @@ var SelectBox = React.createClass({
     this.props.changeHandler(e.target.value);
   },
   render: function() {
+    logger.reportRender('SelectBox from ' + this.props.changeHandlerIsFrom);
     var optionItems = this.props.options.map(function(option,index){
       return (<option key={index} value={option.value}>{option.display}</option>);
     });
-    logger.reportRender('SelectBox from ' + this.props.changeHandlerIsFrom);
     return (
       <select id="view" onChange={this.handleSelect}>
         {optionItems}

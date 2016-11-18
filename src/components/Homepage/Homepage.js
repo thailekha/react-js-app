@@ -5,11 +5,6 @@ import InputTextBox from '../reusable/InputTextBox';
 
 
 var Homepage = React.createClass({
-  /* ... options and lifecycle methods ... */
-  // shouldComponentUpdate: function(nextProps,nextState){
-  //   //This component only needs the libraryManager
-  //   return !_.isEqual(this.props.libraryManager, nextProps.libraryManager) || this.state.view !== nextState.view;
-  // },
   componentDidMount: function() {
     if (this.props.libraryManager) {
       console.log('Homepage/reload');

@@ -3,15 +3,6 @@ import logger from '../../utils/logger';
 import SubNavigationBar from './SubNavigationBar';
 import {Row,Col} from 'react-bootstrap';
 
-//TODO: fix " == undefined" to 'typeof ...'
-
-//for running mocha tests (see npm dom-storage)
-// if(typeof localStorage === 'undefined') {
-//   var Storage = require('dom-storage');
-//   var localStorage = new Storage('./db.json', { strict: false, ws: '  ' });
-// }
-
-//must use componentDidMount, otherwise infinite loop (component is re-rendered when request comes back, re-rendering fires another req)
 var BrowsepageContainer = React.createClass({
   render: function() {
     logger.reportRender('BrowsepageContainer');
@@ -27,8 +18,7 @@ var BrowsepageContainer = React.createClass({
         programmingLanguages = libraryManager.getAttr('programminglanguages');
         paradigms = libraryManager.getAttr('paradigms');
       }
-      //console.log(programmingLanguages.concat(paradigms));
-      //var items = this.props.children.props.route.sendToChildren === 'pl' ? programmingLanguages : paradigms;
+
       children = React.cloneElement(this.props.children, {
         //Must clone children to pass arguments to them
         libraryManager: libraryManager,

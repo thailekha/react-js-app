@@ -4,7 +4,6 @@ import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import logger from '../utils/logger';
 
 var NavigationBar = React.createClass({
-  /* ... options and lifecycle methods ... */
   render: function() {
     logger.reportRender('NavigationBar');
     var navigationItems = this.props.navItems.map(function(navItem, index) {

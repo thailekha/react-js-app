@@ -2,7 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
 
-//header, placeholder, submitHandler
+//props: header, placeholder, submitHandler
 var InputTextBox = React.createClass({
   getInitialState: function() {
     return {text: ''}

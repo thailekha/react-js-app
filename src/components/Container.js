@@ -1,13 +1,18 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from '../utils/logger';
-import {U, _API, defineLibraryAppDataTypes} from '../utils/util';
+import {U, _API, defineLibraryAppDataTypes,isDefined} from '../utils/util';
 import AuthService from '../utils/AuthService';
 import NavigationBar from './NavigationBar';
 import typify from 'typify';
 import {Button} from 'react-bootstrap';
 
+
+//These are not requried to be invoked here, they are already invoked in util.js
 //defineLibraryAppDataTypes(typify);
+// typify.type('VOID', function(i) {
+//   return i === -999;
+// });
 
 const NOT_LOGGED_IN = -888; //any library object query from children component gets this if the app is not in logged-in state
 const VOID = -999; //used if a function being registered with typify does not return anything
@@ -16,20 +21,17 @@ const VOID = -999; //used if a function being registered with typify does not re
 typify.type('NOT_LOGGED_IN', function(i) {
   return i === -888;
 });
-// typify.type('VOID', function(i) {
-//   return i === -999;
-// });
 
 const loggedInAndHasEmail = function(component) {
-  return U.isDefined(component.props.route.auth) &&
+  return isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
-    U.isDefined(component.props.route.auth.getProfile().email);
+    isDefined(component.props.route.auth.getProfile().email);
 };
 
 const hasUserProfile = function(component) {
-  return U.isDefined(component.props.route.auth) &&
+  return isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
-    U.isDefined(component.props.route.auth.getProfile());
+    isDefined(component.props.route.auth.getProfile());
 }
 
 //this statement is too errorprone
@@ -45,7 +47,7 @@ var Container = React.createClass({
     router: T.object
   },
   getInitialState() {
-    if (U.isDefined(extractAuth(this))) {
+    if (isDefined(extractAuth(this))) {
       extractAuth(this).on('profile_updated', (newProfile) => {
         console.log('homepage.js -> on profile updated');
         this.setState({profile: newProfile})
@@ -54,7 +56,7 @@ var Container = React.createClass({
       var theState = {profile: extractAuth(this).getProfile()};
       //console.log(theState);
       if (extractAuth(this).loggedIn()) {
-        theState['library'] = undefined;
+        theState['library'] = null;
       }
       return theState;
     }
@@ -222,11 +224,6 @@ var Container = React.createClass({
     }
     return NOT_LOGGED_IN;
   }),
-  handleManuallySetState: function(e) {
-    e.preventDefault();
-    this.setState({});
-  },
-  //TODO: MAY FIX componentDidMount to fix the "after FRESHLY logging in" error
   componentDidMount: function() {
     this.setLib();
   },
@@ -266,15 +263,13 @@ var Container = React.createClass({
     }
 
     var navItems = library ? ['home', 'browse', 'find', 'profile', 'logout'] : ['home', 'logout'];
-    //console.warn('End of container/render');
     return (
       <Jumbotron id="containerRoot">
         {
-          U.isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
+          isDefined(extractAuth(this)) && extractAuth(this).loggedIn() && children !== null ?
             (<NavigationBar navItems={navItems}/>) : (null)
         }
         {children}
-        <Button onClick={this.handleManuallySetState}>Manually Set State of Container</Button>
       </Jumbotron>
     )
   }

@@ -6,7 +6,6 @@ import InputTextBox from '../reusable/InputTextBox';
 import QueryResult from './QueryResult';
 
 var Findpage = React.createClass({
-  /* ... options and lifecycle methods ... */
   getInitialState: function() {
     return {findMode: 'name', sort: 'alphabetical', result: []}
   },

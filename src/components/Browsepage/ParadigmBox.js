@@ -4,7 +4,6 @@ import {Button} from 'react-bootstrap';
 
 //items, removeHandler
 var ParadigmBox = React.createClass({
-  //notice that getInitialState won't be called again when thw paraent component of this does setState
   handleRemove: function(e) {
     e.preventDefault();
     this.props.removeHandler();
@@ -15,7 +14,7 @@ var ParadigmBox = React.createClass({
       <div>
         <input type="text" disabled
                className="form-control"
-               value={this.props.items}></input>
+               value={this.props.items}/>
         <Button onClick={this.handleRemove}>Remove</Button>
       </div>
     );

@@ -5,7 +5,6 @@ import logger from '../../utils/logger';
 import SelectBox from '../reusable/SelectBox';
 
 var SubNavigationBar = React.createClass({
-  /* ... options and lifecycle methods ... */
   getInitialState: function() {
     return {
       browsingMode: 'programminglanguages'
