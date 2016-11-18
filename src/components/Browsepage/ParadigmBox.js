@@ -2,7 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger';
 import {Button} from 'react-bootstrap';
 
-//ids, items, removeHandler
+//items, removeHandler
 var ParadigmBox = React.createClass({
   //notice that getInitialState won't be called again when thw paraent component of this does setState
   handleRemove: function(e) {
