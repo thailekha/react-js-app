@@ -21,7 +21,7 @@ const getMockProps = function(spy) {
   }
 };
 
-describe('Component: CreateBox', () => {
+describe('Component: SelectBox', () => {
   //header, placeholder, submitHandler
 
   it('has a select tag and option tags', ()=> {
