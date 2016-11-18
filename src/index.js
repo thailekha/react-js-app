@@ -1,12 +1,12 @@
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import MyApp from './App';
 import './index.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 //view components
-import {Homepage} from './components/Homepage/Homepage';
+import Container from './components/Container';
 import Landpage from './components/Landpage/Landpage';
+import {Homepage} from './components/Homepage/Homepage';
 import Profilepage from './components/Profilepage/Profilepage';
 import BrowsepageContainer from './components/Browsepage/Browsepage';
 import {CreateEditBoxPL, CreateEditBoxPD} from './components/Browsepage/CreateEditBox';
@@ -14,13 +14,13 @@ import {PLContent, PDContent} from './components/Browsepage/Content';
 import Findpage from './components/Findpage/Findpage';
 
 //Auth0 and router
-import {Route, IndexRedirect, hashHistory ,browserHistory} from 'react-router';
+import {Route, IndexRedirect, hashHistory} from 'react-router';
 import AuthService from './utils/AuthService';
-import Container from './components/Container';
+
 
 const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 
-// onEnter callback to validate authentication in private routes
+// to validate authentication in private routes
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
     console.log('Not logged in !');
@@ -44,9 +44,6 @@ const checkIfAlreadyLoggedIn = (nextState, replace) => {
     replace({pathname: '/home'});
   }
 };
-
-//Notes: /home and /login is default and required by auth0
-//console.log(auth.loggedIn());
 
 const routes = (
   <Route path="/" component={Container} auth={auth}>
