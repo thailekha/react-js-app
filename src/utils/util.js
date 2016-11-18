@@ -407,7 +407,7 @@ const _API = {
       console.log('_API/addProgrammingLanguage(' + library + ' ,' +
         name + ' ,' + details + ' ,' + type + ' ,' + paradigmIDs + ' ,' + component + ')');
 
-      var duplicateItems = this.search(library,name,'name','name');
+      var duplicateItems = this.findItemsHavingSameName(library,name);
       if(duplicateItems.length > 0) {
         alert('Error: There is already an item called ' + name);
         return;
@@ -451,7 +451,8 @@ const _API = {
       console.log('_API/editProgrammingLanguage(' + library + ' ,' +
         name + ' ,' + plid + ',' + details + ' ,' + type + ' ,' + paradigmIDs + ' ,' + component + ')');
 
-      var duplicateItems = this.search(library,name,'name','name');
+      //in case user makes an item having unduplicated name then changes it to having duplicated name with another item
+      var duplicateItems = this.findItemsHavingSameName(library,name);
       var canContinue = duplicateItems.length === 1 && duplicateItems[0].plid && duplicateItems[0].plid === plid;
       if(!canContinue) {
         //in case user create a non-duplicate item then edit the item to have duplicate name
@@ -574,7 +575,7 @@ const _API = {
     function(library, name, details, subparadigms, component) {
       console.log('_API/addParadigm(' + library + ',' + name + ',' + details + ',' + subparadigms + ',' + component + ')');
 
-      var duplicateItems = this.search(library,name,'name','name');
+      var duplicateItems = this.findItemsHavingSameName(library,name);
       if(duplicateItems.length > 0) {
         alert('Error: There is already an item called ' + name);
         return;
@@ -599,7 +600,8 @@ const _API = {
       console.log('_API/editParadigm(' + library + ' ,' +
         name + ' ,' + pdid + ',' + details + ' ,' + subParadigmIDs + ' ,' + component + ')');
 
-      var duplicateItems = this.search(library,name,'name','name');
+      //in case user makes an item having unduplicated name then changes it to having duplicated name with another item
+      var duplicateItems = this.findItemsHavingSameName(library,name);
       var canContinue = duplicateItems.length === 1 && duplicateItems[0].pdid && duplicateItems[0].pdid === pdid;
       if(!canContinue) {
         //in case user create a non-duplicate item then edit the item to have duplicate name
@@ -649,12 +651,37 @@ const _API = {
     //remove related Having items
     console.log('_API/removed from Havings: ' + _.remove(library['havings'], identity));
 
+    //each paradigm also has an array of subparadigm, remove from this array too
+    library['paradigms'].forEach(function(paradigm) {
+      _.remove(paradigm.subparadigms,function(id) {
+        return id === paradigmID;
+      });
+    });
+
     //update library on server
     U.updateLibrary(library, component, function(component, validResponse) {
       //redirect user to browsepage
       component.context.router.replace({pathname: '/browse'});
       component.setState({library: validResponse});
     });
+  }),
+  findItemsHavingSameName: typify('search :: library -> string -> (array programminglanguage) | (array paradigm)', function(library, name) {
+    console.log('_API/findItemsHavingSameName(' + library + ' ,' + name + ')');
+    var allItems = library.programminglanguages.concat(library.paradigms);
+    console.warn(allItems);
+    typify.assert('array', allItems);
+
+    var duplicateItems = [];
+    var counter = 0;
+    while(counter < allItems.length) {
+      typify.assert('(programminglanguage | paradigm)',allItems[counter]);
+      if(allItems[counter].name === name) {
+        duplicateItems.push(allItems[counter]);
+      }
+      counter++;
+    }
+
+    return duplicateItems;
   }),
   search: typify('search :: library -> string -> string -> string -> ' +
     '(array programminglanguage) | (array paradigm) | (array queryresult)', function(library, query, findBy, sortBy) {
