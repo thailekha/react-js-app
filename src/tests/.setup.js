@@ -1,6 +1,7 @@
-require('babel-register')();
 
-var jsdom = require('jsdom').jsdom;
+//https://github.com/lelandrichardson/enzyme-example-karma-webpack
+
+import {jsdom} from 'jsdom';
 
 var exposedProperties = ['window', 'navigator', 'document'];
 
@@ -16,5 +17,3 @@ Object.keys(document.defaultView).forEach((property) => {
 global.navigator = {
   userAgent: 'node.js'
 };
-
-documentRef = document;

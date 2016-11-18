@@ -6,7 +6,7 @@ import NavigationBar  from '../components/NavigationBar';
 describe('Component: NavigationBar', () => {
 
   it('has navitem, linkcontainer ', () => {
-    var nav = shallow(<NavigationBar />);
+    var nav = shallow(<NavigationBar navItems={['A','B','C','D','E']} />);
     //['home', 'browse', 'find', 'profile', 'logout']
     //console.log(nav.debug());
     expect(nav.find('LinkContainer').length).toEqual(5);

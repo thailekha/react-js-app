@@ -18,7 +18,7 @@ var InputTextBox = React.createClass({
       this.props.submitHandler(this.state.text);
     }
     else {
-      alert('Error: Empty field');
+      window.alert('Error: Empty field');
     }
   },
   render: function() {

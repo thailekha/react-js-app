@@ -90,7 +90,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development hjs-dev-server",
     "build": "react-scripts build",
-    "test": "mocha --require babel-core/register ./src/tests/Browsepage.test.js",
+    "test": "mocha --require babel-core/register ./src/tests/InputTextBox.test.js",
     "eject": "react-scripts eject"
   },
   "optionalDependencies": {}
