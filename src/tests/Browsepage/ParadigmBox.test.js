@@ -3,7 +3,7 @@ import expect from 'expect';
 import {shallow} from 'enzyme';
 import ParadigmBox from '../../components/Browsepage/ParadigmBox';
 
-//ids, items, removeHandler
+//items, removeHandler
 const getMockProps = function(spy){
   return {
     removeHandler: function(){
@@ -19,7 +19,7 @@ describe('Component: ParadigmBox', () => {
     var spy = [];
     var props = getMockProps(spy);
     const paradigmbox = shallow(<ParadigmBox items={props.items} removeHandler={props.removeHandler} />);
-    console.log(paradigmbox.debug());
+    //console.log(paradigmbox.debug());
 
     expect(paradigmbox.find('input').length).toEqual(1);
     expect(paradigmbox.find('Button').length).toEqual(1);

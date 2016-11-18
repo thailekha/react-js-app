@@ -5,12 +5,10 @@ import NavigationBar  from '../components/NavigationBar';
 
 describe('Component: NavigationBar', () => {
 
-  it('has navitem, linkcontainer ', () => {
+  it('has 1 Nav items (React bootstrap)', () => {
     var nav = shallow(<NavigationBar navItems={['A','B','C','D','E']} />);
-    //['home', 'browse', 'find', 'profile', 'logout']
     //console.log(nav.debug());
-    expect(nav.find('LinkContainer').length).toEqual(5);
-    expect(nav.find('NavItem').length).toEqual(5);
+    expect(nav.find('Nav').length).toEqual(1);
   });
 
 });
