@@ -29,7 +29,7 @@ var InputTextBox = React.createClass({
       <div className="form-group">
         <input type="text"
                className="form-control" placeholder={this.props.placeholder}
-               value={this.state.text} onChange={this.handleTextChange}></input>
+               value={this.state.text} onChange={this.handleTextChange} />
         <Button onClick={this.handleSubmit}>Submit</Button>
       </div>
     </form>

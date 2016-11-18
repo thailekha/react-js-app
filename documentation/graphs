@@ -141,9 +141,10 @@ node [shape="box",style="filled",color="#FFDA6E"];
 Container[color="#EC7D78"];
 Container->NavigationBar;
 InputTextBox[color="#EC7D78"];
-
 Container->Profilepage->InputTextBox;
 Profilepage->SelectBox;
+Deleter[color="#EC7D78"];
+Profilepage->Deleter;
 }
 
 

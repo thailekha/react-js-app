@@ -20,13 +20,13 @@ typify.type('NOT_LOGGED_IN', function(i) {
 //   return i === -999;
 // });
 
-var loggedInAndHasEmail = function(component) {
+const loggedInAndHasEmail = function(component) {
   return U.isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
     U.isDefined(component.props.route.auth.getProfile().email);
 };
 
-var hasUserProfile = function(component) {
+const hasUserProfile = function(component) {
   return U.isDefined(component.props.route.auth) &&
     component.props.route.auth.loggedIn() &&
     U.isDefined(component.props.route.auth.getProfile());
@@ -122,7 +122,11 @@ var Container = React.createClass({
   deleteLib: typify('deleteLib :: VOID | NOT_LOGGED_IN', function() {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/deleteLib()');
-      console.log('delete library called');
+      U.deleteLibrary(this.state.library.id,this,function(Container,response){
+        //redirect user to homepage
+        Container.context.router.replace({pathname: '/home'});
+        Container.setState({library: null});
+      });
       return VOID
     }
     return NOT_LOGGED_IN

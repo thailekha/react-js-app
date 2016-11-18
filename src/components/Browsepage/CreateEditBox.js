@@ -138,19 +138,19 @@ var CreateEditBoxPL = React.createClass({
               <input type="text"
                      className="form-control" placeholder="Name"
                      value={this.state.name}
-                     onChange={this.handleNameChange}></input>
+                     onChange={this.handleNameChange}/>
             </div>
             <div>
             <textarea type="text"
                       className="form-control" placeholder="Details"
                       value={this.state.details}
-                      onChange={this.handleDetailsChange}></textarea>
+                      onChange={this.handleDetailsChange}/>
             </div>
             <div>
               <input type="text"
                      className="form-control" placeholder="Type"
                      value={this.state.type}
-                     onChange={this.handleTypeChange}></input>
+                     onChange={this.handleTypeChange}/>
             </div>
             <ParadigmBox ids={this.state.pdids} items={this.state.paradigms} removeHandler={this.handleRemoveParadigm}/>
           </div>
@@ -290,13 +290,13 @@ var CreateEditBoxPD = React.createClass({
               <input type="text"
                      className="form-control" placeholder="Name"
                      value={this.state.name}
-                     onChange={this.handleNameChange}></input>
+                     onChange={this.handleNameChange}/>
             </div>
             <div>
             <textarea type="text"
                       className="form-control" placeholder="Details"
                       value={this.state.details}
-                      onChange={this.handleDetailsChange}></textarea>
+                      onChange={this.handleDetailsChange}/>
             </div>
             <ParadigmBox ids={this.state.spdids} items={this.state.subParadigms}
                          removeHandler={this.handleRemoveSubParadigm}/>

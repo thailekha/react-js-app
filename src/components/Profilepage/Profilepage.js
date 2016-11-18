@@ -2,6 +2,7 @@ import React from 'react';
 import logger from '../../utils/logger';
 import InputTextBox from '../reusable/InputTextBox';
 import SelectBox from '../reusable/SelectBox';
+import Deleter from './Deleter';
 import {Row,Col} from 'react-bootstrap';
 
 //https://auth0.com/docs/quickstart/spa/react/04-user-profile
@@ -32,6 +33,8 @@ var Profilepage = React.createClass({
                          display: option
                        }
                      })}/>
+
+          <Deleter libraryManager={this.props.libraryManager} />
         </Col>
       </Row>
     );
