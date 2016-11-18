@@ -9,6 +9,9 @@ function getMockLibraryManager() {
     setLibraryHandler(){
       this.previouslyCalledMethod('setLibraryHandler');
     },
+    search(){
+      this.previouslyCalledMethod('search');
+    },
     create(){
       this.previouslyCalledMethod('create');
     },
