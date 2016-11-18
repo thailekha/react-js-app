@@ -4,7 +4,7 @@
       "id": 0,
       "email": "abc@yahoo.sample.com",
       "name": "sample repo  3",
-      "public": true,
+      "public": false,
       "paradigms": [
         {
           "pdid": 1,
