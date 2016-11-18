@@ -19,7 +19,7 @@ var SelectBox = React.createClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     //if same changeHandler, no update
     //lodash cannot compare functions
-    return !(_.isEqual(this.props.options, nextProps.options) && _.isEqual(nextProps.changeHandlerIsFrom, this.props.changeHandlerIsFrom));
+    return !(_.isEqual(this.props.options, nextProps.options) && nextProps.changeHandlerIsFrom === this.props.changeHandlerIsFrom);
   },
   handleSelect: function(e) {
     e.preventDefault();
