@@ -1,9 +1,9 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import InputTextBox from '../components/reusable/InputTextBox';
+import InputTextBox from '../../components/reusable/InputTextBox';
 
-import './.setup';
+import '../.setup';
 
 const getMockProps = function(spy) {
   return {

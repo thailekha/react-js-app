@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import SelectBox from '../components/reusable/SelectBox';
+import SelectBox from '../../components/reusable/SelectBox';
 
 const getMockProps = function(spy) {
   return {

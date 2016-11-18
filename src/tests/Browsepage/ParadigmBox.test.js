@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import ParadigmBox from '../components/Browsepage/ParadigmBox';
+import ParadigmBox from '../../components/Browsepage/ParadigmBox';
 
 //ids, items, removeHandler
 const getMockProps = function(spy){

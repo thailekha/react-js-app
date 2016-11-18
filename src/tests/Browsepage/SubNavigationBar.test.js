@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import {shallow} from 'enzyme';
-import SubNavigationBar from '../components/Browsepage/SubNavigationBar';
+import SubNavigationBar from '../../components/Browsepage/SubNavigationBar';
 
 describe('Component: SubNavigationBar', () => {
   it('has SelectBox for user to choose mode, and Nav tag', () => {
