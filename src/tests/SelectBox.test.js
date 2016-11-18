@@ -3,19 +3,6 @@ import expect from 'expect';
 import {shallow} from 'enzyme';
 import SelectBox from '../components/reusable/SelectBox';
 
-/*
- props: {
- changeHandler:
- changeHandlerIsFrom:
- options: [
- {
- value:
- display:
- }, ...
- ]
- }
- **/
-
 const getMockProps = function(spy) {
   return {
     changeHandler: function() {
@@ -37,45 +24,35 @@ const getMockProps = function(spy) {
 describe('Component: CreateBox', () => {
   //header, placeholder, submitHandler
 
-  it('has a select tag with option tags nested within', ()=> {
-    var props = getMockProps();
-    const selectbox = shallow(<SelectBox header={props.header} placeholder={props.placeholder}
-                                            submitHandler={props.submitHandler}/>);
+  it('has a select tag and option tags', ()=> {
+    var spy = [];
+    var props = getMockProps(spy);
+    const selectbox = shallow(<SelectBox changeHandler={props.changeHandler}
+                                         changeHandlerIsFrom={props.changeHandlerIsFrom} options={props.options}/>);
 
-    expect(selectbox.find('form').length).toEqual(1);
-    expect(selectbox.find('input').length).toEqual(1);
-    expect(selectbox.instance().state).toEqual({text: ''});
+    expect(selectbox.find('select').length).toEqual(1);
+    expect(selectbox.find('option').length).toEqual(2);
 
   });
 
-  it('changes state when user types', ()=> {
-    var props = getMockProps();
-    const selectbox = shallow(<SelectBox header={props.header} placeholder={props.placeholder}
-                                            submitHandler={props.submitHandler}/>);
-    selectbox.find('input').simulate('change', {
-      target: {value: 'something typed'}
-    });
-    expect(selectbox.instance().state).toEqual({text: 'something typed'});
-  });
+  it('calls changeHandler only when user changes the option', ()=> {
+    var spy = [];
+    var props = getMockProps(spy);
+    const selectbox = shallow(<SelectBox changeHandler={props.changeHandler}
+                                         changeHandlerIsFrom={props.changeHandlerIsFrom} options={props.options}/>);
 
-  it('calls submitHandler only when user has typed in something', ()=> {
-    var props = getMockLibraryManager();
-    const selectbox = shallow(<SelectBox libraryManager={props}/>);
+    expect(spy.length).toEqual(0);
     //click submit button
-    selectbox.find('Button').simulate('click', {
+    selectbox.find('select').simulate('change', {
+      target: {
+        value: props.options[0].value
+      },
       preventDefault(){
       } //NEEDED BECAUSE A SIMULATED EVENT DOES NOT HAVE THIS METHOD
     });
-    expect(selectbox.instance().props.submitHandlerCalled).toEqual(false);
-    //type in something and click submit button
-    selectbox.find('input').simulate('change', {
-      target: {value: 'something typed'},
-    });
-    selectbox.find('Button').simulate('click', {
-      preventDefault(){
-      } //NEEDED BECAUSE A SIMULATED EVENT DOES NOT HAVE THIS METHOD
-    });
-    expect(selectbox.instance().props.submitHandlerCalled).toEqual(false);
+
+    expect(spy.length).toEqual(1);
+    expect(spy[0]).toEqual(true);
   });
 });
 
