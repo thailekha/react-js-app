@@ -4,11 +4,7 @@ import {shallow} from 'enzyme';
 import {getMockLibraryManager} from '../testUtils';
 import {Homepage} from '../../components/Homepage/Homepage';
 
-
-//https://github.com/airbnb/enzyme/blob/master/docs/api/selector.md
-
 describe('Component: Homepage', () => {
-  //const minProps = {};
 
   it('has InputTextBox for user to create library when libry is not available', () => {
     var props = getMockLibraryManager();
