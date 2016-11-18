@@ -24,12 +24,13 @@ describe('Component: ChartRenderer', () => {
     expect(chartrenderer.instance().props.libraryManager.calledMethods.includes('getAttr')).toEqual(true);
   });
 
-  // it('changes the state of view mode when user makes change to selectbox', ()=> {
-  //   const chartrenderer = shallow(<ChartRenderer libraryManager={getMockLibraryManager()}/>);
-  //   chartrenderer.find('SelectBox').find('select').simulate('change', {target: {value: 'programminglanguages'}})
-  //   expect(chartrenderer.instance().state).toEqual({view: 'programminglanguages'});
-  //   chartrenderer.find('SelectBox').find('select').simulate('change', {target: {value: 'paradigms'}})
-  //   expect(chartrenderer.instance().state).toEqual({view: 'paradigms'});
-  // });
+  it('changes the state of view mode when handleChange is triggered', ()=> {
+    const chartrenderer = shallow(<ChartRenderer libraryManager={getMockLibraryManager()}/>);
+
+    chartrenderer.instance().handleChange('programminglanguages');
+    expect(chartrenderer.instance().state).toEqual({view: 'programminglanguages'});
+    chartrenderer.instance().handleChange('paradigms');
+    expect(chartrenderer.instance().state).toEqual({view: 'paradigms'});
+  });
 });
 
