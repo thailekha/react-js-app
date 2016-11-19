@@ -75,7 +75,7 @@ var ChartRenderer = React.createClass({
       <div>
         <h4>Overview mode</h4>
         <SelectBox changeHandler={this.handleChange} changeHandlerIsFrom="ChartRenderer" options={
-          ["all","programminglanguages","paradigms"].map(function(item){
+          ["all", "programminglanguages", "paradigms"].map(function(item) {
             return {
               value: item,
               display: item
@@ -84,7 +84,17 @@ var ChartRenderer = React.createClass({
         }/>
         <Pager>
           <Pager.Item>
-            <PieChart data={data} size={300}/>
+            <PieChart labels
+                      styles={{
+                        '.chart_lines': {
+                          strokeWidth: 0
+                        },
+                        '.chart_text': {
+                          fontFamily: 'serif',
+                          fontSize: '1.25em',
+                          fill: '#333'
+                        }
+                      }} data={data} size={600}/>
             <Legend data={data} dataId={'key'} config={config}/>
           </Pager.Item>
         </Pager>

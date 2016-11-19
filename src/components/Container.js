@@ -137,8 +137,8 @@ var Container = React.createClass({
     function(name, details, type, paradigmIds) {
       if (loggedInAndHasEmail(this)) {
         console.log('Container/addPL()');
-        console.log('Create new PL ' + name.trim() + ' ' + details.trim() + ' ' + type.trim() + ' ' + paradigmIds);
-        _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds, this);
+        console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+        _API.addProgrammingLanguage(this.state.library, name.trim(), details.trim(), type.trim(), paradigmIds, this);
         return VOID;
       }
       return NOT_LOGGED_IN;
@@ -147,8 +147,8 @@ var Container = React.createClass({
     function(plid, name, details, type, paradigmIds) {
       if (loggedInAndHasEmail(this)) {
         console.log('Container/editPL()');
-        console.log('Edit PL ' + plid + ' ' + name.trim() + ' ' + details.trim() + ' ' + type.trim() + ' ' + paradigmIds);
-        _API.editProgrammingLanguage(this.state.library, plid, name, details, type, paradigmIds, this);
+        console.log('Edit PL ' + plid + ' ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+        _API.editProgrammingLanguage(this.state.library, plid, name.trim(), details.trim(), type.trim(), paradigmIds, this);
         return VOID;
       }
       return NOT_LOGGED_IN;
