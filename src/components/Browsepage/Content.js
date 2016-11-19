@@ -20,8 +20,10 @@ var PLItemDisplay = React.createClass({
         <h3>{this.props.name}</h3>
         <b>{this.props.type}</b>
         <p>{this.props.details}</p>
-        <b>Related paradigms</b>
-        {this.props.relatedParadigms}
+        <b>Related paradigms {this.props.relatedParadigms.length === 0 ? 'None' : ''} </b>
+        <ul>
+          {this.props.relatedParadigms}
+        </ul>
         <Button><Link to={"/browse/editboxpl/" + this.props.id}>Edit</Link></Button>
       </div>
     );
@@ -39,7 +41,7 @@ var PLContent = React.createClass({
     var programmingLanguage = this.props.libraryManager.getPL(plid);
     console.log(this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']));
     var relatedParadigms = this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']).map(function(paradigm, index) {
-      return <Link key={index} to={'/browse/pd/' + paradigm['pdid']}>{paradigm['name']}</Link>
+      return <li key={index}><Link to={'/browse/pd/' + paradigm['pdid']}>{paradigm['name']}</Link></li>
     });
     return (
       <div>
@@ -68,13 +70,15 @@ var PDItemDisplay = React.createClass({
     logger.reportRender('PDItemDisplay');
     var subParadigms = this.props.subParadigms.map(function(subParadigm, index) {
       //subParadigm pd-ids in items are strings !!!
-      return <Link key={index}
-                   to={'/browse/pd/' + subParadigm.id}>{subParadigm.name}</Link>
+      return <li key={index}><Link to={'/browse/pd/' + subParadigm.id}>{subParadigm.name}</Link></li>
     }.bind(this));
     return (
       <div>
         <h3>{this.props.name}</h3>
-        {subParadigms}
+        <b>Subparadigms {this.props.subParadigms.length === 0 ? '(None)' : ''}</b>
+        <ul>
+          {subParadigms}
+        </ul>
         <p>{this.props.details}</p>
         <Button><Link to={"/browse/editboxpd/" + this.props.id}>Edit</Link></Button>
       </div>

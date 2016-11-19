@@ -28,8 +28,8 @@ var ChartRenderer = React.createClass({
       var numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
       var numberOfParadigms = this.props.libraryManager.getAttr('paradigms').length;
       data = [
-        {key: 'programming languages', value: numberOfLanguages, color: '#800080'},
-        {key: 'paradigms', value: numberOfParadigms, color: '#2d8b59'}
+        {key: 'programming languages (' + numberOfLanguages + ')', value: numberOfLanguages, color: '#800080'},
+        {key: 'paradigms (' + numberOfParadigms + ')', value: numberOfParadigms, color: '#2d8b59'}
       ];
       config = [
         {color: '#800080'},
