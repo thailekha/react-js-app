@@ -747,12 +747,11 @@ const _API = {
       //sort
       if (found.length > 1) {
         found = _.sortBy(found, function(item) {
-          console.warn(sortBy);
           return sortBy === 'relevance' ? item.rank : item.foundItem.name;
         });
       }
     }
-    return found;
+    return _.reverse(found); //descending order
   })
 }
 

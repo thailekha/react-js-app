@@ -7,7 +7,8 @@ import QueryResult from './QueryResult';
 
 var Findpage = React.createClass({
   getInitialState: function() {
-    return {findMode: 'name', sort: 'alphabetical', result: []}
+    //sort here should be 'relevance' to match the selectbox below which has relevance as the first value
+    return {findMode: 'name', sort: 'relevance', result: []}
   },
   handleSortChange: function(mode) {
     this.setState({
