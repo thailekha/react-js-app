@@ -31,10 +31,10 @@ var BrowsepageContainer = React.createClass({
     return (
       <div>
         <Row className="show-grid">
-          <Col md={1}>
+          <Col md={3}>
             <SubNavigationBar subNavigationItems={programmingLanguages.concat(paradigms)}/>
           </Col>
-          <Col md={8} mdOffset={3}>
+          <Col md={8} mdOffset={1}>
           {children}
           </Col>
         </Row>
