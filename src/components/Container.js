@@ -5,7 +5,6 @@ import {U, _API, defineLibraryAppDataTypes,isDefined} from '../utils/util';
 import AuthService from '../utils/AuthService';
 import NavigationBar from './NavigationBar';
 import typify from 'typify';
-import {Button} from 'react-bootstrap';
 
 
 //These are not requried to be invoked here, they are already invoked in util.js
@@ -116,7 +115,7 @@ var Container = React.createClass({
     'number | string | boolean | (array programminglanguage) | (array paradigm) | (array having) | null | NOT_LOGGED_IN',
     function(property) {
       if (loggedInAndHasEmail(this)) {
-        console.log('Container/getPropertyFromLibrary()');
+        //console.log('Container/getPropertyFromLibrary()');
         return typeof this.state.library[property] === 'undefined' ? null : this.state.library[property];
       }
       return NOT_LOGGED_IN;
@@ -155,7 +154,7 @@ var Container = React.createClass({
     }),
   getPL: typify('getPL :: number -> programminglanguage | null | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
-      console.log('Container/getPL()');
+      //console.log('Container/getPL()');
       return _API.getProgrammingLanguage(this.state.library, programmingLanguageID);
     }
     return NOT_LOGGED_IN;
@@ -170,7 +169,7 @@ var Container = React.createClass({
   }),
   getRelatedPDs: typify('getRelatedPDs :: number -> (array paradigm) | NOT_LOGGED_IN', function(programmingLanguageID) {
     if (loggedInAndHasEmail(this)) {
-      console.log('Container/getRelatedPDs()');
+      //console.log('Container/getRelatedPDs()');
       return _API.getRelatedParadigms(this.state.library, programmingLanguageID);
     }
     return NOT_LOGGED_IN;
@@ -197,14 +196,14 @@ var Container = React.createClass({
     }),
   getPDID: typify('getPDID :: string -> number | null | NOT_LOGGED_IN', function(name) {
     if (loggedInAndHasEmail(this)) {
-      console.log('Container/getPDID()');
+      //console.log('Container/getPDID()');
       return _API.getParadigmID(this.state.library, name);
     }
     return NOT_LOGGED_IN;
   }),
   getPD: typify('getPD :: number -> paradigm | null | NOT_LOGGED_IN', function(paradigmID) {
     if (loggedInAndHasEmail(this)) {
-      console.log('Container/getPD()');
+      //console.log('Container/getPD()');
       return _API.getParadigm(this.state.library, paradigmID);
     }
     return NOT_LOGGED_IN;

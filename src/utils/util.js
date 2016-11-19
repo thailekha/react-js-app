@@ -209,7 +209,7 @@ const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> 
  */
 const U = {
   getAllLibraries: typify('getLibrary :: * -> *', function(component) {
-    console.log('getAllLibraries()');
+    //console.log('getAllLibraries()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -313,7 +313,7 @@ const U = {
     }.bind(this));
   }),
   updateLibrary: typify('updateLibrary :: library -> * -> function -> *', function(nLibrary, component, callback) {
-    console.log('updateLibrary()');
+    //console.log('updateLibrary()');
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -328,7 +328,7 @@ const U = {
     }
 
     $.ajax(settings).done(function(response, textStatus) {
-      console.log('updateLibrary()/response');
+      //console.log('updateLibrary()/response');
       //validate textStatus
       if (typify.check('textStatus', textStatus) && textStatus === 'success') {
         //validate response
@@ -382,7 +382,7 @@ const _API = {
     return 1;
   }),
   getProgrammingLanguage: typify('getProgrammingLanguage :: library -> number -> programminglanguage | null', function(library, id) {
-    console.log('_API/getProgrammingLanguage(' + library + ',' + id + ')');
+    //console.log('_API/getProgrammingLanguage(' + library + ',' + id + ')');
     var items = library['programminglanguages'];
     var result = null;
 
@@ -526,7 +526,7 @@ const _API = {
     });
   }),
   getRelatedParadigms: typify('getRelatedParadigms :: library -> number -> (array paradigm)', function(library, programmingLanguageID) {
-    console.log('_API/getRelatedParadigms(' + library + ',' + programmingLanguageID + ')');
+    //console.log('_API/getRelatedParadigms(' + library + ',' + programmingLanguageID + ')');
     //get paradigms that a programming language belong to
     var havings = library['havings'];
     var relatedParadigms = [];
@@ -550,7 +550,7 @@ const _API = {
     return 1;
   }),
   getParadigm: typify('getParadigm :: library -> number -> paradigm | null', function(library, id) {
-    console.log('_API/getParadigm(' + library + ',' + id + ')');
+    //console.log('_API/getParadigm(' + library + ',' + id + ')');
     var items = library['paradigms'];
     var result = null;
     var index = _.findIndex(items, function(item) {
@@ -562,7 +562,7 @@ const _API = {
     return result;
   }),
   getParadigmID: typify('getParadigmID :: library -> string -> number | null', function(library, paradigmName) {
-    console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
+    //console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
     //retrieve paradigm ID from paradigm's name
     var result = null;
     var items = library['paradigms'];
@@ -601,8 +601,8 @@ const _API = {
     }),
   editParadigm: typify('editParadigm :: library -> number -> string -> string -> (array number) -> * -> *',
     function(library, pdid, name, details, subParadigmIDs, component) {
-      console.log('_API/editParadigm(' + library + ' ,' +
-        name + ' ,' + pdid + ',' + details + ' ,' + subParadigmIDs + ' ,' + component + ')');
+      console.log('_API/editParadigm(' + library + ' ,' + name + ' ,'
+        + pdid + ',' + details + ' ,' + subParadigmIDs + ' ,' + component + ')');
 
       //-duplicateItems should be 0 to continue in case user makes an item having unduplicated name then
       // changes it to having duplicated name with another item
