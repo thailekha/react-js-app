@@ -66,7 +66,7 @@ var Container = React.createClass({
     if (loggedInAndHasEmail(this)) {
       console.log('Container/createLib()');
       //server will response with the new library object so U will handle setting state
-      U.createLibrary(extractAuth(this).getProfile().email, libName, this);
+      U.createLibrary(extractAuth(this).getProfile().email, libName.trim(), this);
       return VOID;
     }
     return NOT_LOGGED_IN;
@@ -83,7 +83,7 @@ var Container = React.createClass({
   changeLibName: typify('changeLibName :: string -> VOID | NOT_LOGGED_IN', function(name) {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/changeLibName()');
-      this.state.library.name = name;
+      this.state.library.name = name.trim();
       U.updateLibrary(this.state.library, this, function(Container, updatedLibrary) {
         Container.context.router.replace({pathname: '/home'});
         Container.setState({
@@ -137,7 +137,7 @@ var Container = React.createClass({
     function(name, details, type, paradigmIds) {
       if (loggedInAndHasEmail(this)) {
         console.log('Container/addPL()');
-        console.log('Create new PL ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+        console.log('Create new PL ' + name.trim() + ' ' + details.trim() + ' ' + type.trim() + ' ' + paradigmIds);
         _API.addProgrammingLanguage(this.state.library, name, details, type, paradigmIds, this);
         return VOID;
       }
@@ -147,7 +147,7 @@ var Container = React.createClass({
     function(plid, name, details, type, paradigmIds) {
       if (loggedInAndHasEmail(this)) {
         console.log('Container/editPL()');
-        console.log('Edit PL ' + plid + ' ' + name + ' ' + details + ' ' + type + ' ' + paradigmIds);
+        console.log('Edit PL ' + plid + ' ' + name.trim() + ' ' + details.trim() + ' ' + type.trim() + ' ' + paradigmIds);
         _API.editProgrammingLanguage(this.state.library, plid, name, details, type, paradigmIds, this);
         return VOID;
       }
@@ -180,7 +180,7 @@ var Container = React.createClass({
       if (loggedInAndHasEmail(this)) {
         console.log('Container/addPD()');
         console.log('Create new PD ' + name + details + subparadigms);
-        _API.addParadigm(this.state.library, name, details, subparadigms, this);
+        _API.addParadigm(this.state.library, name.trim(), details.trim(), subparadigms, this);
         return VOID;
       }
       return NOT_LOGGED_IN;
@@ -190,7 +190,7 @@ var Container = React.createClass({
       if (loggedInAndHasEmail(this)) {
         console.log('Container/editPD()');
         console.log('Edit PD ' + pdid + ' ' + name + ' ' + details + ' ' + subParadigmIds);
-        _API.editParadigm(this.state.library, pdid, name, details, subParadigmIds, this);
+        _API.editParadigm(this.state.library, pdid, name.trim(), details.trim(), subParadigmIds, this);
         return VOID;
       }
       return NOT_LOGGED_IN;
