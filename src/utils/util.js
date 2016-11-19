@@ -456,7 +456,7 @@ const _API = {
       // -if it is 1 and the duplicate item's id must be === the item-to-be-updated's id i.e. the same item
       var duplicateItems = this.findItemsHavingSameName(library,name);
       var canContinue = duplicateItems.length === 0 ||
-        (duplicateItems.length === 1 && duplicateItems[0].pdid && duplicateItems[0].pdid === pdid);
+        (duplicateItems.length === 1 && duplicateItems[0].plid && duplicateItems[0].plid === plid);
 
       if(!canContinue) {
         //in case user create a non-duplicate item then edit the item to have duplicate name

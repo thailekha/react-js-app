@@ -23,6 +23,7 @@ var ChartRenderer = React.createClass({
 
     var data = [];
     var config = [];
+    var legendData = [];
 
     if (this.state.view === 'all') {
       var numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
@@ -31,6 +32,7 @@ var ChartRenderer = React.createClass({
         {key: 'programming languages (' + numberOfLanguages + ')', value: numberOfLanguages, color: '#800080'},
         {key: 'paradigms (' + numberOfParadigms + ')', value: numberOfParadigms, color: '#2d8b59'}
       ];
+      legendData = data;
       config = [
         {color: '#800080'},
         {color: '#2d8b59'}
@@ -43,6 +45,11 @@ var ChartRenderer = React.createClass({
         var relatedPDs = this.props.libraryManager.getRelatedPDs(pl.plid).length;
         var color = randomHexColor();
         data.push({
+          key: pl.name,
+          value: relatedPDs,
+          color: color
+        });
+        legendData.push({
           key: pl.name + ' (' + relatedPDs + ' paradigms)',
           value: relatedPDs,
           color: color
@@ -63,6 +70,11 @@ var ChartRenderer = React.createClass({
         });
         var color = randomHexColor();
         data.push({
+          key: pd.name,
+          value: numberOfPLs,
+          color: color
+        });
+        legendData.push({
           key: pd.name + ' (' + numberOfPLs + ' languages)',
           value: numberOfPLs,
           color: color
@@ -85,6 +97,7 @@ var ChartRenderer = React.createClass({
         <Pager>
           <Pager.Item>
             <PieChart labels
+                      innerHoleSize={300}
                       styles={{
                         '.chart_lines': {
                           strokeWidth: 0
@@ -95,7 +108,7 @@ var ChartRenderer = React.createClass({
                           fill: '#333'
                         }
                       }} data={data} size={600}/>
-            <Legend data={data} dataId={'key'} config={config}/>
+            <Legend data={legendData} dataId={'key'} config={config}/>
           </Pager.Item>
         </Pager>
       </div>
