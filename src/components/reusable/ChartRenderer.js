@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pager} from 'react-bootstrap';
+import {Button,Pager} from 'react-bootstrap';
 import logger from '../../utils/logger';
 import SelectBox from './SelectBox';
 import {PieChart, Legend} from 'react-easy-chart';
@@ -7,12 +7,28 @@ var randomHexColor = require('random-hex-color');
 
 var ChartRenderer = React.createClass({
   getInitialState: function() {
-    return {view: 'all'}
+    return {view: 'all', size: 600}
   },
-  handleChange: function(mode) {
+  handleChangeView: function(mode) {
     this.setState({
       view: mode
     });
+  },
+  handleChangeSize: function(amount) {
+    var nSize = this.state.size + amount;
+    if(nSize > 0 && nSize <= 1000) {
+      this.setState({
+        size: nSize
+      });
+    }
+  },
+  handlePlus: function(e){
+    e.preventDefault();
+    this.handleChangeSize(50);
+  },
+  handleMinus: function(e){
+    e.preventDefault();
+    this.handleChangeSize(-50);
   },
   render: function() {
     logger.reportRender("ChartRenderer");
@@ -86,7 +102,7 @@ var ChartRenderer = React.createClass({
     return (
       <div>
         <h4>Overview mode</h4>
-        <SelectBox changeHandler={this.handleChange} changeHandlerIsFrom="ChartRenderer" options={
+        <SelectBox changeHandler={this.handleChangeView} changeHandlerIsFrom="ChartRenderer" options={
           ["all", "programminglanguages", "paradigms"].map(function(item) {
             return {
               value: item,
@@ -96,8 +112,10 @@ var ChartRenderer = React.createClass({
         }/>
         <Pager>
           <Pager.Item>
+            <Button bsStyle="primary" onClick={this.handlePlus}>+</Button>
+            <Button bsStyle="primary" onClick={this.handleMinus}>-</Button>
             <PieChart labels
-                      innerHoleSize={300}
+                      innerHoleSize={this.state.size / 2}
                       styles={{
                         '.chart_lines': {
                           strokeWidth: 0
@@ -107,7 +125,7 @@ var ChartRenderer = React.createClass({
                           fontSize: '1.25em',
                           fill: '#333'
                         }
-                      }} data={data} size={600}/>
+                      }} data={data} size={this.state.size}/>
             <Legend data={legendData} dataId={'key'} config={config}/>
           </Pager.Item>
         </Pager>

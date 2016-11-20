@@ -19,9 +19,9 @@ MyApp->Router->Container->Placeholder;
 digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
 Container[color="#EC7D78"];
-ChartRenderer[color="#EC7D78"];
-
 Container->NavigationBar;
+ChartRenderer[color="#EC7D78"];
+Landpage[color="#EC7D78"];
 Container->Landpage->ChartRenderer->SelectBox;
 }
 
@@ -71,6 +71,7 @@ node [shape="box",style="filled",color="#FFDA6E"];
 Container[color="#EC7D78"];
 SubNavigationBar[color="#EC7D78"];
 CreateEditBoxPL[color="#EC7D78"];
+InputTextBox[color="#EC7D78"];
 
 Container->NavigationBar;
 Container->BrowsepageContainer;
@@ -78,6 +79,14 @@ BrowsepageContainer->SubNavigationBar;
 BrowsepageContainer->CreateEditBoxPL->ParadigmBox;
 CreateEditBoxPL->InputTextBox;
 }
+
+| Container
+| | NavigationBar
+| | BrowsepageContainer
+| | | SubNavigationBar
+| | | CreateEditBoxPL
+| | | | ParadigmBox
+| | | | InputTextBox
 
 //Browsepage at programminglanguage item tab of programminglanguages mode
 
@@ -92,6 +101,13 @@ BrowsepageContainer->SubNavigationBar;
 BrowsepageContainer->PLContent->PLItemDisplay;
 }
 
+| Container
+| | NavigationBar
+| | BrowsepageContainer
+| | | SubNavigationBar
+| | | PLContent
+| | | | PLItemDisplay
+
 //Browsepage at Create tab or Edit view of paradigms mode
 digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
@@ -103,8 +119,17 @@ Container->NavigationBar;
 Container->BrowsepageContainer;
 BrowsepageContainer->SubNavigationBar;
 BrowsepageContainer->CreateEditBoxPD->ParadigmBox;
-CreateEditBoxPD->InputTextBox
+InputTextBox[color="#EC7D78"];
+CreateEditBoxPD->InputTextBox;
 }
+
+| Container
+| | NavigationBar
+| | BrowsepageContainer
+| | | SubNavigationBar
+| | | CreateEditBoxPL
+| | | | ParadigmBox
+| | | | InputTextBox
 
 //Browsepage at paradigm item tab of programminglanguages mode
 
@@ -118,6 +143,13 @@ Container->BrowsepageContainer;
 BrowsepageContainer->SubNavigationBar;
 BrowsepageContainer->PDContent->PDItemDisplay;
 }
+
+| Container
+| | NavigationBar
+| | BrowsepageContainer
+| | | SubNavigationBar
+| | | PDContent
+| | | | PDItemDisplay
 
 //Findpage (find-mode set to 'name')
 
@@ -133,6 +165,14 @@ Container->Findpage->InputTextBox;
 Findpage->SelectBox;
 Findpage->QueryResult;
 }
+
+| Container
+| | NavigationBar
+| | Findpage
+| | | InputTextBox
+| | | SelectBox
+| | | QueryResult
+
 
 //Findpage (find-mode set to 'content')
 
@@ -152,6 +192,14 @@ Findpage->SB2;
 Findpage->QueryResult;
 }
 
+| Container
+| | NavigationBar
+| | Findpage
+| | | InputTextBox
+| | | SelectBox
+| | | SelectBox
+| | | QueryResult
+
 //Profilepage
 
 digraph{
@@ -166,7 +214,12 @@ Profilepage->Deleter;
 }
 
 
-
+| Container
+| | NavigationBar
+| | Profilepage
+| | | InputTextBox
+| | | SelectBox
+| | | Deleter
 
 
 

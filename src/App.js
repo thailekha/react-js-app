@@ -35,8 +35,8 @@ var MyApp = React.createClass({
       <div style={{ height: '100%' }}>
         <Header />
         {this.getContent()}
-        <Button bsStyle="info" onClick={this.handleReportRender}>Report render</Button>
-        <Button bsStyle="info" onClick={this.handleResetReportRander}>Reset report render</Button>
+        <Button bsStyle="primary" onClick={this.handleReportRender}>Report render</Button>
+        <Button bsStyle="primary" onClick={this.handleResetReportRander}>Reset report render</Button>
         <Footer />
       </div>
     );
