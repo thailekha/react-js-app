@@ -19,7 +19,7 @@ var CreateEditBoxPL = React.createClass({
         relatedPDsNames += relatedPDs[i].name + (i + 1 === relatedPDs.length ? '' : ',');
         relatedPDsIDs.push(relatedPDs[i].pdid);
       }
-      
+
       this.initState = {
         name: pl.name,
         details: pl.details,
@@ -27,7 +27,7 @@ var CreateEditBoxPL = React.createClass({
         paradigms: relatedPDsNames,
         pdids: _.clone(relatedPDsIDs),
       };
-      
+
       return {
         name: pl.name,
         details: pl.details,
@@ -102,7 +102,7 @@ var CreateEditBoxPL = React.createClass({
         var initState = this.initState;
 
         //paradigm with empty name or detail cannot be created so no need to worry about those fields 
-        var nothingHasChange = currentState.name === initState.name 
+        var nothingHasChange = currentState.name === initState.name
           && currentState.details === initState.details
           && currentState.type === initState.type
           && ((currentState.paradigms.length === 0 && initState.paradigms.length === 0) || (_.isEqual(currentState.paradigms, initState.paradigms)))
@@ -214,9 +214,17 @@ var CreateEditBoxPD = React.createClass({
     this.setState({details: e.target.value});
   },
   handleAddSubParadigm: function(sp) {
-    var nSubParadigm = sp;
+    var nSubParadigm = sp.trim();
+    if (this.props.boxmode === 'edit' && this.state.name.toLowerCase() === nSubParadigm.toLowerCase()) {
+      return;
+    }
+
     var spdid = this.props.libraryManager.getPDID(nSubParadigm);
     if (nSubParadigm.length > 0 && spdid) {
+      if (spdid && this.props.libraryManager.isSubPD(spdid)) {
+        alert(sp + ' is already a subparadigm');
+        return;
+      }
       var oldState = this.state.subParadigms;
       var newState = oldState + (oldState.length === 0 ? '' : ',') + nSubParadigm;
       this.state.spdids.push(spdid);

@@ -571,6 +571,15 @@ const _API = {
     }
     return result;
   }),
+  isSubParadigm: typify('isSubParadigm :: library -> number -> boolean', function(library, id) {
+    var isSubParadigm = false;
+    library.paradigms.forEach(function(p) {
+      if(p.subparadigms.includes(id)) {
+        isSubParadigm = true;
+      }
+    });
+    return isSubParadigm;
+  }),
   getParadigmID: typify('getParadigmID :: library -> string -> number | null', function(library, paradigmName) {
     //console.log('_API/getParadigmId(' + library + ',' + paradigmName + ')');
     //retrieve paradigm ID from paradigm's name

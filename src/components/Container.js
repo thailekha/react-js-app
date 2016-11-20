@@ -1,7 +1,7 @@
 import React, {PropTypes as T} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import logger from '../utils/logger';
-import {U, _API, defineLibraryAppDataTypes,isDefined} from '../utils/util';
+import {U, _API, defineLibraryAppDataTypes, isDefined} from '../utils/util';
 import AuthService from '../utils/AuthService';
 import NavigationBar from './NavigationBar';
 import typify from 'typify';
@@ -123,7 +123,7 @@ var Container = React.createClass({
   deleteLib: typify('deleteLib :: VOID | NOT_LOGGED_IN', function() {
     if (loggedInAndHasEmail(this)) {
       console.log('Container/deleteLib()');
-      U.deleteLibrary(this.state.library.id,this,function(Container,response){
+      U.deleteLibrary(this.state.library.id, this, function(Container, response) {
         //redirect user to homepage
         Container.context.router.replace({pathname: '/home'});
         Container.setState({library: null});
@@ -184,6 +184,12 @@ var Container = React.createClass({
       }
       return NOT_LOGGED_IN;
     }),
+  isSubPD: typify('isSubPD :: number -> boolean | NOT_LOGGED_IN', function(id) {
+    if (loggedInAndHasEmail(this)) {
+      return _API.isSubParadigm(this.state.library,id);
+    }
+    return NOT_LOGGED_IN
+  }),
   editPD: typify('editPD :: number -> string -> string -> (array number) -> VOID | NOT_LOGGED_IN',
     function(pdid, name, details, subParadigmIds) {
       if (loggedInAndHasEmail(this)) {
@@ -247,6 +253,7 @@ var Container = React.createClass({
         getRelatedPDs: library ? this.getRelatedPDs : undefined,
         getPDID: library ? this.getPDID : undefined,
         addPD: library ? this.addPD : undefined,
+        isSubPD: library ? this.isSubPD : undefined,
         editPD: library ? this.editPD : undefined,
         getPD: library ? this.getPD : undefined,
         deletePD: library ? this.deletePD : undefined,
