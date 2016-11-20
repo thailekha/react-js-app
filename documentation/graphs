@@ -25,6 +25,12 @@ Container->NavigationBar;
 Container->Landpage->ChartRenderer->SelectBox;
 }
 
+| Container
+| | NavigationBar
+| | Landpage
+| | | ChartRenderer
+| | | | SelectBox
+
 //Homepage, when library is not available
 
 digraph{
@@ -35,6 +41,12 @@ Container->NavigationBar;
 Container->Homepage->InputTextBox;
 }
 
+| Container
+| | NavigationBar
+| | Homepage
+| | | InputTextBox
+
+
 //Homepage, when library is available
 
 digraph{
@@ -44,6 +56,12 @@ ChartRenderer[color="#EC7D78"];
 Container->NavigationBar;
 Container->Homepage->ChartRenderer->SelectBox;
 }
+
+| Container
+| | NavigationBar
+| | Homepage
+| | | ChartRenderer
+| | | | SelectBox
 
 
 //Browsepage at Create tab OR edit mode of programminglanguages mode

@@ -38,6 +38,9 @@ var PLContent = React.createClass({
   render: function() {
     logger.reportRender('PLContent');
     var plid = parseInt(this.props.routeParams['id'], 10);
+    if(!this.props.libraryManager || this.props.libraryManager.libraryIsAvailable === false){
+      return (<div></div>);
+    }
     var programmingLanguage = this.props.libraryManager.getPL(plid);
     console.log(this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']));
     var relatedParadigms = this.props.libraryManager.getRelatedPDs(programmingLanguage['plid']).map(function(paradigm, index) {
@@ -93,6 +96,9 @@ var PDContent = React.createClass({
   },
   render: function() {
     logger.reportRender('PDContent');
+    if(!this.props.libraryManager || this.props.libraryManager.libraryIsAvailable === false){
+      return (<div></div>);
+    }
     var paradigm = this.props.libraryManager.getPD(parseInt(this.props.routeParams['id'], 10));
     var subParadigms = paradigm['subparadigms'].map(function(subParadigmID) {
       return {
