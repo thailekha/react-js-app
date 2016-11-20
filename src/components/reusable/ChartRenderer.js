@@ -44,10 +44,12 @@ var ChartRenderer = React.createClass({
     if (this.state.view === 'all') {
       var numberOfLanguages = this.props.libraryManager.getAttr('programminglanguages').length;
       var numberOfParadigms = this.props.libraryManager.getAttr('paradigms').length;
-      data = [
-        {key: 'programming languages (' + numberOfLanguages + ')', value: numberOfLanguages, color: '#800080'},
-        {key: 'paradigms (' + numberOfParadigms + ')', value: numberOfParadigms, color: '#2d8b59'}
-      ];
+      if(!(numberOfLanguages === 0 && numberOfParadigms === 0)) {
+        data = [
+          {key: 'programming languages (' + numberOfLanguages + ')', value: numberOfLanguages, color: '#800080'},
+          {key: 'paradigms (' + numberOfParadigms + ')', value: numberOfParadigms, color: '#2d8b59'}
+        ];
+      }
       legendData = data;
       config = [
         {color: '#800080'},

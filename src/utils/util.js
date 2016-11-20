@@ -205,7 +205,7 @@ const doTypeCheck = typify('doTypeCheck :: string -> * -> string -> function -> 
 
 /**
  * This object contains methods to interact with the JSON-server, implemented with Jquery and typically for this app
- * @type {{getAllLibraries: *, getLibrary: *, createLibrary: *, reqCreateLibrary: *, updateLibrary: *, deleteLibrary: *}}
+ * {getAllLibraries: *, getLibrary: *, createLibrary: *, reqCreateLibrary: *, updateLibrary: *, deleteLibrary: *}
  */
 const U = {
   getAllLibraries: typify('getLibrary :: * -> *', function(component) {
