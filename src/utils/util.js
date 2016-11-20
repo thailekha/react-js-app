@@ -1,12 +1,12 @@
 /**
  * Utilities methods for the app, almost all methods are registered with typify to enforce type safety
  */
-var request = require('superagent');
 var $ = require('jquery');
 var _ = require('lodash');
 var typify = require('typify');
 
 const LETTERS_AND_NUMBERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+const URL_PREFIX = 'http://localhost:3001';
 
 /**
  * Helper method to register typical types of the app with typify, they are:
@@ -213,7 +213,7 @@ const U = {
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3001/libraries",
+      "url": URL_PREFIX + "/libraries",
       "method": "GET",
       "headers": {
         "cache-control": "no-cache",
@@ -235,7 +235,7 @@ const U = {
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3001/libraries/?email=" + email,
+      "url": URL_PREFIX + "/libraries/?email=" + email,
       "method": "GET",
       "headers": {
         "cache-control": "no-cache"
@@ -263,16 +263,28 @@ const U = {
   }),
   //this method is a preparation step prior to reqCreateLibrary below, it decides the id for the new library object
   createLibrary: typify('createLibrary :: string -> string -> * -> *', function(email, libName, component) {
-    request.get('http://localhost:3001/libraries')
-    .end(function(error, res) {
-      if (res) {
-        //response will be an array of libraries, whose length will be used as the ID for the new library
-        var libraries = JSON.parse(res.text);
-        typify.assert('(array library)', libraries);
-        var newID = libraries.length;
-        this.reqCreateLibrary(newID, email, libName, component);
-      } else {
-        console.log(error);
+    console.log('createLibrary()');
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": URL_PREFIX + "/libraries",
+      "method": "GET",
+      "headers": {
+        "cache-control": "no-cache",
+      }
+    }
+
+    $.ajax(settings).done(function (response,textStatus) {
+      console.log('createLibrary()/response');
+      //response will be an array of libraries, whose length will be used as the ID for the new library
+      //validate textStatus
+      if (typify.check('textStatus', textStatus) && textStatus === 'success') {
+        //validate response
+        doTypeCheck('(array library)', response, 'IS NOT array of library objects',
+          function(validResponse) {
+            var libraryID = validResponse.length;
+            this.reqCreateLibrary(libraryID, email, libName, component);
+          }.bind(this),null);
       }
     }.bind(this));
   }),
@@ -281,7 +293,7 @@ const U = {
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3001/libraries",
+      "url": URL_PREFIX + "/libraries",
       "method": "POST",
       "headers": {
         "content-type": "application/json",
@@ -299,16 +311,14 @@ const U = {
         doTypeCheck('library', response, 'IS NOT library',
           function(validResponse) {
             component.setState({library: validResponse});
-          }.bind(this),
+          },
           function(invalidRespone) {
             //component is set to null since setState isn't needed
-            console.error('asd');
             this.deleteLibrary(invalidRespone.id, null, function(component, response) {
               //component is null here
               console.log('Invalid library deleted');
             });
           }.bind(this));
-        //
       }
     }.bind(this));
   }),
@@ -317,7 +327,7 @@ const U = {
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3001/libraries/" + nLibrary.id,
+      "url": URL_PREFIX + "/libraries/" + nLibrary.id,
       "method": "PATCH",
       "headers": {
         "content-type": "application/json",
@@ -346,7 +356,7 @@ const U = {
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3001/libraries/" + id,
+      "url": URL_PREFIX + "/libraries/" + id,
       "method": "DELETE",
       "headers": {
         "cache-control": "no-cache"
