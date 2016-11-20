@@ -11,7 +11,7 @@ describe('Component: Findpage', () => {
     'SelectBox to let user choose mode, and QueryResult to display results', () => {
     const findpage = shallow(<Findpage libraryManager={getMockLibraryManager()}/>);
     //default state
-    expect(findpage.instance().state).toEqual({findMode: 'name', sort: 'alphabetical', result: []});
+    expect(findpage.instance().state).toEqual({findMode: 'name', sort: 'relevance', result: []});
     expect(findpage.find('InputTextBox').length).toEqual(1);
     expect(findpage.find('SelectBox').length).toEqual(1);
     expect(findpage.find('QueryResult').length).toEqual(1);
