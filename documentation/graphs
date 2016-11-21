@@ -6,13 +6,18 @@ yellow
 //General tree
 digraph{
 node [shape="box",style="filled",color="#FFDA6E"];
-Container[color="#EC7D78"];
 Placeholder[label="...",color="white"]
 
 MyApp->Header;
 MyApp->Footer;
-MyApp->Router->Container->Placeholder;
+MyApp->Router->Placeholder;
 }
+
+| MyApp
+| | Header
+| | Footer
+| | Router
+| | | Container
 
 //Landpage
 
