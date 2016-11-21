@@ -1,0 +1,3 @@
+When implementing Auth0, I got an issue that a Node.js module called util cannot be fully loaded within
+auth0-lock/lib/i18n.js file. So find the source code of util module and paste it to i18n.js. If you get a similar error,
+please replace auth0-lock/lib/i18n.js with i18n.js in this folder.
