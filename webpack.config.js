@@ -25,7 +25,6 @@ var config = getConfig({
     return {
       'index.html': context.defaultTemplate({
         title: 'My Library app',
-        publicPath: isDev ? 'http://localhost:3000/' : '',
         meta: {
           'name': 'My Library',
           'description': 'A reactJS app for making library of programming languages and paradigms'
@@ -61,7 +60,7 @@ config.plugins = [
 // END ENV variables
 
 // Roots
-config.resolve.root = [src, modules]
+config.resolve = {root: [src, modules]};
 // end Roots
 
 // Testing
