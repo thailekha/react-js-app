@@ -32,7 +32,11 @@ var config = getConfig({
         html: '<div id="root"></div>'
       })
     }
-  }
+  },
+  devServer: {
+	  port: 4000, // pulled from top level option "port"
+	  hostname: '0.0.0.0'
+	}
 });
 
 // ENV variables
@@ -60,7 +64,7 @@ config.plugins = [
 // END ENV variables
 
 // Roots
-config.resolve = {root: [src, modules]};
+config.resolve.root = [src, modules]
 // end Roots
 
 // Testing
